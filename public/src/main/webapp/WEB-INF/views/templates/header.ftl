@@ -17,7 +17,7 @@
         <ul>
             <li><a href="#" class="active">Домой</a></li>
             <li><a href="#">Поддержка</a></li>
-            <li><a href="/login">Мой Аккаунт</a></li>
+            <li><a href="/account">Мой Аккаунт</a></li>
             <li><a href="#">Магазин</a></li>
             <li><a href="#">Контакты</a></li>
         </ul>

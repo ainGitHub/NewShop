@@ -19,10 +19,6 @@ public class MainController {
         return "pages/catalog";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage() {
-        return "login";
-    }
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error() {

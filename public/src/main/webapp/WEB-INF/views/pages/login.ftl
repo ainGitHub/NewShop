@@ -1,15 +1,9 @@
 <#assign c=JspTaglibs["http://java.sun.com/jsp/jstl/core"]>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-login page
-
-
+<#include "../templates/main.ftl">
+<@mainTemplate />
+<#macro body>
 <form name='loginForm'
       action="/login" method='POST'>
-
     <table>
         <tr>
             <td>User:</td>
@@ -21,7 +15,7 @@ login page
         </tr>
         <tr>
             <td>remember me</td>
-            <td><input type="checkbox" name="remember"></td>
+            <td><input type="checkbox" name="remember" title="RememberMe"></td>
         </tr>
         <tr>
             <td colspan='2'><input name="submit" type="submit"
@@ -34,5 +28,4 @@ login page
            value="${_csrf.token}"/>
 </#if>
 </form>
-</body>
-</html>
+</#macro>
