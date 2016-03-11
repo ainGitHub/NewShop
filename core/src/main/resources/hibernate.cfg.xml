@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Подключение объектов сущностей -->
+        <mapping package="com.shop.itis.domain"/>
+        <mapping class="com.shop.itis.domain.User"/>
+        <mapping class="com.shop.itis.domain.Address"/>
+        <mapping class="com.shop.itis.domain.Cart"/>
+        <mapping class="com.shop.itis.domain.Category"/>
+        <mapping class="com.shop.itis.domain.Order"/>
+        <mapping class="com.shop.itis.domain.Good"/>
+        <mapping class="com.shop.itis.domain.UserRoles"/>
+    </session-factory>
+</hibernate-configuration>

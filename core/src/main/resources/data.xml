@@ -1,0 +1,65 @@
+<?xml  version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Включаем опцию использования конфигурационных аннотаций (@Annotation-based configuration) -->
+    <context:annotation-config/>
+
+    <!-- Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service, @Repository) -->
+    <context:component-scan base-package="com.shop.itis.repository"/>
+    <context:component-scan base-package="com.shop.itis.service"/>
+
+    <!-- Настраивает управление транзакциями с помощью аннотации @Transactional -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!-- Менеджер транзакций -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!-- Настройки бина dataSource будем хранить в отдельном файле -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="classpath:jdbc.properties"/>
+
+    <!-- Настройки подключения к БД, бин dataSource -->
+    <bean id="dataSource"
+          class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close"
+          p:driverClassName="${jdbc.driverClassName}"
+          p:url="${jdbc.databaseurl}"
+          p:username="${jdbc.username}"
+          p:password="${jdbc.password}"/>
+
+    <!-- Настройки фабрики сессий Хибернейта -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+          p:dataSource-ref="dataSource"
+          p:configLocation="classpath:hibernate.cfg.xml">
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${jdbc.dialect}</prop>
+                <!-- SQL диалект -->
+                <prop key="hibernate.show_sql">${jdbc.show_sql}</prop>
+                <!-- Вывод в консоль SQL-запросов -->
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <!-- Автообновление структуры БД -->
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="userRepository" class="com.shop.itis.repository.UserRepository">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="myUserDetailsService" class="com.shop.itis.service.MyUserDetailsService">
+        <property name="userRepository" ref="userRepository"/>
+    </bean>
+</beans>
