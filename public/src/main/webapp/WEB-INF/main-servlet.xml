@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <context:component-scan base-package="com.shop.itis.controller"/>
+
+    <context:annotation-config/>
+
+    <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="2000000"/>
+    </bean>
+
+
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
+          p:templateLoaderPath="/WEB-INF/views/"
+          p:defaultEncoding="UTF-8">
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="objectWrapper">
+                    <bean class="freemarker.ext.beans.BeansWrapper"
+                          p:simpleMapWrapper="true"/>
+                </entry>
+            </map>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="datetime_format">dd-MM-yyyy HH:mm:ss</prop>
+                <prop key="number_format">0.######</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Отображение видов на ftl-файлы, лежащие в папке /WEB-INF/views -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver"
+          p:cache="true"
+          p:prefix=""
+          p:suffix=".ftl"
+          p:contentType="text/html; charset=UTF-8">
+        <property name="exposeSessionAttributes">
+            <value>true</value>
+        </property>
+    </bean>
+
+</beans>
