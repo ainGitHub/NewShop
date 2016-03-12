@@ -1,5 +1,6 @@
 import com.shop.itis.domain.User;
 import com.shop.itis.domain.UserRoles;
+import com.shop.itis.service.GoodService;
 import com.shop.itis.service.RoleService;
 import com.shop.itis.service.UserService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -10,6 +11,7 @@ public class TestHibernate {
 
     private static UserService userService;
     private static RoleService roleService;
+    private static GoodService goodService;
 
     public static void init() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(

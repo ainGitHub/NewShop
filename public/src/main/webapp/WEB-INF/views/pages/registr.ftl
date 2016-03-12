@@ -1,11 +1,6 @@
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-login page
-
-
+<#include "../templates/main.ftl">
+<@mainTemplate />
+<#macro body>
 <form name='loginForm'
       action="/registr" method='POST'>
 
@@ -32,5 +27,4 @@ login page
            value="${_csrf.token}"/>
 </#if>
 </form>
-</body>
-</html>
+</#macro>

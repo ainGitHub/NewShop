@@ -1,5 +1,5 @@
 <div id="header">
-    <h1 id="logo"><a href="#">shoparound</a></h1>
+    <h1 id="logo"><a href="/">shoparound</a></h1>
 
     <!-- Cart -->
     <div id="cart">

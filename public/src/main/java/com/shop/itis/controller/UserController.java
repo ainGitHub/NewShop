@@ -43,7 +43,7 @@ public class UserController {
 
     @RequestMapping(value = "/registr", method = RequestMethod.GET)
     public String registrPage() {
-        return "registr";
+        return "pages/registr";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

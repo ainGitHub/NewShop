@@ -22,7 +22,7 @@ public class MainController {
 
     @RequestMapping(value = "/error", method = RequestMethod.GET)
     public String error() {
-        return "error";
+        return "pages/error";
     }
 
 /*
