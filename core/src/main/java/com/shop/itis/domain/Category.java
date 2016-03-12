@@ -7,8 +7,8 @@ import java.util.List;
 @Table(name = "category")
 public class Category {
     @Id
-    @Column(name = "id")   // обозначает имя колонки, соответствующей данному полю
-    @GeneratedValue(strategy = GenerationType.AUTO)  // определяет способ генерации
+    @Column(name = "id")   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    @GeneratedValue(strategy = GenerationType.AUTO)  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private Long id;
 
     @Column(name = "name", length = 100)
@@ -24,8 +24,7 @@ public class Category {
     List<Category> categories;
 
 
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true)
+    @OneToMany
     List<Good> goods;
 
     public Category() {

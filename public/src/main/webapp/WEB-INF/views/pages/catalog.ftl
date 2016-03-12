@@ -1,40 +1,25 @@
 <#include "../templates/main.ftl">
 <@mainTemplate />
 <#macro body>
-<style xmlns="http://www.w3.org/1999/html">
-    .btn-cart {
-        padding: 6px 10px;
-        margin-bottom: 3%;
-        margin-left: 30%;
-        width: 160px;
-        height: 30px;
-        font-size: 12px;
-        line-height: 14px;
-        text-transform: uppercase;
-        background: #8b0000;
-        color: #fff;
-    }
-
-    .btn-cart:hover {
-        background: green;
-    }
-</style>
-
-
 <div class="products">
     <#if allGoods??>
     <ul>
         <#list allGoods as good>
             <li>
-                <a href="#"><img src="/resources/image/books/${good.image}" alt="" width="222" height="380"/></a>
+                <a href="#"><img src="/resources/image/books/${good.image}" alt=""/></a>
 
                 <div class="product-info">
-                    <h3>${good.name}</h3>
+                    <a href="#"><h3>${good.name}</h3></a>
 
                     <div class="product-desc">
-                        <p></p>
-                        <strong class="price">Цена: ${good.price}</strong>
+                        <p>
+                        ${good.description}
+                        </p>
                     </div>
+
+                </div>
+                <div class="add-cart">
+                    <strong class="price">Цена: ${good.price} руб.</strong>
 
                     <form>
                         <input type="hidden" value="1" name="goodId">

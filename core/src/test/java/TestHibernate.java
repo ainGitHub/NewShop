@@ -67,25 +67,27 @@ public class TestHibernate {
         categoryService.add(c6);
 
 
-        String d1 = "Детство - часть автобиографической трилогии М. Горького, рассказывающая о нелегкой жизни мальчика Алеши в семье деда.";
-        Good g1 = new Good("Детство", 100.0, 10, d1, c2);
-        g1.setCountry("Russia");
-        g1.setImage("/detctvo.jpg");
+        for (int i = 0; i < 5; i++) {
+            String d1 = "Детство - часть автобиографической трилогии М. Горького, рассказывающая о нелегкой жизни мальчика Алеши в семье деда.";
+            Good g1 = new Good("Детство" + i, 100.0, 10, d1, c2);
+            g1.setCountry("Russia");
+            g1.setImage("/detctvo.jpg");
 
-        String d2 = "В своих произведениях автор задаёт вечные вопросы бытия. Ответы на них поможет найти криминальный роман \"Преступление и наказание\".\n" +
-                "Каково это - убить?";
-        Good g2 = new Good("Преступление и Наказание", 200.0, 10, d2, c2);
-        g2.setCountry("Russia");
-        g2.setImage("/prestinakaz.jpg");
+            String d2 = "В своих произведениях автор задаёт вечные вопросы бытия. Ответы на них поможет найти криминальный роман \"Преступление и наказание\".\n" +
+                    "Каково это - убить?";
+            Good g2 = new Good("Преступление и Наказание" + i, 200.0, 10, d2, c2);
+            g2.setCountry("Russia");
+            g2.setImage("/prestinakaz.jpg");
 
-        String d3 = "Марлоу Хепворт найден мертвым в своем кабинете. Раскрыть это дело под силу только великому детективу – мадам Вастре.\n";
-        Good g3 = new Good("Доктор Кто. Силуэт", 150.0, 10, d3, c1);
-        g3.setCountry("Russia");
-        g3.setImage("/doctorkto.jpg");
+            String d3 = "Марлоу Хепворт найден мертвым в своем кабинете. Раскрыть это дело под силу только великому детективу – мадам Вастре.\n";
+            Good g3 = new Good("Доктор Кто. Силуэт" + i, 150.0, 10, d3, c1);
+            g3.setCountry("Russia");
+            g3.setImage("/doctorkto.jpg");
 
-        goodService.add(g1);
-        goodService.add(g2);
-        goodService.add(g3);
+            goodService.add(g1);
+            goodService.add(g2);
+            goodService.add(g3);
+        }
     }
 
 }

@@ -36,7 +36,7 @@ public class Good implements Serializable {
     String description;
 
 
-    @ManyToOne()
+    @ManyToOne
     Category category;
 
     public Good() {
