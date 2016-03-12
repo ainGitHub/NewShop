@@ -15,8 +15,7 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String mainPage(ModelMap model) {
-        model.addAttribute("greeting", "Hi, Welcome to mysite");
-        return "pages/catalog";
+        return "redirect:/catalog";
     }
 
 

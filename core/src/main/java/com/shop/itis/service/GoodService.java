@@ -1,12 +1,14 @@
 package com.shop.itis.service;
 
+
 import com.shop.itis.domain.Good;
 import com.shop.itis.repository.GoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
+
 
 @Service
 public class GoodService {

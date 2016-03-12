@@ -4,7 +4,7 @@
 <style xmlns="http://www.w3.org/1999/html">
     .btn-cart {
         padding: 6px 10px;
-        margin-top: 3%;
+        margin-bottom: 3%;
         margin-left: 30%;
         width: 160px;
         height: 30px;
@@ -26,16 +26,14 @@
     <ul>
         <#list allGoods as good>
             <li>
-                <a href="#"><img src="/resources/image/big1.jpg" alt=""/></a>
+                <a href="#"><img src="/resources/image/books/${good.image}" alt="" width="222" height="380"/></a>
 
                 <div class="product-info">
                     <h3>${good.name}</h3>
 
                     <div class="product-desc">
-                        <h4>WOMEN’S</h4>
-
-                        <p>${good.description}</p>
-                        <strong class="price">${good.price}</strong>
+                        <p></p>
+                        <strong class="price">Цена: ${good.price}</strong>
                     </div>
 
                     <form>

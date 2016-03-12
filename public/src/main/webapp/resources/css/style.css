@@ -5,7 +5,7 @@
 }
 
 body {
-    background: #fff url(images/body.gif) repeat-x 0 0;
+    background: #fff url(/resources/image/body.gif) repeat-x 0 0;
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 12px;
     line-height: 16px;
@@ -371,7 +371,7 @@ a.bul {
     padding: 1px;
     border: solid 1px #dedede;
     float: left;
-    width: 231px;
+    width: 225px;
     margin-right: 9px;
     height: 383px;
     overflow: hidden;
@@ -384,7 +384,7 @@ a.bul {
 .product-info {
     position: absolute;
     width: 153px;
-    top: 194px;
+    top: 220px;
     left: 0;
 }
 

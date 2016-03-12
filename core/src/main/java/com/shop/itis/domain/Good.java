@@ -58,6 +58,16 @@ public class Good implements Serializable {
         this.category = category;
     }
 
+    public Good(String name, Double price, Integer count, String description, Category category, String image) {
+        this.name = name;
+        this.price = price;
+        this.count = count;
+        this.description = description;
+        this.category = category;
+        this.image = image;
+    }
+
+
     public Good(String name, Integer year, String country, Double price, Integer count, Integer size, String description) {
         this.name = name;
         this.year = year;
