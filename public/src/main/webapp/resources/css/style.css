@@ -390,6 +390,8 @@ a.bul {
 
 .products ul li.last {
     margin-right: 0;
+    height: 50px;
+    margin-bottom: 20px;
 }
 
 .product-info {
@@ -591,5 +593,26 @@ h3.ico4 {
     width: 155px;
     top: 80px;
     left: 71%;
+}
+
+.show-more-button {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: solid 1px #f0f0f0;
+    color: #aaa;
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.login-form {
+    font-size: 16px;
+    width: 300px;
+    margin-top: 10%;
+    margin-left: 30%;
+    padding: 20px;
+    border: 1px solid #ddd;
 }
 

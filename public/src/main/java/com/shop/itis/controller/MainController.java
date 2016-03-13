@@ -19,8 +19,8 @@ public class MainController {
     }
 
 
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String error() {
+    @RequestMapping(value = "/err")
+    public String err() {
         return "pages/error";
     }
 

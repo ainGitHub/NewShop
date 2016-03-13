@@ -1,25 +1,25 @@
 <#include "../templates/main.ftl">
 <@mainTemplate />
 <#macro body>
+<div class="login-form">
 <form name='loginForm'
       action="/registr" method='POST'>
 
     <table>
         <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value='' title="Ëîãèí"></td>
+            <td>Username:</td>
+            <td><input type='text' name='username' value='' title="ï¿½ï¿½ï¿½ï¿½ï¿½"></td>
         </tr>
         <tr>
             <td>Password:</td>
-            <td><input type='password' name='password' title="Ïîðîëü"/></td>
+            <td><input type='password' name='password' title="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"/></td>
         </tr>
         <tr>
             <td>email</td>
             <td><input type="email" name="email" title="email"></td>
         </tr>
         <tr>
-            <td colspan='2'><input name="submit" type="submit"
-                                   value="submit"/></td>
+            <td colspan='2'><input name="submit" type="submit" value="Ð—Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒÑÑ" class="btn-cart"/></td>
         </tr>
     </table>
 <#if _csrf??>
@@ -27,4 +27,5 @@
            value="${_csrf.token}"/>
 </#if>
 </form>
+</div>
 </#macro>

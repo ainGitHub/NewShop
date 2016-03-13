@@ -11,9 +11,10 @@
     <link rel="stylesheet" href="/resources/css/ie6.css" type="text/css" media="all"/><![endif]-->
 
     <!-- JS -->
-    <script src="/resources/js/jquery-1.4.1.min.js" type="text/javascript"></script>
-    <script src="/resources/js/jquery.jcarousel.pack.js" type="text/javascript"></script>
-    <script src="/resources/js/jquery-func.js" type="text/javascript"></script>
+    <script src="/resources/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+
+
+    <script src="/resources/js/store/catalog.js" type="text/javascript"></script>
     <!-- End JS -->
 
 

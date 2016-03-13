@@ -9,7 +9,7 @@
         <form-login login-processing-url="/login"
                     login-page="/login"
                     default-target-url="/account"
-                    authentication-failure-url="/error"
+                    authentication-failure-url="/err"
                     username-parameter="username"
                     password-parameter="password"
                 />

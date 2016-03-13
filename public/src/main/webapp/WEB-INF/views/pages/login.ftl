@@ -2,6 +2,12 @@
 <#include "../templates/main.ftl">
 <@mainTemplate />
 <#macro body>
+<style>
+
+
+</style>
+
+<div class="login-form">
 <form name='loginForm'
       action="/login" method='POST'>
     <table>
@@ -18,8 +24,7 @@
             <td><input type="checkbox" name="remember" title="RememberMe"></td>
         </tr>
         <tr>
-            <td colspan='2'><input name="submit" type="submit"
-                                   value="submit"/></td>
+            <td colspan='2'><input name="submit" type="submit" value="Войти" class="btn-cart"/></td>
         </tr>
     </table>
 
@@ -29,5 +34,6 @@
 </#if>
 
 </form>
-<a href="/registr"><button>Зарегистрироваться</button></a>
+    <a href="/registr">Зарегистрироваться</a>
+</div>
 </#macro>

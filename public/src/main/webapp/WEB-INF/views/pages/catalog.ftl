@@ -1,10 +1,10 @@
 <#include "../templates/main.ftl">
-<@mainTemplate />
+<@mainTemplate/>
 <#macro body>
 <div class="products">
-    <#if allGoods??>
-    <ul>
-        <#list allGoods as good>
+    <#if goods??>
+        <ul id="goodList">
+            <#list goods as good>
             <li>
                 <a href="#"><img src="/resources/image/books/${good.image}" alt=""/></a>
 
@@ -28,7 +28,17 @@
                 </div>
             </li>
         </#list>
+            <li class="last">
+                <#list pages as p >
+                    <a href="/catalog?page=${p}">
+                        <button> ${p}</button>
+                    </a>
+                </#list>
+
+                all goods (${goodsCount})
+            </li>
     </ul>
+
     </#if>
 </div>
 </#macro>
