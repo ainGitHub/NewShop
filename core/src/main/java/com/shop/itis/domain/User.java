@@ -20,7 +20,7 @@ public class User {
     String password;
 
     @Column(name = "avatar", length = 100)
-    String avatar;
+    String avatar = "default.png";
 
     @Column(name = "name", length = 100)
     String name;

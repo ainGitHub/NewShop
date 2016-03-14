@@ -2,30 +2,40 @@
 <@mainTemplate />
 <#macro body>
 <div class="login-form">
-<form name='loginForm'
-      action="/registr" method='POST'>
+    <form name="loginForm" action="/registr" method='post' enctype="multipart/form-data">
+        <h1> Регистрация </h1>
 
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td><input type='text' name='username' value='' title="�����"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' title="������"/></td>
-        </tr>
-        <tr>
-            <td>email</td>
-            <td><input type="email" name="email" title="email"></td>
-        </tr>
-        <tr>
-            <td colspan='2'><input name="submit" type="submit" value="Зарегистрироваться" class="btn-cart"/></td>
-        </tr>
-    </table>
-<#if _csrf??>
-    <input type="hidden" name="${_csrf.parameterName}"
-           value="${_csrf.token}"/>
-</#if>
-</form>
+        <p>
+            <label>Ваш логин</label>
+            <input name="username" required="required" type="text" placeholder="myname1"/>
+        </p>
+
+        <p>
+            <label> Ваш e-mail</label>
+            <input name="email" required="required" type="email" placeholder="sitehere.ru@my.com"/>
+        </p>
+
+        <p>
+            <label>Ваш пароль </label>
+            <input name="password" required="required" type="password" placeholder="123456"/>
+        </p>
+    <#-- <p>
+         <label>Пароль еще раз</label>
+         <input name="password_confirm" required="required" type="password" placeholder="123456"/>
+     </p>-->
+        <p>
+            <label>Photo</label>
+            <input name="photo" type="file">
+        </p>
+
+        <p>
+            <input type="submit" value="Регистрация" class="btn-cart"/>
+        </p>
+
+        <p>
+            Уже зарегистрированы ?
+            <a href="/login" class="to_register"> Войдите на сайт </a>
+        </p>
+    </form>
 </div>
 </#macro>

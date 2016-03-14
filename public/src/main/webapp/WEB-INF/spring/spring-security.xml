@@ -15,6 +15,7 @@
                 />
         <logout logout-url="/logout"/>
         <remember-me remember-me-parameter="remember"/>
+        <csrf disabled="true"/>
     </http>
 
     <!--   <authentication-manager>

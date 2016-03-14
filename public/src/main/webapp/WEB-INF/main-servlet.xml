@@ -14,11 +14,10 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="2000000"/>
-    </bean>
+        <property name="maxUploadSize" value="1000000"/>
 
+    </bean>
 
     <bean id="freemarkerConfig"
           class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer"
@@ -48,9 +47,7 @@
           p:prefix=""
           p:suffix=".ftl"
           p:contentType="text/html; charset=UTF-8">
-        <property name="exposeSessionAttributes">
-            <value>true</value>
-        </property>
+        <property name="exposeSessionAttributes" value="true"/>
     </bean>
 
 </beans>

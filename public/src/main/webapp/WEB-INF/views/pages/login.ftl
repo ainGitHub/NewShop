@@ -27,12 +27,6 @@
             <td colspan='2'><input name="submit" type="submit" value="Войти" class="btn-cart"/></td>
         </tr>
     </table>
-
-<#if _csrf??>
-    <input type="hidden" name="${_csrf.parameterName}"
-           value="${_csrf.token}"/>
-</#if>
-
 </form>
     <a href="/registr">Зарегистрироваться</a>
 </div>

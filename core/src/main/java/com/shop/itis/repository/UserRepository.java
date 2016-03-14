@@ -18,7 +18,7 @@ public class UserRepository {
     }
 
 
-    public User getByUsername(String username) {
+    public User getUserByUsername(String username) {
         List<User> users = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("username", username)).list();
 
         if (users.isEmpty()) return null;

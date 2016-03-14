@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,26 +32,23 @@ public class CatalogController {
                                 Model model) {
 
         List<Good> goods = goodService.getAllGoods();
-        model.addAttribute("goods", goods.subList((page - 1) * TEST_LIMIT, page * TEST_LIMIT < goods.size() ? page * TEST_LIMIT : goods.size()));
+        model.addAttribute("goods", goods.subList(0, TEST_LIMIT));
 
-        List<Integer> pages = new ArrayList<Integer>();
-
-        for (int i = 1; i <= goods.size() / TEST_LIMIT + 1; i++) {
-            pages.add(i);
-        }
-
-        model.addAttribute("pages", pages);
+        model.addAttribute("page", page);
+        model.addAttribute("limit", limit == null ? TEST_LIMIT : limit);
         model.addAttribute("goodsCount", goods.size());
         return "pages/catalog";
     }
 
     @RequestMapping(value = "/showMore", method = RequestMethod.POST)
     public String showMoreGoods(Integer page, Integer limit, Model model) {
-        // Эта страшная проверка с page и limit только для теста, так как у нас пока нет реальных данных
-        System.out.println("here");
         List<Good> goods = goodService.getAllGoods();
-        if (TEST_GOODS_COUNT + limit > page * limit)
-            model.addAttribute("goods", (TEST_GOODS_COUNT > page * limit) ? goods : goods.subList(0, TEST_GOODS_COUNT + limit - page * limit));
-        return "pages/ajaxGoods";
+        System.out.println(page);
+        System.out.println(limit);
+
+        int start = (page - 1) * limit;
+        int end = page * limit;
+        model.addAttribute("goods", goods.size() > end ? goods.subList(start, end) : goods.subList(start, goods.size()));
+        return "pages/ajaxGood";
     }
 }

@@ -18,4 +18,10 @@ public class UserService {
     public void add(User user) {
         userRepository.add(user);
     }
+
+
+    @Transactional
+    public User getUserByUsername(String username) {
+        return userRepository.getUserByUsername(username);
+    }
 }
