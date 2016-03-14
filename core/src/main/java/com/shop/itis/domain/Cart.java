@@ -2,14 +2,15 @@ package com.shop.itis.domain;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "cart")
 public class Cart {
     @Id
-    @Column(name = "id")   // обозначает имя колонки, соответствующей данному полю
-    @GeneratedValue(strategy = GenerationType.AUTO)  // определяет способ генерации
+    @Column(name = "id")   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    @GeneratedValue(strategy = GenerationType.AUTO)  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private Integer id;
 
     @Column(name = "count")
@@ -17,7 +18,7 @@ public class Cart {
 
     @OneToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.LAZY)
-    List<Good> goods;
+    List<Good> goods = new ArrayList<Good>();
 
     @ManyToOne
     User user;

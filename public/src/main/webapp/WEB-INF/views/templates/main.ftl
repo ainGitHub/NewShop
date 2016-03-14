@@ -15,6 +15,7 @@
 
 
     <script src="/resources/js/store/catalog.js" type="text/javascript"></script>
+    <script src="/resources/js/store/cart.js" type="text/javascript"></script>
     <!-- End JS -->
 
 

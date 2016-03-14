@@ -1,6 +1,7 @@
 package com.shop.itis.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,13 +39,13 @@ public class User {
     boolean enabled;
 
     @OneToMany
-    List<Order> orders;
+    List<Order> orders = new ArrayList<Order>();
 
     @ManyToOne
     Cart cart;
 
     @OneToMany
-    List<Address> address;
+    List<Address> address = new ArrayList<Address>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     Set<UserRoles> roles = new HashSet<UserRoles>(0);

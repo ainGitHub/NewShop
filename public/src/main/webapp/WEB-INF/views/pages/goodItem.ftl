@@ -15,9 +15,9 @@
     <div class="add-cart">
         <strong class="price">Цена: ${good.price} руб.</strong>
 
-    <#--<a href="/cart/add" class="js_addToCart" data-id="${good.id}">
-        <button class="js_addToCart btn-cart button">Добавить В Корзину</button>
-    </a>-->
+        <button class="js_addToCart btn-cart" data-id="${good.id}" onclick="return false;">
+            Добавить В Корзину
+        </button>
     </div>
 </li>
 </#macro>

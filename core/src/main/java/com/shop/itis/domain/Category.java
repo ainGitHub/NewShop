@@ -1,6 +1,7 @@
 package com.shop.itis.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,11 +22,11 @@ public class Category {
     Category parent;
 
     @OneToMany
-    List<Category> categories;
+    List<Category> categories = new ArrayList<Category>();
 
 
     @OneToMany
-    List<Good> goods;
+    List<Good> goods = new ArrayList<Good>();
 
     public Category() {
     }

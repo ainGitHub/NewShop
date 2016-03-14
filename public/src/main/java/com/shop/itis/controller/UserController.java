@@ -6,7 +6,6 @@ import com.shop.itis.domain.UserRoles;
 import com.shop.itis.service.RoleService;
 import com.shop.itis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,10 +83,8 @@ public class UserController {
 
     @RequestMapping(value = "/account")
     public String account(ModelMap map) {
-        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User real = userService.getUserByUsername(user.getUsername());
-
-        map.put("user", real);
+        User user = Utils.getAutentificationUser(userService);
+        map.put("user", user);
         return "pages/account";
     }
 }

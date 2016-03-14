@@ -1,14 +1,15 @@
 package com.shop.itis.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "address")
 public class Address {
     @Id
-    @Column(name = "id")   // обозначает имя колонки, соответствующей данному полю
-    @GeneratedValue(strategy = GenerationType.AUTO)  // определяет способ генерации
+    @Column(name = "id")   // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+    @GeneratedValue(strategy = GenerationType.AUTO)  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private Integer id;
 
     @Column(name = "city", length = 100)
@@ -34,7 +35,7 @@ public class Address {
     User user;
 
     @OneToMany
-    List<Order> orders;
+    List<Order> orders = new ArrayList<Order>();
 
 
     public Address() {

@@ -22,3 +22,24 @@ $(document).ready(function () {
         });
     });
 });
+
+// верно!!!
+$(document).on('click', '.js_addToCart', function () {
+
+    var $this = $(this);
+    $.ajax({
+        type: "POST",
+        url: "/cart/add",
+        data: {
+            goodId: $this.data('id')
+        }
+    }).done(function (data) {  // сюда приходит ответ при успехе
+        console.log('/cart/add result: status=' + data);
+        if (data == 'ok') {
+            $this.removeClass('js_addToCart').text('Go in cart');
+        } else
+            console.log(data);
+    }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+        alert('Приносим извинения.<br/>На сервере произошла ошибка');
+    });
+});
