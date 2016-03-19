@@ -6,7 +6,7 @@
         <ul id="goodList">
             <#include "goodItem.ftl">
              <#list goods as good>
-            <@goodItem good=good/>
+            <@goodItem good=good showBtnCart=true/>
         </#list>
         </ul>
         <ul>

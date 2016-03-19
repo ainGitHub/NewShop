@@ -14,7 +14,7 @@ public class CartRepository {
         sessionFactory.getCurrentSession().save(cart);
     }
 
-    public void update() {
-        sessionFactory.getCurrentSession().flush();
+    public void update(Cart cart) {
+        sessionFactory.getCurrentSession().update(cart);
     }
 }

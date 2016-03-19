@@ -1,14 +1,13 @@
 <div id="header">
-    <h1 id="logo"><a href="/">shoparound</a></h1>
+    <h1 id="logo"><a href="/">bookstore</a></h1>
 
     <!-- Cart -->
     <div id="cart">
-        <a href="#" class="cart-link">Ваши товары в Корзине</a>
+        <a href="/cart" class="cart-link">Ваши товары в Корзине</a>
 
-        <div class="cl">&nbsp;</div>
-        <span>Товаров: <strong>4</strong></span>
-        &nbsp;&nbsp;
-        <span>Сумма: <strong>$250.99</strong></span>
+        <div class="c1"></div>
+        <span>Товаров: <strong><#if cartGoodsCount??>${cartGoodsCount}<#else>0</#if></strong></span>
+        <span>Сумма: <strong><#if cartSum??>${cartSum}<#else>0</#if>руб</strong></span>
     </div>
     <!-- End Cart -->
 

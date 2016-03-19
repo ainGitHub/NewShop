@@ -36,7 +36,7 @@ $(document).on('click', '.js_addToCart', function () {
     }).done(function (data) {  // сюда приходит ответ при успехе
         console.log('/cart/add result: status=' + data);
         if (data == 'ok') {
-            $this.removeClass('js_addToCart').text('Go in cart');
+            $this.removeClass('js_addToCart').text('Go in cart').href('/cart');
         } else
             console.log(data);
     }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка

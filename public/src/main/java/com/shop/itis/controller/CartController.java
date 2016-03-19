@@ -41,16 +41,20 @@ public class CartController {
 
         User user = Utils.getAutentificationUser(userService);
 
-        if (user != null && servletRequest.getSession().getAttribute("cart") != null)
-            user.setCart((Cart) servletRequest.getSession().getAttribute("cart"));
-
-
         Cart cart = null;
+
         try {
+            if (servletRequest.getSession().getAttribute("cart") != null) {
+                cart = (Cart) servletRequest.getSession().getAttribute("cart");
+                cart.getGoods().add(good);
+                servletRequest.getSession().setAttribute("cart", cart);
+                cartService.update(cart);
+                return "ok";
+            }
             if (user != null && user.getCart() != null) {
                 cart = user.getCart();
                 cart.getGoods().add(good);
-                cartService.update();
+                cartService.update(cart);
             } else {
                 cart = new Cart();
                 cart.getGoods().add(good);
@@ -60,8 +64,24 @@ public class CartController {
             return "good already exist";
         }
 
-
         servletRequest.getSession().setAttribute("cart", cart);
+        if (cart != null) {
+            servletRequest.getSession().setAttribute("cartGoodsCount", cart.getGoods().size());
+            double sum = 0.0;
+            for (Good g : cart.getGoods()) {
+                sum += g.getPrice();
+            }
+            servletRequest.getSession().setAttribute("cartSum", sum);
+        }
         return "ok";
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String cartPage() {
+        Cart cart = (Cart) servletRequest.getSession().getAttribute("cart");
+
+
+        return "pages/cart";
     }
 }

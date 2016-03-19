@@ -18,7 +18,7 @@ public class CartService {
     }
 
     @Transactional
-    public void update() {
-        cartRepository.update();
+    public void update(Cart cart) {
+        cartRepository.update(cart);
     }
 }
