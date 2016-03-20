@@ -15,6 +15,10 @@ public class CartRepository {
     }
 
     public void update(Cart cart) {
-        sessionFactory.getCurrentSession().update(cart);
+        sessionFactory.getCurrentSession().saveOrUpdate(cart);
+    }
+
+    public Cart getById(Long id) {
+        return (Cart) sessionFactory.getCurrentSession().load(Cart.class, id);
     }
 }

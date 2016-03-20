@@ -21,4 +21,9 @@ public class CartService {
     public void update(Cart cart) {
         cartRepository.update(cart);
     }
+
+    @Transactional
+    public Cart getById(Long id) {
+        return cartRepository.getById(id);
+    }
 }

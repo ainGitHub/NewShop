@@ -1,14 +1,16 @@
 package com.shop.itis.domain;
 
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "goods")
+@Table(name = "good")
+
 public class Good implements Serializable {
     @Id
-    @Column(name = "id")   // обозначает имя колонки, соответствующей данному полю
-    @GeneratedValue(strategy = GenerationType.AUTO)  // определяет способ генерации
+    @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name", length = 100)
@@ -34,7 +36,6 @@ public class Good implements Serializable {
 
     @Column(name = "description")
     String description;
-
 
     @ManyToOne
     Category category;
@@ -167,6 +168,4 @@ public class Good implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-
 }

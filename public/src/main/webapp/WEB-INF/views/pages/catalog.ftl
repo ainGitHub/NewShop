@@ -2,7 +2,7 @@
 <@mainTemplate/>
 <#macro body>
 <div class="products">
-    <#if goods??>
+    <#if goods?? && goods?has_content>
         <ul id="goodList">
             <#include "goodItem.ftl">
              <#list goods as good>

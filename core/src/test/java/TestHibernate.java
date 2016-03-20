@@ -1,14 +1,9 @@
-import com.shop.itis.domain.Category;
-import com.shop.itis.domain.Good;
-import com.shop.itis.domain.User;
-import com.shop.itis.domain.UserRoles;
-import com.shop.itis.service.CategoryService;
-import com.shop.itis.service.GoodService;
-import com.shop.itis.service.RoleService;
-import com.shop.itis.service.UserService;
+import com.shop.itis.domain.*;
+import com.shop.itis.service.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TestHibernate {
 
@@ -16,6 +11,7 @@ public class TestHibernate {
     private static RoleService roleService;
     private static GoodService goodService;
     private static CategoryService categoryService;
+    private static CartService cartService;
 
     public static void init() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -27,12 +23,15 @@ public class TestHibernate {
         categoryService = context.getBean(CategoryService.class, "categoryService");
 
         goodService = context.getBean(GoodService.class, "goodService");
+
+        cartService = context.getBean(CartService.class, "cartService");
     }
 
     public static void main(String[] args) throws SQLException {
         init();
         //testUser();
         addGoods();
+        testCart();
     }
 
     private static void testUser() {
@@ -88,6 +87,16 @@ public class TestHibernate {
             goodService.add(g2);
             goodService.add(g3);
         }
+    }
+
+    private static void testCart() {
+        List<Good> goods = goodService.getAllGoods();
+        Cart cart = new Cart();
+        cartService.add(cart);
+        cart.getGoods().addAll(goods);
+        //cart.getGoods().addAll(goods);
+        //cart.getGoods().add(goods.get(0));
+        cartService.update(cart);
     }
 
 }

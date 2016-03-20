@@ -41,30 +41,20 @@ public class CartController {
 
         User user = Utils.getAutentificationUser(userService);
 
-        Cart cart = null;
+        Cart cart = (Cart) servletRequest.getSession().getAttribute("cart");
 
         try {
-            if (servletRequest.getSession().getAttribute("cart") != null) {
-                cart = (Cart) servletRequest.getSession().getAttribute("cart");
-                cart.getGoods().add(good);
-                servletRequest.getSession().setAttribute("cart", cart);
-                cartService.update(cart);
-                return "ok";
-            }
-            if (user != null && user.getCart() != null) {
-                cart = user.getCart();
-                cart.getGoods().add(good);
-                cartService.update(cart);
-            } else {
+            if (cart == null) {
                 cart = new Cart();
-                cart.getGoods().add(good);
-                cartService.add(cart);
             }
+            cart.getGoods().add(good);
+            cartService.update(cart);
         } catch (DataIntegrityViolationException e) {
             return "good already exist";
         }
 
-        servletRequest.getSession().setAttribute("cart", cart);
+
+        servletRequest.getSession().setAttribute("cart", cartService.getById(cart.getId()));
         if (cart != null) {
             servletRequest.getSession().setAttribute("cartGoodsCount", cart.getGoods().size());
             double sum = 0.0;
@@ -80,8 +70,7 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage() {
         Cart cart = (Cart) servletRequest.getSession().getAttribute("cart");
-
-
+        
         return "pages/cart";
     }
 }

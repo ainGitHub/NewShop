@@ -1,24 +1,26 @@
 package com.shop.itis.domain;
 
 
+
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "cart")
 public class Cart {
     @Id
-    @Column(name = "id")   // ���������� ��� �������, ��������������� ������� ����
-    @GeneratedValue(strategy = GenerationType.AUTO)  // ���������� ������ ���������
-    private Integer id;
+    @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @Column(name = "count")
     Integer count;
 
-    @OneToMany(cascade = CascadeType.REFRESH,
-            fetch = FetchType.LAZY)
-    List<Good> goods = new ArrayList<Good>();
+    @ManyToMany
+    @JoinTable(name = "cart_good")
+    Set<Good> goods = new HashSet<Good>();
 
     @ManyToOne
     User user;
@@ -27,17 +29,17 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(Integer count, User user, List<Good> goods) {
+    public Cart(Integer count, User user, Set<Good> goods) {
         this.count = count;
         this.user = user;
         this.goods = goods;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,11 +51,11 @@ public class Cart {
         this.count = count;
     }
 
-    public List<Good> getGoods() {
+    public Set<Good> getGoods() {
         return goods;
     }
 
-    public void setGoods(List<Good> goods) {
+    public void setGoods(Set<Good> goods) {
         this.goods = goods;
     }
 

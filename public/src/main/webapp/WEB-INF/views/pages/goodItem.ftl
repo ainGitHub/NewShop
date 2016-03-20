@@ -1,17 +1,16 @@
 <#macro goodItem good showBtnCart>
 
-<li href="#modal${good.id}" class="open_modal">
+<li>
     <img src="/resources/image/books/${good.image}" alt=""/>
 
     <div class="product-info">
-        <a href="#"><h3>${good.name}</h3></a>
+        <a href="#modal${good.id}" class="open_modal"><h3>${good.name}</h3></a>
 
         <div class="product-desc">
             <p>
             ${good.description}
             </p>
         </div>
-
     </div>
 
 
