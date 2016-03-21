@@ -1,14 +1,12 @@
 package com.shop.itis.controller;
 
-import com.shop.itis.Utils.Utils;
 import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.Good;
-import com.shop.itis.domain.User;
 import com.shop.itis.service.CartService;
 import com.shop.itis.service.GoodService;
 import com.shop.itis.service.UserService;
+import org.hibernate.NonUniqueObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,33 +34,22 @@ public class CartController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addGood(@RequestParam("goodId") Long goodid) {
-        Good good = goodService.getGoodById(goodid);
-        if (good == null) return "good is not find";
+        Good forAddGood = goodService.getGoodById(goodid);
 
-        User user = Utils.getAutentificationUser(userService);
+        Cart userCart = (Cart) servletRequest.getSession().getAttribute("cart");
 
-        Cart cart = (Cart) servletRequest.getSession().getAttribute("cart");
+        if (userCart == null) {
+            userCart = new Cart();
+        }
 
         try {
-            if (cart == null) {
-                cart = new Cart();
-            }
-            cart.getGoods().add(good);
-            cartService.update(cart);
-        } catch (DataIntegrityViolationException e) {
-            return "good already exist";
+            userCart.getGoods().add(forAddGood);
+            cartService.update(userCart);
+        } catch (NonUniqueObjectException e) {
+            userCart.getGoods().remove(forAddGood);
         }
 
-
-        servletRequest.getSession().setAttribute("cart", cartService.getById(cart.getId()));
-        if (cart != null) {
-            servletRequest.getSession().setAttribute("cartGoodsCount", cart.getGoods().size());
-            double sum = 0.0;
-            for (Good g : cart.getGoods()) {
-                sum += g.getPrice();
-            }
-            servletRequest.getSession().setAttribute("cartSum", sum);
-        }
+        servletRequest.getSession().setAttribute("cart", cartService.getById(userCart.getId()));
         return "ok";
     }
 
@@ -70,7 +57,7 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage() {
         Cart cart = (Cart) servletRequest.getSession().getAttribute("cart");
-        
+
         return "pages/cart";
     }
 }

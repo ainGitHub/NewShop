@@ -3,6 +3,7 @@ package com.shop.itis.domain;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -18,7 +19,7 @@ public class Cart {
     @Column(name = "count")
     Integer count;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "cart_good")
     Set<Good> goods = new HashSet<Good>();
 

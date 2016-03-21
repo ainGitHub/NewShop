@@ -91,11 +91,11 @@ public class TestHibernate {
 
     private static void testCart() {
         List<Good> goods = goodService.getAllGoods();
+
         Cart cart = new Cart();
+        cart.getGoods().add(goods.get(0));
         cartService.add(cart);
-        cart.getGoods().addAll(goods);
-        //cart.getGoods().addAll(goods);
-        //cart.getGoods().add(goods.get(0));
+        cart.getGoods().add(goods.get(2));
         cartService.update(cart);
     }
 

@@ -168,4 +168,9 @@ public class Good implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.id == ((Good) obj).getId();
+    }
 }
