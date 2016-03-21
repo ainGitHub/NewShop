@@ -1,7 +1,9 @@
+<#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
+<@spring.url value="/resources/image/books/" var="img_book_res"/>
 <#macro goodItem good showBtnCart>
 
 <li>
-    <img src="/resources/image/books/${good.image}" alt=""/>
+    <img src="${img_book_res}${good.image}" alt=""/>
 
     <div class="product-info">
         <a href="#modal${good.id}" class="open_modal"><h3>${good.name}</h3></a>
@@ -26,7 +28,7 @@
 
 <div id="modal${good.id}" class="modal_form"> <!-- скрытый див с уникaльным id = modalid -->
     <span class="modal_close">X</span><br>
-    <img src="/resources/image/books/${good.image}"/>
+    <img src="${img_book_res}${good.image}"/>
 
     <h2>${good.name}</h2>
 

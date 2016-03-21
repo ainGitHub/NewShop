@@ -1,4 +1,4 @@
-<#assign c=JspTaglibs["http://java.sun.com/jsp/jstl/core"]>
+<#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <#include "../templates/main.ftl">
 <@mainTemplate />
 <#macro body>
@@ -6,10 +6,9 @@
 
 
 </style>
-
 <div class="login-form">
 <form name='loginForm'
-      action="/login" method='POST'>
+      action="<@spring.url value="/login"/>" method='POST'>
     <table>
         <tr>
             <td>User:</td>
@@ -28,6 +27,6 @@
         </tr>
     </table>
 </form>
-    <a href="/registr">Зарегистрироваться</a>
+    <a href="<@spring.url value="/registr"/>">Зарегистрироваться</a>
 </div>
 </#macro>

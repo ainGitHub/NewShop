@@ -1,31 +1,35 @@
-<#assign c=JspTaglibs["http://java.sun.com/jsp/jstl/core"]>
+<#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <#macro mainTemplate title="MainTemplate">
-
+    <@spring.url value="/resources/css/" var="css_res"/>
+    <@spring.url value="/resources/js/" var="js_res"/>
+    <@spring.url value="/resources/image/" var="img_res"/>
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <title>Book Store</title>
-    <link rel="stylesheet" href="/resources/css/style.css" type="text/css" media="all"/>
-    <link rel="stylesheet" href="/resources/css/modal.css" type="text/css">
+    <link rel="stylesheet" href="${css_res}style.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="${css_res}modal.css" type="text/css">
+
     <!--[if lte IE 6]>
-    <link rel="stylesheet" href="/resources/css/ie6.css" type="text/css" media="all"/><![endif]-->
+    <link rel="stylesheet" href="${css_res}ie6.css" type="text/css" media="all">
+    <![endif]-->
 
     <!-- JS -->
-    <script src="/resources/js/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="/resources/js/store/modal.js" type="text/javascript"></script>
-    <script src="/resources/js/store/catalog.js" type="text/javascript"></script>
-    <script src="/resources/js/store/cart.js" type="text/javascript"></script>
+    <script src="${js_res}jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="${js_res}store/modal.js" type="text/javascript"></script>
+    <script src="${js_res}store/catalog.js" type="text/javascript"></script>
+    <script src="${js_res}store/cart.js" type="text/javascript"></script>
     <!-- End JS -->
 
 
-    <link rel="shortcut icon" href="/resources/image/favicon.ico" type="image/ico">
+    <link rel="shortcut icon" href="${img_res}favicon.ico" type="image/ico">
 </head>
 <body>
 
 <!-- Shell -->
 <div class="shell">
-
     <!-- Header -->
     <#include "header.ftl">
     <!-- End Header -->

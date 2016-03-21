@@ -1,3 +1,4 @@
+<#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <#include "../templates/main.ftl">
 <@mainTemplate />
 <#macro body>
@@ -5,7 +6,7 @@
     <#if user??>
     <ul>
         <li>
-            <img src="/resources/image/user/${user.avatar}" style="width: 160px;">
+            <img src="<@spring.url value="/resources/image/user/"/>${user.avatar}" style="width: 160px;">
 
             <div class="product-info">
                 <h3>Name ${user.username}</h3>
@@ -15,7 +16,7 @@
 
                     <p>Other information about<br> user</p>
 
-                    <form action="/logout" method="post" id="logoutForm">
+                    <form action="<@spring.url value="/logout"/>" method="post" id="logoutForm">
                         <input type="submit" value="logout" class="btn-cart">
                     </form>
                 </div>

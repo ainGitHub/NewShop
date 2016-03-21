@@ -1,3 +1,4 @@
+
 * {
     padding: 0;
     margin: 0;
@@ -5,7 +6,7 @@
 }
 
 body {
-    background: #fff url(/resources/image/body.gif) repeat-x 0 0;
+    background: #fff url(/test/resources/image/body.gif) repeat-x 0 0;
     font-family: "Trebuchet MS", Arial, sans-serif;
     font-size: 12px;
     line-height: 16px;
@@ -99,7 +100,7 @@ h1#logo a {
     display: block;
     height: 64px;
     text-indent: -4000px;
-    background: url(/resources/image/logo.gif);
+    background: url(/test/resources/image/logo.gif);
 }
 
 .shell {
@@ -111,7 +112,7 @@ h1#logo a {
 
 #header {
     height: 64px;
-    background: url(/resources/image/header.gif);
+    background: url(/test/resources/image/header.gif);
     position: relative;
 }
 
@@ -162,7 +163,7 @@ h1#logo a {
 
 a.cart-link {
     color: #fff;
-    background: url(/resources/image/cart-link.gif) no-repeat 0 0;
+    background: url(/test/resources/image/cart-link.gif) no-repeat 0 0;
     padding: 0 0 0 32px;
     text-decoration: none;
 }
@@ -205,7 +206,7 @@ a.cart-link:hover {
     position: absolute;
     width: 10px;
     height: 5px;
-    background: url(/resources/image/h2-arr.gif);
+    background: url(/test/resources/image/h2-arr.gif);
     top: 27px;
     right: 10px;
     font-size: 0;
@@ -217,7 +218,7 @@ a.cart-link:hover {
 }
 
 a.bul {
-    background: url(/resources/image/bul.gif) no-repeat 0 center;
+    background: url(/test/resources/image/bul.gif) no-repeat 0 center;
     padding-left: 10px;
 }
 
@@ -291,7 +292,7 @@ a.bul {
 .categories ul li a {
     color: #5f5f5f;
     text-decoration: none;
-    background: url(/resources/image/cat.gif) no-repeat 0 4px;
+    background: url(/test/resources/image/cat.gif) no-repeat 0 4px;
     padding-left: 17px;
 }
 
@@ -432,7 +433,7 @@ a.bul {
 
 .product-info .product-desc {
     padding: 10px;
-    background: url(/resources/image/info.png);
+    background: url(/test/resources/image/info.png);
     width: 100%;
 }
 
@@ -502,12 +503,12 @@ a.bul {
 }
 
 .more-nav a.next {
-    background: url(/resources/image/next.gif);
+    background: url(/test/resources/image/next.gif);
     left: 910px;
 }
 
 .more-nav a.prev {
-    background: url(/resources/image/prev.gif);
+    background: url(/test/resources/image/prev.gif);
     left: 20px;
 }
 
@@ -533,19 +534,19 @@ h3.ico {
 }
 
 h3.ico1 {
-    background-image: url(/resources/image/ico1.gif);
+    background-image: url(/test/resources/image/ico1.gif);
 }
 
 h3.ico2 {
-    background-image: url(/resources/image/ico2.gif);
+    background-image: url(/test/resources/image/ico2.gif);
 }
 
 h3.ico3 {
-    background-image: url(/resources/image/ico3.gif);
+    background-image: url(/test/resources/image/ico3.gif);
 }
 
 h3.ico4 {
-    background-image: url(/resources/image/ico4.gif);
+    background-image: url(/test/resources/image/ico4.gif);
 }
 
 #footer {

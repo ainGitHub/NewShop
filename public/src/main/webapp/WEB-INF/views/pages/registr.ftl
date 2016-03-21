@@ -1,8 +1,9 @@
+<#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <#include "../templates/main.ftl">
 <@mainTemplate />
 <#macro body>
 <div class="login-form">
-    <form name="loginForm" action="/registr" method='post' enctype="multipart/form-data">
+    <form name="loginForm" action="<@spring.url value="/registr"/>" method='post' enctype="multipart/form-data">
         <h1> Регистрация </h1>
 
         <p>
@@ -34,7 +35,7 @@
 
         <p>
             Уже зарегистрированы ?
-            <a href="/login" class="to_register"> Войдите на сайт </a>
+            <a href="<@spring.url value="/login"/>" class="to_register"> Войдите на сайт </a>
         </p>
     </form>
 </div>
