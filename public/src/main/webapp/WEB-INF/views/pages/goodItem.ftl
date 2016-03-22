@@ -1,6 +1,6 @@
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <@spring.url value="/resources/image/books/" var="img_book_res"/>
-<#macro goodItem good showBtnCart>
+<#macro goodItem good showBtnCart showDelete>
 
 <li>
     <img src="${img_book_res}${good.image}" alt=""/>
@@ -19,9 +19,15 @@
     <div class="add-cart">
         <strong class="price">Цена: ${good.price} руб.</strong>
         <#if showBtnCart>
-        <button class="js_addToCart btn-cart" data-id="${good.id}" onclick="return false;">
+            <a class="js_addToCart btn-cart" data-id="${good.id}">
             Добавить В Корзину
-        </button>
+            </a>
+        </#if>
+
+        <#if showDelete>
+            <a class="btn-cart" href="<@spring.url value="/cart/delete?goodid=${good.id}"/>">
+                Убрать из Корзины
+            </a>
         </#if>
     </div>
 </li>
@@ -38,9 +44,10 @@
 
     <strong class="price">Цена: ${good.price} руб.</strong>
     <#if showBtnCart>
-        <button class="js_addToCart btn-cart" data-id="${good.id}" onclick="return false;">
+        <a class="js_addToCart btn-cart" data-id="${good.id}">
             Добавить В Корзину
-        </button>
+        </a>
+
     </#if>
 
 </div>

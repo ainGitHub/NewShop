@@ -1,3 +1,4 @@
+;
 var siteUrl = "/test";
 
 $(document).ready(function () {
@@ -24,8 +25,8 @@ $(document).ready(function () {
 });
 
 // верно!!!
-$(document).on('click', '.js_addToCart', function () {
-
+$(document).on('click', '.js_addToCart', function (event) {
+    event.preventDefault();
     var $this = $(this);
     $.ajax({
         type: "POST",
@@ -36,7 +37,7 @@ $(document).on('click', '.js_addToCart', function () {
     }).done(function (data) {  // сюда приходит ответ при успехе
         console.log(siteUrl + '/cart/add result: status=' + data);
         if (data == 'ok') {
-            $this.removeClass('js_addToCart').text('Go in cart').href(siteUrl + '/cart');
+            $this.removeClass('js_addToCart').text('Go in cart').attr('href', siteUrl + '/cart');
         } else
             console.log(data);
     }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка

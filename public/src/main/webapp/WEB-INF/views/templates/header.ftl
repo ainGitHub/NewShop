@@ -15,7 +15,7 @@
     <!-- Navigation -->
     <div id="navigation">
         <ul>
-            <li><a href="<@spring.url value="/"/>" class="active">Домой</a></li>
+            <li><a href="<@spring.url value="/"/>">Домой</a></li>
             <li><a href="#">Поддержка</a></li>
             <li><a href="<@spring.url value="/account"/>">Мой Аккаунт</a></li>
             <li><a href="#">Магазин</a></li>

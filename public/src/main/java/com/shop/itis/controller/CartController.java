@@ -8,6 +8,7 @@ import com.shop.itis.service.UserService;
 import org.hibernate.NonUniqueObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,8 +56,10 @@ public class CartController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public String cartPage() {
+    public String cartPage(ModelMap map) {
         Cart cart = (Cart) servletRequest.getSession().getAttribute("cart");
+        if (cart == null || cart.getGoods().isEmpty())
+            map.put("cartError", "К сожалению в вашей корзине нет товаров");
 
         return "pages/cart";
     }

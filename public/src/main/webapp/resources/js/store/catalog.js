@@ -1,6 +1,7 @@
+;
 var siteUrl = "/test";
-$(document).ready(function () {
 
+$(document).ready(function () {
     $(document).on('click', '#showMore', function () {
         var $this = $(this);
         var page = $this.data('page'),
