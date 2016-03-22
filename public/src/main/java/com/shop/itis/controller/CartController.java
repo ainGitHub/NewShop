@@ -50,6 +50,15 @@ public class CartController {
             userCart.getGoods().remove(forAddGood);
         }
 
+        if (userCart != null) {
+            double sum = 0.0;
+            for (Good g : userCart.getGoods()) {
+                sum += g.getPrice();
+            }
+            servletRequest.getSession().setAttribute("cartSum", sum);
+            servletRequest.getSession().setAttribute("cartGoodsCount", userCart.getGoods().size());
+        }
+
         servletRequest.getSession().setAttribute("cart", cartService.getById(userCart.getId()));
         return "ok";
     }
