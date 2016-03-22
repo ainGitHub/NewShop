@@ -10,6 +10,7 @@
     <modules>
         <module>public</module>
         <module>core</module>
+        <module>mail</module>
     </modules>
     <packaging>pom</packaging>
 
