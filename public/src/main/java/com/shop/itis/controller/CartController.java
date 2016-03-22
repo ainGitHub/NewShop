@@ -35,6 +35,8 @@ public class CartController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addGood(@RequestParam("goodId") Long goodid) {
+        //TODO надо как то отрефакторить
+
         Good forAddGood = goodService.getGoodById(goodid);
 
         Cart userCart = (Cart) servletRequest.getSession().getAttribute("cart");

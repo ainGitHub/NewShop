@@ -43,8 +43,6 @@ public class CatalogController {
     @RequestMapping(value = "/showMore", method = RequestMethod.POST)
     public String showMoreGoods(Integer page, Integer limit, Model model) {
         List<Good> goods = goodService.getAllGoods();
-        System.out.println(page);
-        System.out.println(limit);
 
         int start = (page - 1) * limit;
         int end = page * limit;

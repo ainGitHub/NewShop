@@ -24,54 +24,6 @@ public class MainController {
         return "pages/error";
     }
 
-/*
-    @RequestMapping(value = "/registr", method = RequestMethod.POST)
-    public String adding(@RequestParam("img") MultipartFile file,
-                         @RequestParam("login") String login,
-                         @RequestParam("password") String password,
-                         @RequestParam("email") String email) {
-        String appPath = request.getServletContext().getRealPath("");
-        String uploadsDirPath = appPath + java.io.File.separator + "uploads";
-        if (!file.isEmpty()) {
-            try {
-                java.io.File dir = new java.io.File(uploadsDirPath + java.io.File.separator + file.getOriginalFilename());
-
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                file.transferTo(dir);
-
-                System.out.println("file writing" + dir.toString());
-
-
-                File fileD = new File();
-                fileD.setName(file.getOriginalFilename());
-                fileD.setVeight(file.getSize());
-                fileD.setFileAddres(uploadsDirPath + java.io.File.separator + file.getOriginalFilename());
-
-
-                System.out.println("here1");
-                User user = new User();
-                user.setLogin(login);
-                user.setPassword(password);
-                user.setEmail(email);
-                user.setPhotoAddres("uploads" + java.io.File.separator + file.getOriginalFilename());
-                userService.add(user);
-
-                System.out.println("here2");
-                fileD.setUser(user);
-                fileService.add(fileD);
-            } catch (Exception e) {
-                System.out.println("exception");
-            }
-        } else {
-            System.out.println("file empty");
-        }
-
-
-        return "index";
-    }*/
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String adminPage() {

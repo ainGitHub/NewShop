@@ -46,6 +46,8 @@ public class UserController {
 
         checkPhoto(photo);
 
+        //TODO надо отрефакторить
+
         User user = new User();
         user.setUsername(registrationFormBean.getUsername());
         user.setPassword(Utils.md5Apache(registrationFormBean.getPassword()));

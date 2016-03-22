@@ -14,7 +14,6 @@ public class Utils {
 
     public static String md5Apache(String st) {
         String md5Hex = DigestUtils.md5Hex(st);
-
         return md5Hex;
     }
 
