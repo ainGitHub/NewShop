@@ -9,23 +9,24 @@
 <div class="login-form">
 <form name='loginForm'
       action="<@spring.url value="/login"/>" method='POST'>
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value='' title="Логин"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' title="Пороль"/></td>
-        </tr>
-        <tr>
-            <td>remember me</td>
-            <td><input type="checkbox" name="remember" title="RememberMe"></td>
-        </tr>
-        <tr>
-            <td colspan='2'><input name="submit" type="submit" value="Войти" class="btn-cart"/></td>
-        </tr>
-    </table>
+    <p>
+        <label>User:</label>
+        <input type='text' name='username' value='' title="Логин">
+    </p>
+
+    <p>
+        <label>Password:</label>
+        <input type='password' name='password' title="Пороль"/>
+    </p>
+
+    <p>
+        <label>remember me</label>
+        <input type="checkbox" name="remember" title="RememberMe">
+    </p>
+
+    <p>
+        <input name="submit" type="submit" value="Войти" class="btn-cart"/>
+    </p><br>
 </form>
     <a href="<@spring.url value="/registr"/>">Зарегистрироваться</a>
 </div>

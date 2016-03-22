@@ -575,10 +575,10 @@ h3.ico4 {
 .btn-cart {
     display: block;
     text-decoration: none;
-    padding-top: 10px;
+    padding-top: 5px;
     margin: 2px 10px;
     width: 160px;
-    height: 30px;
+    height: 25px;
     font-size: 13px;
     text-transform: uppercase;
     text-align: center;
@@ -631,13 +631,15 @@ h3.ico4 {
     margin: 0;
     margin-right: 30px;
     float: right;
-    font-size: 16px;
+    font-size: 15px;
+    padding-top: 0px;
 }
 
 .login-form input[type=file] {
     margin-right: 0;
     font-size: 12px;
 }
+
 
 .login-form .error {
     color: red;
@@ -648,7 +650,7 @@ h3.ico4 {
 
 .cart-goods-empty {
     font-size: 18px;
-    margin: 200px;
+    margin: 150px;
     border: solid 1px #ddd;
     padding: 10px;
 }

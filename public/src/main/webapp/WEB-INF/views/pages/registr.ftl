@@ -29,7 +29,7 @@
         </span>
         <p>
             <label>Ваш пароль </label>
-            <@form.input path="password"/>
+            <@form.password path="password" />
         </p><br>
 
     <#-- <p>
