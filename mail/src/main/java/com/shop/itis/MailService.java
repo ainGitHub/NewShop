@@ -1,6 +1,7 @@
 package com.shop.itis;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,11 @@ public class MailService {
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
-        mailSender.send(message);
+        try {
+            mailSender.send(message);
+        } catch (MailException e) {
+            System.out.println("can't connect to internet");
+        }
     }
 
 }
