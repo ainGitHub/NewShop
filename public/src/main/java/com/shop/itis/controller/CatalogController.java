@@ -1,5 +1,6 @@
 package com.shop.itis.controller;
 
+import com.shop.itis.Utils.Constants;
 import com.shop.itis.domain.Good;
 import com.shop.itis.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +14,9 @@ import java.util.List;
 
 @Controller
 public class CatalogController {
-    private static final Integer TEST_GOODS_COUNT = 16;
-    private static final Integer TEST_LIMIT = 6;
 
     @Autowired
     GoodService goodService;
-
-    /*@RequestMapping(value = "/catalog", method = RequestMethod.GET)
-    public String catalogPage(ModelMap map) {
-        map.put("allGoods", goodService.getAllGoods());
-        return "pages/catalog";
-    }*/
 
 
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
@@ -32,10 +25,10 @@ public class CatalogController {
                                 Model model) {
 
         List<Good> goods = goodService.getAllGoods();
-        model.addAttribute("goods", goods.subList(0, TEST_LIMIT));
+        model.addAttribute(Constants.GOODS, goods.subList(0, Constants.TEST_LIMIT));
 
         model.addAttribute("page", page);
-        model.addAttribute("limit", limit == null ? TEST_LIMIT : limit);
+        model.addAttribute("limit", limit == null ? Constants.TEST_LIMIT : limit);
         model.addAttribute("goodsCount", goods.size());
         return "pages/catalog";
     }
@@ -46,7 +39,9 @@ public class CatalogController {
 
         int start = (page - 1) * limit;
         int end = page * limit;
-        model.addAttribute("goods", goods.size() > end ? goods.subList(start, end) : goods.subList(start, goods.size()));
+        model.addAttribute(Constants.GOODS, goods.size() > end ?
+                goods.subList(start, end) :
+                goods.subList(start, goods.size()));
         return "pages/ajaxGood";
     }
 }

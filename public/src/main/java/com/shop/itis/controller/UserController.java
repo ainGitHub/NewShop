@@ -1,6 +1,7 @@
 package com.shop.itis.controller;
 
 import com.shop.itis.MailService;
+import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.domain.User;
 import com.shop.itis.domain.UserRoles;
@@ -24,8 +25,6 @@ import java.io.File;
 @Controller
 public class UserController {
 
-    private final String ATTR_REGISTRATION_FORM = "regform";
-
     @Autowired
     HttpServletRequest servletRequest;
 
@@ -47,7 +46,7 @@ public class UserController {
      */
     @RequestMapping(value = "/registr", method = RequestMethod.POST)
     public String registrate(
-            @Valid @ModelAttribute(ATTR_REGISTRATION_FORM) RegistrationFormBean registrationFormBean,
+            @Valid @ModelAttribute(Constants.ATTR_REGISTRATION_FORM) RegistrationFormBean registrationFormBean,
             BindingResult bindingResult,
             @RequestParam("photo") MultipartFile photo) {
 
@@ -60,7 +59,7 @@ public class UserController {
         User user = createUser(registrationFormBean, photo);
         userService.add(user);
 
-        mailService.sendMail(registrationFormBean.getEmail(), Utils.EMAIL_SUBJECT, Utils.getEmailText(registrationFormBean.getEmail()));
+        mailService.sendMail(registrationFormBean.getEmail(), Constants.EMAIL_SUBJECT, Utils.getEmailText(registrationFormBean.getEmail()));
 
         UserRoles roles = createRoleForUser(user);
         roleService.add(roles);
@@ -73,7 +72,7 @@ public class UserController {
      */
     private UserRoles createRoleForUser(User user) {
         UserRoles roles = new UserRoles();
-        roles.setRole(Utils.USER);
+        roles.setRole(Constants.USER);
         roles.setUser(user);
         return roles;
     }
@@ -122,7 +121,7 @@ public class UserController {
 
     @RequestMapping(value = "/registr", method = RequestMethod.GET)
     public String registrPage() {
-        servletRequest.setAttribute(ATTR_REGISTRATION_FORM, new RegistrationFormBean());
+        servletRequest.setAttribute(Constants.ATTR_REGISTRATION_FORM, new RegistrationFormBean());
         return "pages/registr";
     }
 

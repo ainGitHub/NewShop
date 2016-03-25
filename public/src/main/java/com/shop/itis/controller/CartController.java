@@ -1,5 +1,6 @@
 package com.shop.itis.controller;
 
+import com.shop.itis.Utils.Constants;
 import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.Good;
 import com.shop.itis.service.CartService;
@@ -45,7 +46,7 @@ public class CartController {
 
         Good forAddGood = goodService.getGoodById(goodid);
 
-        Cart userCart = (Cart) servletRequest.getSession().getAttribute("cart");
+        Cart userCart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
 
         if (userCart == null) {
             userCart = new Cart();
@@ -63,18 +64,18 @@ public class CartController {
             for (Good g : userCart.getGoods()) {
                 sum += g.getPrice();
             }
-            servletRequest.getSession().setAttribute("cartSum", sum);
-            servletRequest.getSession().setAttribute("cartGoodsCount", userCart.getGoods().size());
+            servletRequest.getSession().setAttribute(Constants.CART_SUM, sum);
+            servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, userCart.getGoods().size());
         }
 
-        servletRequest.getSession().setAttribute("cart", cartService.getById(userCart.getId()));
+        servletRequest.getSession().setAttribute(Constants.CART, cartService.getById(userCart.getId()));
         return "ok";
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage(ModelMap map) {
-        Cart cart = (Cart) servletRequest.getSession().getAttribute("cart");
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
         if (cart == null || cart.getGoods().isEmpty())
             map.put("cartError", "К сожалению в вашей корзине нет товаров");
 
