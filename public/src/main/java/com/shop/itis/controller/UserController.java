@@ -1,5 +1,6 @@
 package com.shop.itis.controller;
 
+import com.shop.itis.MailService;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.domain.User;
 import com.shop.itis.domain.UserRoles;
@@ -34,6 +35,16 @@ public class UserController {
     @Autowired
     RoleService roleService;
 
+    @Autowired
+    MailService mailService;
+
+
+    /**
+     * @param registrationFormBean - форма приходящая от юзера
+     * @param bindingResult        - проверяет форму
+     * @param photo                - файл(фото) от формы
+     * @return
+     */
     @RequestMapping(value = "/registr", method = RequestMethod.POST)
     public String registrate(
             @Valid @ModelAttribute(ATTR_REGISTRATION_FORM) RegistrationFormBean registrationFormBean,
@@ -46,27 +57,51 @@ public class UserController {
 
         checkPhoto(photo);
 
-        //TODO надо отрефакторить
+        User user = createUser(registrationFormBean, photo);
+        userService.add(user);
 
+        mailService.sendMail(registrationFormBean.getEmail(), Utils.EMAIL_SUBJECT, Utils.getEmailText(registrationFormBean.getEmail()));
+
+        UserRoles roles = createRoleForUser(user);
+        roleService.add(roles);
+        return "pages/login";
+    }
+
+    /**
+     * @param user Создает SpringSecurity роли для юзера
+     * @return
+     */
+    private UserRoles createRoleForUser(User user) {
+        UserRoles roles = new UserRoles();
+        roles.setRole(Utils.USER);
+        roles.setUser(user);
+        return roles;
+    }
+
+    /**
+     * @param registrationFormBean - форма от юзера
+     * @param photo                - фото от юзера
+     *                             создает самого юзера, с фото или без
+     * @return
+     */
+    private User createUser(RegistrationFormBean registrationFormBean, MultipartFile photo) {
         User user = new User();
         user.setUsername(registrationFormBean.getUsername());
         user.setPassword(Utils.md5Apache(registrationFormBean.getPassword()));
         user.setMail(registrationFormBean.getEmail());
         user.setEnabled(true);
         if (!photo.isEmpty()) user.setAvatar(photo.getOriginalFilename());
-        userService.add(user);
-
-        UserRoles roles = new UserRoles();
-        roles.setRole(Utils.USER);
-        roles.setUser(user);
-        roleService.add(roles);
-        return "pages/login";
+        return user;
     }
 
+    /**
+     * @param photo - фото от юзера
+     * Сохраняет фото от юзера
+     * в папке target or (war)  /resources/image/user
+     */
     private void checkPhoto(MultipartFile photo) {
         String appPath = servletRequest.getServletContext().getRealPath("");
         String uploadsDirPath = appPath + "resources" + File.separator + "image" + File.separator + "user";
-        System.out.println(uploadsDirPath);
         if (!photo.isEmpty()) {
             try {
                 File dir = new File(uploadsDirPath + File.separator + photo.getOriginalFilename());
@@ -75,9 +110,7 @@ public class UserController {
                     dir.createNewFile();
                 }
 
-                System.out.println("herr");
                 photo.transferTo(dir);
-                System.out.println("here");
 
             } catch (Exception e) {
                 System.out.println("exception");

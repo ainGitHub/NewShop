@@ -10,6 +10,8 @@ public class Utils {
     public final static String USER = "ROLE_USER";
     public final static String GUEST = "ROLE_GUEST";
     public final static String VISITOR = "ROLE_VISITOR";
+    public final static String EMAIL_SUBJECT = "Verify you in site BookStore";
+    public final static String EMAIL_TEXT = "Please click to link <a href='localhost:8088/'>";
 
 
     public static String md5Apache(String st) {
@@ -29,5 +31,9 @@ public class Utils {
             return userService.getUserByUsername(user.getUsername());
 
         return null;
+    }
+
+    public static String getEmailText(String email) {
+        return EMAIL_TEXT + email.hashCode() + "</a>";
     }
 }

@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailService {
 
+    private final String myMail = "ainur6969@gmail.com";
+
     @Autowired
     MailSender mailSender;
 
-    public void sendMail(String to, String subject, String body, String from) {
+    public void sendMail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(from);
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);

@@ -14,7 +14,7 @@ public class MailController {
 
     @RequestMapping("/mail")
     public String sendMail() {
-        mailService.sendMail("ainurmullin@mail.ru", "Verify", "hello", "ainur6969@gmail.com");
+        mailService.sendMail("ainurmullin@mail.ru", "Verify", "hello");
         return "pages/catalog";
     }
 

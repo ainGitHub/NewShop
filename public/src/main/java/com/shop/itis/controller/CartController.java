@@ -32,6 +32,12 @@ public class CartController {
     @Autowired
     HttpServletRequest servletRequest;
 
+
+    /**
+     *
+     * @param goodid - id товара, для добавления
+     * @return
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addGood(@RequestParam("goodId") Long goodid) {
