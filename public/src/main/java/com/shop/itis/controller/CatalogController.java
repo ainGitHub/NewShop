@@ -6,6 +6,7 @@ import com.shop.itis.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,5 +44,12 @@ public class CatalogController {
                 goods.subList(start, end) :
                 goods.subList(start, goods.size()));
         return "pages/ajaxGood";
+    }
+
+    @RequestMapping(value = "/catalog/good")
+    public String showOneGood(@RequestParam("goodId") Long goodId, ModelMap map) {
+        System.out.println(goodId);
+        map.put("oneGood", goodService.getGoodById(goodId));
+        return "pages/oneGood";
     }
 }

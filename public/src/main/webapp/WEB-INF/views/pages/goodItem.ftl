@@ -3,10 +3,10 @@
 <#macro goodItem good showBtnCart showDelete>
 
 <li>
-    <img src="${img_book_res}${good.image}" alt=""/>
+    <a href="#modal${good.id}" class="open_modal"><img src="${img_book_res}${good.image}" alt=""/></a>
 
     <div class="product-info">
-        <a href="#modal${good.id}" class="open_modal"><h3>${good.name}</h3></a>
+        <a href="<@spring.url value='/catalog/good?goodId=${good.id}'/>"><h3>${good.name}</h3></a>
 
         <div class="product-desc">
             <p>
