@@ -86,4 +86,22 @@ public class CartController {
 
         return "pages/cart";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(Long goodId, ModelMap map) {
+        System.out.println(goodId);
+        if (goodId != null) {
+            Good forDeleteGood = goodService.getGoodById(goodId);
+            Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+            cart.getGoods().remove(forDeleteGood);
+            cartService.update(cart);
+            if (cart.getGoods().isEmpty()) {
+                map.put("cartError", "К сожалению в вашей корзине нет товаров");
+            } else {
+                map.put("cartGoods", cart.getGoods());
+            }
+        }
+
+        return "redirect:/cart";
+    }
 }
