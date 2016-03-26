@@ -34,10 +34,10 @@ $(document).on('click', '.js_addToCart', function (event) {
         data: {
             goodId: $this.data('id')
         }
-    }).done(function (data) {  // сюда приходит ответ при успехе
+    }).done(function (data) {  // todo надо добавить авто замену суммы и кол-ва
         console.log(siteUrl + '/cart/add result: status=' + data);
         if (data == 'ok') {
-            $this.removeClass('js_addToCart').text('Go in cart').attr('href', siteUrl + '/cart');
+            $this.removeClass('js_addToCart').text('Перейти В Корзину').attr('href', siteUrl + '/cart');
         } else
             console.log(data);
     }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
