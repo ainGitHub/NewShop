@@ -36,15 +36,15 @@ public class CartController {
 
     /**
      *
-     * @param goodid - id товара, для добавления
-     * @return
+     * @param goodId - id товара, для добавления
+     * @return view
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addGood(@RequestParam("goodId") Long goodid) {
+    public String addGood(@RequestParam("goodId") Long goodId) {
         //TODO надо как то отрефакторить
 
-        Good forAddGood = goodService.getGoodById(goodid);
+        Good forAddGood = goodService.getGoodById(goodId);
 
         Cart userCart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
 
@@ -59,25 +59,30 @@ public class CartController {
             userCart.getGoods().remove(forAddGood);
         }
 
-        if (userCart != null) {
-            double sum = 0.0;
-            for (Good g : userCart.getGoods()) {
-                sum += g.getPrice();
-            }
-            servletRequest.getSession().setAttribute(Constants.CART_SUM, sum);
-            servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, userCart.getGoods().size());
-        }
+        servletRequest.getSession().setAttribute(Constants.CART_SUM, getSum(userCart));
+        servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, userCart.getGoods().size());
 
         servletRequest.getSession().setAttribute(Constants.CART, cartService.getById(userCart.getId()));
         return "ok";
+    }
+
+    private double getSum(Cart userCart) {
+        double sum = 0.0;
+        for (Good g : userCart.getGoods()) {
+            sum += g.getPrice();
+        }
+        return sum;
     }
 
 
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage(ModelMap map) {
         Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
-        if (cart == null || cart.getGoods().isEmpty())
+        if (cart == null || cart.getGoods().isEmpty()) {
             map.put("cartError", "К сожалению в вашей корзине нет товаров");
+        } else {
+            map.put("cartGoods", cart.getGoods());
+        }
 
         return "pages/cart";
     }
