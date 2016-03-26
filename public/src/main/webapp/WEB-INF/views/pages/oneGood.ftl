@@ -1,5 +1,5 @@
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
-<#include "../templates/main.ftl">
+<#include "../mainTemplates/main.ftl">
 <@mainTemplate />
 <#macro body>
 

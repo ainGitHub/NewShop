@@ -1,6 +1,6 @@
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
-<#include "../templates/main.ftl">
+<#include "../mainTemplates/main.ftl">
 <@mainTemplate />
 <#macro body>
 <div class="login-form">

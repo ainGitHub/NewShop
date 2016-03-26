@@ -62,7 +62,7 @@ public class CartController {
         servletRequest.getSession().setAttribute(Constants.CART_SUM, getSum(userCart));
         servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, userCart.getGoods().size());
 
-        servletRequest.getSession().setAttribute(Constants.CART, cartService.getById(userCart.getId()));
+        servletRequest.getSession().setAttribute(Constants.CART, userCart);
         return "ok";
     }
 
@@ -88,18 +88,17 @@ public class CartController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(Long goodId, ModelMap map) {
-        System.out.println(goodId);
+    public String delete(@RequestParam("goodId") Long goodId, ModelMap map) {
         if (goodId != null) {
             Good forDeleteGood = goodService.getGoodById(goodId);
             Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
             cart.getGoods().remove(forDeleteGood);
-            cartService.update(cart);
-            if (cart.getGoods().isEmpty()) {
-                map.put("cartError", "К сожалению в вашей корзине нет товаров");
-            } else {
-                map.put("cartGoods", cart.getGoods());
-            }
+            cartService.flush();
+
+            servletRequest.getSession().setAttribute(Constants.CART_SUM, getSum(cart));
+            servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, cart.getGoods().size());
+
+            map.put("cartGoods", cart.getGoods());
         }
 
         return "redirect:/cart";

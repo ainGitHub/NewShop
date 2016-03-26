@@ -31,7 +31,7 @@
 <!-- Shell -->
 <div class="shell">
     <!-- Header -->
-    <#include "header.ftl">
+    <#include "../templates/header.ftl">
     <!-- End Header -->
 
     <!-- Main -->
@@ -55,10 +55,10 @@
         <!-- Sidebar -->
         <div id="sidebar">
             <!-- Search -->
-            <#include "search.ftl">
+            <#include "../templates/search.ftl">
             <!-- End Search -->
             <!-- Categories -->
-            <#include "categories.ftl">
+            <#include "../templates/categories.ftl">
             <!-- End Categories -->
         </div>
         <!-- End Sidebar -->
@@ -71,18 +71,18 @@
 
     <div class="side-full">
         <!-- More Products -->
-        <#include "moreProduction.ftl">
+        <#include "../templates/moreProduction.ftl">
         <!-- End More Products -->
 
         <!-- Text Cols -->
-        <#include "textCols.ftl">
+        <#include "../templates/textCols.ftl">
         <!-- End Text Cols -->
 
     </div>
     <!-- End Side Full -->
 
     <!-- Footer -->
-    <#include "footer.ftl">
+    <#include "../templates/footer.ftl">
     <!-- End Footer -->
 
 </div>

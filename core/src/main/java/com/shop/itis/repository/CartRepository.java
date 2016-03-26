@@ -21,4 +21,8 @@ public class CartRepository {
     public Cart getById(Long id) {
         return (Cart) sessionFactory.getCurrentSession().load(Cart.class, id);
     }
+
+    public void flush() {
+        sessionFactory.getCurrentSession().flush();
+    }
 }

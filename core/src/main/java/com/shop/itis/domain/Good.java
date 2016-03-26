@@ -173,4 +173,9 @@ public class Good implements Serializable {
     public boolean equals(Object obj) {
         return this.id == ((Good) obj).getId();
     }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

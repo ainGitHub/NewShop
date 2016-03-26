@@ -51,7 +51,7 @@ public class UserController {
             @RequestParam("photo") MultipartFile photo) {
 
         if (bindingResult.hasErrors()) {
-            return "pages/registr";
+            return "auth/registr";
         }
 
         checkPhoto(photo);
@@ -63,7 +63,7 @@ public class UserController {
 
         UserRoles roles = createRoleForUser(user);
         roleService.add(roles);
-        return "pages/login";
+        return "auth/login";
     }
 
     /**
@@ -122,18 +122,18 @@ public class UserController {
     @RequestMapping(value = "/registr", method = RequestMethod.GET)
     public String registrPage() {
         servletRequest.setAttribute(Constants.ATTR_REGISTRATION_FORM, new RegistrationFormBean());
-        return "pages/registr";
+        return "auth/registr";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-        return "pages/login";
+        return "auth/login";
     }
 
     @RequestMapping(value = "/account")
     public String account(ModelMap map) {
         User user = Utils.getAutentificationUser(userService);
         map.put("user", user);
-        return "pages/account";
+        return "auth/account";
     }
 }

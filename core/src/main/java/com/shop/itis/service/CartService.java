@@ -26,4 +26,9 @@ public class CartService {
     public Cart getById(Long id) {
         return cartRepository.getById(id);
     }
+
+    @Transactional
+    public void flush() {
+        cartRepository.flush();
+    }
 }

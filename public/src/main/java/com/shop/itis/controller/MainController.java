@@ -21,7 +21,7 @@ public class MainController {
 
     @RequestMapping(value = "/err")
     public String err() {
-        return "pages/error";
+        return "auth/error";
     }
 
 
