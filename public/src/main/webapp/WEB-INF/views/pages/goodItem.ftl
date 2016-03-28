@@ -18,22 +18,23 @@
 
     <div class="add-cart">
         <strong class="price">Цена: ${good.price} руб.</strong>
+        <!--показать добавить в корзину-->
         <#if showBtnCart>
-            <a class="js_addToCart btn-cart" data-id="${good.id}">
+            <a class="js_addToCart btn add-btn" data-id="${good.id}">
             Добавить В Корзину
             </a>
         </#if>
 
+
+        <!--показать удалить из корзины-->
         <#if showDelete>
-            <br>
-            <label>
-                <input type="number" class="cartCountGood" data-id="${good.id}">
-            </label>
-            <br>
             <form method="post" action="<@spring.url value="/cart/delete"/>">
                 <input name="goodId" hidden type="number" value="${good.id}">
-                <input type="submit" value="Убрать из Корзины" class="btn-cart">
+                <input type="submit" value="Убрать из Корзины" class="btn delete-btn">
             </form>
+            <label class="counter"> Колличество
+                <input type="number" class="cartCountGood" data-id="${good.id}" style="width:60px;">
+            </label>
         </#if>
     </div>
 </li>
@@ -50,7 +51,7 @@
 
     <strong class="price">Цена: ${good.price} руб.</strong>
     <#if showBtnCart>
-        <a class="js_addToCart btn-cart" data-id="${good.id}">
+        <a class="js_addToCart btn btn-cart" data-id="${good.id}">
             Добавить В Корзину
         </a>
 

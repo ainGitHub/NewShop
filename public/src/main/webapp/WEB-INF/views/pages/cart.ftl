@@ -12,14 +12,8 @@
             <#list cartGoods as good>
                 <@goodItem good=good showBtnCart=false showDelete=true/>
             </#list>
-            <li class="last">
-                <div>
-                    <a class="btn-cart" style="margin:auto">
-                        Заказать
-                    </a>
-                </div>
-            </li>
         </ul>
+        <button class="btn order-btn">Заказать</button>
     </div>
     </#if>
 </#macro>

@@ -104,7 +104,7 @@ h1#logo a {
 }
 
 .shell {
-    width: 960px;
+    width: 1024px;
     margin: 0 auto;
     padding: 10px;
     background: #fff;
@@ -179,7 +179,7 @@ a.cart-link:hover {
 
 #content {
     float: right;
-    width: 724px;
+    width: 782px;
 }
 
 #main {
@@ -442,6 +442,7 @@ a.bul {
     font-size: 21px;
     color: #8b0000;
     line-height: 23px;
+    margin-top: 20%;
 }
 
 .more-products {
@@ -467,9 +468,6 @@ a.bul {
     padding: 0 10px;
 }
 
-.more-products ul li.last {
-    border-right: 0;
-}
 
 .more-products-holder {
     width: 804px;
@@ -593,8 +591,9 @@ h3.ico4 {
 
 .add-cart {
     position: absolute;
-    width: 155px;
-    top: 50px;
+    width: 220px;
+    height: 100%;
+    top: 0;
     left: 71%;
 }
 
@@ -654,5 +653,50 @@ h3.ico4 {
     border: solid 1px #ddd;
     padding: 10px;
 }
+
+.add-btn {
+    text-align: center;
+    text-decoration: none;
+    padding-top: 10px;
+    margin: 20px 10px;
+    width: 160px;
+    height: 26px;
+    display: block;
+}
+
+.delete-btn {
+    margin: 20px 10px;
+    width: 160px;
+    height: 35px;
+}
+
+.order-btn {
+    margin-left: 40%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 35px;
+    width: 160px;
+}
+
+.add-btn:hover, .delete-btn:hover, .order-btn:hover {
+    background: green;
+    color: white;
+}
+
+.btn {
+    background: #8b0000;
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    border: solid #ddd 1px;
+}
+
+.counter {
+    position: absolute;
+    top: 5px;
+    left: 70%;
+    width: 60px;
+}
+
 
 
