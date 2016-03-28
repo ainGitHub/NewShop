@@ -103,4 +103,12 @@ public class CartController {
 
         return "redirect:/cart";
     }
+
+
+    @RequestMapping(value = "/count", method = RequestMethod.POST)
+    @ResponseBody
+    public String changeCount(@RequestParam("goodId") Integer goodId, @RequestParam("count") Integer count) {
+        System.out.println(goodId + " " + count);
+        return "ok";
+    }
 }

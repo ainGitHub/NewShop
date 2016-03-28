@@ -25,6 +25,11 @@
         </#if>
 
         <#if showDelete>
+            <br>
+            <label>
+                <input type="number" class="cartCountGood" data-id="${good.id}">
+            </label>
+            <br>
             <form method="post" action="<@spring.url value="/cart/delete"/>">
                 <input name="goodId" hidden type="number" value="${good.id}">
                 <input type="submit" value="Убрать из Корзины" class="btn-cart">

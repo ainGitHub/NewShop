@@ -3,22 +3,23 @@ var siteUrl = "/test";
 
 $(document).ready(function () {
     $(document).on('blur', '.cartCountGood', function () {
-        event.preventDefault();
-
         var $this = $(this);
         if ($this.val().length == 0) return false;
+
         $.ajax({
             type: 'POST',
-            url: siteUrl + '/cart/changeCount',
+            url: siteUrl + '/cart/count',
             data: {
                 goodId: $this.data('id'),
                 count: $this.val()
             },
             success: function (status) {  // успешное завершение работы
+                alert("count changed");
                 console.log(siteUrl + '/cart/add result: data=' + status);
             },
             error: function () {    // На сервере произошла ошибка
-                alert('Приносим извинения.<br/>На сервере произошла ошибка');
+                alert('Приносим извинения.' +
+                    'На сервере произошла ошибка');
             }
         });
     });
