@@ -51,10 +51,6 @@ public class MyUserDetailsService implements UserDetailsService {
         return new ArrayList<GrantedAuthority>(setAuths);
     }
 
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
-
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
