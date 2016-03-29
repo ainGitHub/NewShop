@@ -7,7 +7,7 @@
     <div class="products">
         <ul id="goodList">
             <#include "goodItem.ftl">
-        <@goodItem good=oneGood showBtnCart=true showDelete=false/>
+        <@goodItem good=oneGood showBtnCart=true showDelete=false showDeleteFromOrder=false/>
         </ul>
     </div>
     <#else >

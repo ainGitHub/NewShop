@@ -1,6 +1,6 @@
 <#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <@spring.url value="/resources/image/books/" var="img_book_res"/>
-<#macro goodItem good showBtnCart showDelete>
+<#macro goodItem good showBtnCart showDelete showDeleteFromOrder>
 
 <li>
     <a href="#modal${good.id}" class="open_modal"><img src="${img_book_res}${good.image}" alt=""/></a>
@@ -35,6 +35,14 @@
             <label class="counter"> Колличество
                 <input type="number" class="cartCountGood" data-id="${good.id}" style="width:60px;">
             </label>
+        </#if>
+
+        <#if showDeleteFromOrder>
+            <form method="post" action="<@spring.url value="/order/delete/good"/>">
+                <input name="goodId" hidden type="number" value="${good.id}">
+                <input type="submit" value="Убрать" class="btn delete-btn">
+            </form>
+
         </#if>
     </div>
 </li>

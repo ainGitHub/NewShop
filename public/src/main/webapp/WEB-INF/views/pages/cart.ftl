@@ -10,10 +10,12 @@
         <ul>
             <#include "goodItem.ftl">
             <#list cartGoods as good>
-                <@goodItem good=good showBtnCart=false showDelete=true/>
+            <@goodItem good=good showBtnCart=false showDelete=true showDeleteFromOrder=false/>
             </#list>
         </ul>
-        <button class="btn order-btn">Заказать</button>
+        <a href="<@spring.url value="/order"/>">
+            <button class="btn order-btn">Заказать</button>
+        </a>
     </div>
     </#if>
 </#macro>
