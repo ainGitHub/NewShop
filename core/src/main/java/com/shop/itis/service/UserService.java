@@ -24,4 +24,9 @@ public class UserService {
     public User getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
+
+    @Transactional
+    public void update(User user) {
+        userRepository.update(user);
+    }
 }

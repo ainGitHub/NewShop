@@ -1,9 +1,12 @@
 package com.shop.itis.Utils;
 
+import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.User;
 import com.shop.itis.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+
+import javax.servlet.http.HttpServletRequest;
 
 public class Utils {
     public static String md5Apache(String st) {
@@ -27,5 +30,9 @@ public class Utils {
 
     public static String getEmailText(String email) {
         return Constants.EMAIL_TEXT + email.hashCode();
+    }
+
+    public static Cart getCart(HttpServletRequest request) {
+        return (Cart) request.getSession().getAttribute(Constants.CART);
     }
 }

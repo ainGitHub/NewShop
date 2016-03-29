@@ -31,7 +31,7 @@ public class TestHibernate {
         init();
         //testUser();
         addGoods();
-        testCart();
+        //testCart();
     }
 
     private static void testUser() {

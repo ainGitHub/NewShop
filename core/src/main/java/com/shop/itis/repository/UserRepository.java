@@ -25,6 +25,10 @@ public class UserRepository {
         else return users.get(0);
     }
 
+    public void update(User user) {
+        sessionFactory.getCurrentSession().update(user);
+    }
+
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }

@@ -28,28 +28,16 @@ public class Address {
     Integer index;
 
 
-    @Column(name = "area")
-    String area;
-
-    @ManyToOne
-    User user;
-
-    @OneToMany
-    List<Order> orders = new ArrayList<Order>();
-
-
     public Address() {
     }
 
 
-    public Address(String city, String street, Integer house, Integer flat, Integer index, String area, User user) {
+    public Address(String city, String street, Integer house, Integer flat, Integer index) {
         this.city = city;
         this.street = street;
         this.house = house;
         this.flat = flat;
         this.index = index;
-        this.area = area;
-        this.user = user;
     }
 
     public Integer getId() {
@@ -98,29 +86,5 @@ public class Address {
 
     public void setIndex(Integer index) {
         this.index = index;
-    }
-
-    public String getArea() {
-        return area;
-    }
-
-    public void setArea(String area) {
-        this.area = area;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 }
