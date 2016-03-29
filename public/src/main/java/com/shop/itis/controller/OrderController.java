@@ -39,11 +39,8 @@ public class OrderController {
     @RequestMapping
     public String page(ModelMap map) {
         User user = Utils.getAutentificationUser(userService);
-        if (user != null) {
-            map.put("user", user);
-            return "pages/order";
-        }
-        return "redirect:/login";
+        map.put("user", user);
+        return "pages/order";
     }
 
     @RequestMapping("/delete/good")

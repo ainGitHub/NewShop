@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/cart")
 public class CartController {
+//todo надо сделать колличество товаров
+
+
 
     @Autowired
     GoodService goodService;
