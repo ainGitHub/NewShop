@@ -1,7 +1,12 @@
 package com.shop.itis.controller;
 
+import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
+import com.shop.itis.domain.Cart;
+import com.shop.itis.domain.Good;
 import com.shop.itis.domain.User;
+import com.shop.itis.service.CartService;
+import com.shop.itis.service.GoodService;
 import com.shop.itis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,13 +19,17 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("/order")
 public class OrderController {
-    //todo реализовать
-
     @Autowired
     HttpServletRequest request;
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    GoodService goodService;
+
+    @Autowired
+    CartService cartService;
 
     @RequestMapping
     public String page(ModelMap map) {
@@ -34,6 +43,15 @@ public class OrderController {
 
     @RequestMapping("/delete/good")
     public String deleteGood(@RequestParam("goodId") Long goodId) {
+        Cart cart = (Cart) request.getSession().getAttribute(Constants.CART);
+        Good good = goodService.getGoodById(goodId);
+        if (good != null)
+            cart.getGoods().remove(good);
+        cartService.flush();
+        request.getSession().setAttribute(Constants.CART, cart);
+        if (cart.getGoods().isEmpty())
+            return "redirect:/cart";
+
         return "pages/order";
     }
 }
