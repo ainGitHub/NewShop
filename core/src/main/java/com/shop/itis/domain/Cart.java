@@ -27,13 +27,16 @@ public class Cart {
     User user;
 
 
+    Double sum;
+
     public Cart() {
     }
 
-    public Cart(Integer count, User user, Set<Good> goods) {
+    public Cart(Integer count, User user, Set<Good> goods, Double sum) {
         this.count = count;
         this.user = user;
         this.goods = goods;
+        this.sum = sum;
     }
 
     public Long getId() {
@@ -66,5 +69,13 @@ public class Cart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Double getSum() {
+        return sum;
+    }
+
+    public void setSum(Double sum) {
+        this.sum = sum;
     }
 }

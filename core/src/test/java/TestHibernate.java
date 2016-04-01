@@ -30,8 +30,9 @@ public class TestHibernate {
     public static void main(String[] args) throws SQLException {
         init();
         //testUser();
-        addGoods();
+        //addGoods();
         //testCart();
+        testFilters();
     }
 
     private static void testUser() {
@@ -97,6 +98,13 @@ public class TestHibernate {
         cartService.add(cart);
         cart.getGoods().add(goods.get(2));
         cartService.update(cart);
+    }
+
+    private static void testFilters() {
+        List<Good> goods = goodService.getGoodsByCategoryPriceName((long) 2, 0.0, 151.0, "т");
+        for (Good g : goods) {
+            System.out.println(g.getName());
+        }
     }
 
 }

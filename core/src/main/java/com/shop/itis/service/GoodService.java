@@ -45,4 +45,13 @@ public class GoodService {
         return goodRepository.getGoodsLikeName(name);
     }
 
+    @Transactional
+    public List<Good> getGoodsByCategoryId(Long categoryId) {
+        return goodRepository.getGoodByCategory(categoryId);
+    }
+
+    @Transactional
+    public List<Good> getGoodsByCategoryPriceName(Long categoryId, Double min, Double max, String name) {
+        return goodRepository.getGoodsByPriceAndName(categoryId, min, max, name);
+    }
 }

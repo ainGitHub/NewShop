@@ -1,25 +1,45 @@
+<#assign spring=JspTaglibs["http://www.springframework.org/tags"]>
 <div class="box search">
     <h2>Search by <span></span></h2>
 
     <div class="box-content">
-        <form action="" method="post">
+        <form action="<@spring.url value="/search"/>" method="post">
 
             <label>Поиск</label>
-            <input type="text" class="field"/>
+            <input type="text" class="field" name="name" value="Преступление"/>
 
             <label>Категория</label>
             <select class="field">
-                <option value="">--Выбрать Категорию --</option>
+                <option>1</option>
             </select>
+            <input name="categoryId" hidden value="1">
 
             <div class="inline-field">
                 <label>Цена</label>
-                <select class="field small-field">
-                    <option value="">$10</option>
+                <select class="field small-field" name="min">
+                    <option value="0">0руб</option>
+                    <option value="10">10руб</option>
+                    <option value="100">100руб</option>
+                    <option value="200">200руб</option>
+                    <option value="250">250руб</option>
+                    <option value="500">500руб</option>
+                    <option value="1000">1000руб</option>
+                    <option value="10000">10000руб</option>
+                    <option value="100000">100000руб</option>
+                    <option value="1000000">1000000руб</option>
                 </select>
                 <label>to:</label>
-                <select class="field small-field">
-                    <option value="">$50</option>
+                <select class="field small-field" name="max">
+                    <option value="0">0руб</option>
+                    <option value="10">10руб</option>
+                    <option value="100">100руб</option>
+                    <option value="200">200руб</option>
+                    <option value="250">250руб</option>
+                    <option value="500">500руб</option>
+                    <option value="1000">1000руб</option>
+                    <option value="10000">10000руб</option>
+                    <option value="100000">100000руб</option>
+                    <option value="1000000">1000000руб</option>
                 </select>
             </div>
 

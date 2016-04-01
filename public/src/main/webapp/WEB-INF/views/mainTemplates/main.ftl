@@ -17,6 +17,7 @@
 
     <!-- JS -->
     <script src="${js_res}jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="${js_res}simpleCart.min.js" type="text/javascript"></script>
     <script src="${js_res}store/modal.js" type="text/javascript"></script>
     <script src="${js_res}store/catalog.js" type="text/javascript"></script>
     <script src="${js_res}store/cart.js" type="text/javascript"></script>

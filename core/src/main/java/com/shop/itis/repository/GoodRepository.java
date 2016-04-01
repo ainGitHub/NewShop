@@ -37,6 +37,25 @@ public class GoodRepository {
     }
 
     public List<Good> getGoodsLikeName(String name) {
-        return sessionFactory.getCurrentSession().createCriteria(Good.class).add(Restrictions.like("name", "%" + name + "%")).list();
+        return sessionFactory.getCurrentSession().createCriteria(Good.class)
+                .add(Restrictions.like("name", "%" + name + "%"))
+                .list();
+    }
+
+    public List<Good> getGoodByCategory(Long categoryId) {
+        return sessionFactory.getCurrentSession().createCriteria(Good.class)
+                .createCriteria("category")
+                .add(Restrictions.eq("id", categoryId))
+                .list();
+    }
+
+    public List<Good> getGoodsByPriceAndName(Long categoryId, Double min, Double max, String name) {
+        return sessionFactory.getCurrentSession().createCriteria(Good.class)
+                .add(Restrictions.gt("price", min))
+                .add(Restrictions.lt("price", max))
+                .add(Restrictions.like("name", "%" + name + "%"))
+                .createCriteria("category")
+                .add(Restrictions.eq("id", categoryId))
+                .list();
     }
 }
