@@ -1,6 +1,7 @@
 package com.shop.itis.controller;
 
 import com.shop.itis.Utils.Constants;
+import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.Good;
 import com.shop.itis.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class FiltersController {
     @Autowired
     GoodService goodService;
 
+    @CategoryMenu
     @RequestMapping(method = RequestMethod.POST)
     public String searchBy(ModelMap map, @RequestParam("categoryId") Long categoryId,
                            @RequestParam(value = "min", defaultValue = "0") Double min,

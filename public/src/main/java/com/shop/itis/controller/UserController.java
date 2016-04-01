@@ -3,6 +3,7 @@ package com.shop.itis.controller;
 import com.shop.itis.MailService;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
+import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.User;
 import com.shop.itis.domain.UserRoles;
 import com.shop.itis.form.RegistrationFormBean;
@@ -44,6 +45,7 @@ public class UserController {
      * @param photo                - файл(фото) от формы
      * @return
      */
+    @CategoryMenu
     @RequestMapping(value = "/registr", method = RequestMethod.POST)
     public String registrate(
             @Valid @ModelAttribute(Constants.ATTR_REGISTRATION_FORM) RegistrationFormBean registrationFormBean,
@@ -119,17 +121,20 @@ public class UserController {
         }
     }
 
+    @CategoryMenu
     @RequestMapping(value = "/registr", method = RequestMethod.GET)
     public String registrPage() {
         servletRequest.setAttribute(Constants.ATTR_REGISTRATION_FORM, new RegistrationFormBean());
         return "auth/registr";
     }
 
+    @CategoryMenu
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
         return "auth/login";
     }
 
+    @CategoryMenu
     @RequestMapping(value = "/account")
     public String account(ModelMap map) {
         User user = Utils.getAutentificationUser(userService);

@@ -1,6 +1,7 @@
 package com.shop.itis.controller;
 
 import com.shop.itis.Utils.Constants;
+import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.Good;
 import com.shop.itis.service.CartService;
@@ -45,8 +46,6 @@ public class CartController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addGood(@RequestParam("goodId") Long goodId) {
-        //TODO надо как то отрефакторить
-
         Good forAddGood = goodService.getGoodById(goodId);
 
         Cart userCart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
@@ -78,6 +77,7 @@ public class CartController {
     }
 
 
+    @CategoryMenu
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage(ModelMap map) {
         Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);

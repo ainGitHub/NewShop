@@ -32,7 +32,8 @@ public class TestHibernate {
         //testUser();
         //addGoods();
         //testCart();
-        testFilters();
+        //testFilters();
+        testCategory();
     }
 
     private static void testUser() {
@@ -104,6 +105,13 @@ public class TestHibernate {
         List<Good> goods = goodService.getGoodsByCategoryPriceName((long) 2, 0.0, 151.0, "т");
         for (Good g : goods) {
             System.out.println(g.getName());
+        }
+    }
+
+    private static void testCategory() {
+        List<Category> categories = categoryService.getAllCategories();
+        for (Category c : categories) {
+            System.out.println(c.getName());
         }
     }
 

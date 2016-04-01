@@ -24,6 +24,7 @@
         <h2.version>1.4.181</h2.version>
         <hibernate.version>4.3.6.Final</hibernate.version>
         <jackson.version>2.2.3</jackson.version>
+        <aspectj.version>1.8.2</aspectj.version>
     </properties>
 
 

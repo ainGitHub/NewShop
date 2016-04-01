@@ -1,6 +1,7 @@
 package com.shop.itis.controller;
 
 import com.shop.itis.Utils.Constants;
+import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.Good;
 import com.shop.itis.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class CatalogController {
     GoodService goodService;
 
 
+    @CategoryMenu
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String renderCatalog(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                 Long limit,
@@ -49,6 +51,7 @@ public class CatalogController {
         return "pages/ajaxGood";
     }
 
+    @CategoryMenu
     @RequestMapping(value = "/catalog/good")
     public String showOneGood(@RequestParam("goodId") Long goodId, ModelMap map) {
         System.out.println(goodId);

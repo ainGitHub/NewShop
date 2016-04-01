@@ -2,6 +2,7 @@ package com.shop.itis.controller;
 
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
+import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.*;
 import com.shop.itis.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class OrderController {
     @Autowired
     OrderService orderService;
 
+    @CategoryMenu
     @RequestMapping
     public String page(ModelMap map) {
         User user = Utils.getAutentificationUser(userService);

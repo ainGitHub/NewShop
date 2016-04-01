@@ -8,7 +8,8 @@
              <#list goods as good>
             <@goodItem good=good showBtnCart=true showDelete=false showDeleteFromOrder=false/>
         </#list>
-
+        </ul>
+        <ul>
             <#if limit?? && goodsCount??>
                 <#if limit < goodsCount >
                     <li class="last">

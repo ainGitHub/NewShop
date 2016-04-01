@@ -9,10 +9,13 @@
             <input type="text" class="field" name="name" value="Преступление"/>
 
             <label>Категория</label>
-            <select class="field">
-                <option>1</option>
+            <select class="field" name="categoryId">
+            <#if menuList??>
+                <#list menuList as category>
+                    <option value="${category.id}">${category.name}</option>
+                </#list>
+            </#if>
             </select>
-            <input name="categoryId" hidden value="1">
 
             <div class="inline-field">
                 <label>Цена</label>
