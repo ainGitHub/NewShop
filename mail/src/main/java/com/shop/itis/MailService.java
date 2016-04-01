@@ -2,9 +2,12 @@ package com.shop.itis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 @Service
 public class MailService {
@@ -12,15 +15,23 @@ public class MailService {
     private final String myMail = "ainur6969@gmail.com";
 
     @Autowired
-    MailSender mailSender;
+    JavaMailSenderImpl javaMailSender;
+
 
     public void sendMail(String to, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
+        MimeMessage message = javaMailSender.createMimeMessage();
         try {
-            mailSender.send(message);
+            MimeMessageHelper helper = new MimeMessageHelper(message, false);
+            helper.setFrom(myMail);
+            helper.setTo(to);
+            helper.setText(body, true);
+            helper.setSubject(subject);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        try {
+            javaMailSender.send(message);
+            System.out.println("mail sended to email " + to);
         } catch (MailException e) {
             System.out.println("can't connect to internet");
         }

@@ -19,7 +19,9 @@
                 <prop key="mail.smtp.auth">true</prop>
                 <prop key="mail.smtp.starttls.enable">true</prop>
                 <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.localhost">gmail.com</prop>
             </props>
         </property>
     </bean>
+
 </beans>
