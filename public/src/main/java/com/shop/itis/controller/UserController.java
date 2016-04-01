@@ -50,7 +50,8 @@ public class UserController {
     public String registrate(
             @Valid @ModelAttribute(Constants.ATTR_REGISTRATION_FORM) RegistrationFormBean registrationFormBean,
             BindingResult bindingResult,
-            @RequestParam("photo") MultipartFile photo) {
+            @RequestParam("photo") MultipartFile photo
+    ) {
 
         if (bindingResult.hasErrors()) {
             return "auth/registr";
@@ -61,11 +62,11 @@ public class UserController {
         User user = createUser(registrationFormBean, photo);
         userService.add(user);
 
-        mailService.sendMail(registrationFormBean.getEmail(), Constants.EMAIL_SUBJECT, Utils.getEmailText(registrationFormBean.getEmail()));
-
         UserRoles roles = createRoleForUser(user);
         roleService.add(roles);
-        return "auth/login";
+
+        servletRequest.getSession().setAttribute("registrUser", user);
+        return "redirect:/mail";
     }
 
     /**

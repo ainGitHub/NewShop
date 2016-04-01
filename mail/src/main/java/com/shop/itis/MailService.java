@@ -21,17 +21,19 @@ public class MailService {
     public void sendMail(String to, String subject, String body) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, false);
-            helper.setFrom(myMail);
-            helper.setTo(to);
-            helper.setText(body, true);
-            helper.setSubject(subject);
+            message.setContent(body, "text/html; charset=utf-8");
         } catch (MessagingException e) {
             e.printStackTrace();
         }
         try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, false);
+            helper.setFrom(myMail);
+            helper.setTo(to);
+            helper.setSubject(subject);
             javaMailSender.send(message);
             System.out.println("mail sended to email " + to);
+        } catch (MessagingException e) {
+            e.printStackTrace();
         } catch (MailException e) {
             System.out.println("can't connect to internet");
         }
