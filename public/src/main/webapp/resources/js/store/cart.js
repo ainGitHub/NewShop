@@ -26,22 +26,27 @@ $(document).ready(function () {
 });
 
 // верно!!!
-$(document).on('click', '.js_addToCart', function (event) {
-    event.preventDefault();
-    var $this = $(this);
-    $.ajax({
-        type: "POST",
-        url: siteUrl + "/cart/add",
-        data: {
-            goodId: $this.data('id')
-        }
-    }).done(function (data) {  // todo надо добавить авто замену суммы и кол-ва
-        console.log(siteUrl + '/cart/add result: status=' + data);
-        if (data == 'ok') {
+$(document).ready(function () {
+    var $cartSum = $("#cartSum"),
+        $cartCount = $("#cartCount");
+
+    $(document).on('click', '.js_addToCart', function (event) {
+        event.preventDefault();
+        var $this = $(this);
+        $.ajax({
+            type: "POST",
+            url: siteUrl + "/cart/add",
+            data: {
+                goodId: $this.data('id')
+            }
+        }).done(function (data) {
+            $cartCount.text(data.cartGoodsCount);
+            $cartSum.text(data.cartSum + "руб");
+
+
             $this.removeClass('js_addToCart').text('Перейти В Корзину').attr('href', siteUrl + '/cart');
-        } else
-            console.log(data);
-    }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
-        alert('Приносим извинения.<br/>На сервере произошла ошибка');
+        }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
+            alert('Приносим извинения.<br/>На сервере произошла ошибка');
+        });
     });
 });

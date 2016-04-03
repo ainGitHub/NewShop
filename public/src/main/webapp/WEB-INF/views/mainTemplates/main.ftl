@@ -39,15 +39,9 @@
 
         <!-- Content -->
         <div id="content">
-
-            <!-- Content Slider -->
-
-            <!-- End Content Slider -->
-
             <!-- Products -->
             <@body/>
             <!-- End Products -->
-
         </div>
         <!-- End Content -->
 

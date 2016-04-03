@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cart")
@@ -45,7 +47,7 @@ public class CartController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public String addGood(@RequestParam("goodId") Long goodId) {
+    public Map addGood(@RequestParam("goodId") Long goodId) {
         Good forAddGood = goodService.getGoodById(goodId);
 
         Cart userCart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
@@ -61,11 +63,15 @@ public class CartController {
             userCart.getGoods().remove(forAddGood);
         }
 
-        servletRequest.getSession().setAttribute(Constants.CART_SUM, getSum(userCart));
+        double sum = getSum(userCart);
+        servletRequest.getSession().setAttribute(Constants.CART_SUM, sum);
         servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, userCart.getGoods().size());
-
         servletRequest.getSession().setAttribute(Constants.CART, userCart);
-        return "ok";
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put(Constants.CART_SUM, sum + "");
+        map.put(Constants.CART_GOODS_COUNT, userCart.getGoods().size() + "");
+        return map;
     }
 
     private double getSum(Cart userCart) {

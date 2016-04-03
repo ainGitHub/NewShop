@@ -7,8 +7,8 @@
         <a href="<@spring.url value="/cart"/>" class="cart-link">Ваши товары в Корзине</a>
 
         <div class="c1"></div>
-        <span>Товаров: <strong><#if cartGoodsCount??>${cartGoodsCount}<#else>0</#if></strong></span>
-        <span>Сумма: <strong><#if cartSum??>${cartSum}<#else>0</#if>руб</strong></span>
+        <span>Товаров: <strong id="cartCount"><#if cartGoodsCount??>${cartGoodsCount}<#else>0</#if></strong></span>
+        <span>Сумма: <strong id="cartSum"><#if cartSum??>${cartSum}<#else>0</#if>руб</strong></span>
     </div>
     <!-- End Cart -->
 
