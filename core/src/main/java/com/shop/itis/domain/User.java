@@ -23,14 +23,6 @@ public class User {
     @Column(name = "avatar", length = 100)
     String avatar = "default.png";
 
-    @Column(name = "name", length = 100)
-    String name;
-
-    @Column(name = "cheak")
-    Boolean cheak;
-
-    @Column(name = "status")
-    Boolean status = false;
 
     @Column(name = "key")
     Integer key;
@@ -40,9 +32,6 @@ public class User {
 
     @OneToMany
     List<Order> orders = new ArrayList<Order>();
-
-    @ManyToOne
-    Cart cart;
 
     @OneToMany
     List<Address> address = new ArrayList<Address>();
@@ -60,12 +49,10 @@ public class User {
         this.mail = mail;
     }
 
-    public User(String username, String password, String avatar, String name, Boolean cheak, Integer key) {
+    public User(String username, String password, String avatar, Integer key) {
         this.username = username;
         this.password = password;
         this.avatar = avatar;
-        this.name = name;
-        this.cheak = cheak;
         this.key = key;
     }
 
@@ -94,21 +81,6 @@ public class User {
         this.avatar = avatar;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Boolean getCheak() {
-        return cheak;
-    }
-
-    public void setCheak(Boolean cheak) {
-        this.cheak = cheak;
-    }
 
     public Integer getKey() {
         return key;
@@ -134,28 +106,12 @@ public class User {
         this.orders = orders;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
     public List<Address> getAddress() {
         return address;
     }
 
     public void setAddress(List<Address> address) {
         this.address = address;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 
     public boolean isEnabled() {

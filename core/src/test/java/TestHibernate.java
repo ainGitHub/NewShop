@@ -31,9 +31,9 @@ public class TestHibernate {
         init();
         //testUser();
         //addGoods();
-        //testCart();
+        testCart();
         //testFilters();
-        testCategory();
+        //testCategory();
     }
 
     private static void testUser() {
@@ -92,12 +92,15 @@ public class TestHibernate {
     }
 
     private static void testCart() {
+        //addGoods();
         List<Good> goods = goodService.getAllGoods();
 
-        Cart cart = new Cart();
-        cart.getGoods().add(goods.get(0));
-        cartService.add(cart);
-        cart.getGoods().add(goods.get(2));
+        User user = new User();
+        user.setUsername("admin");
+        userService.add(user);
+
+
+        Cart cart = new Cart(user, goods.get(0), 10);
         cartService.update(cart);
     }
 

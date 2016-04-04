@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.HashSet;
 
 @Controller
 @RequestMapping("/order")
@@ -50,11 +49,11 @@ public class OrderController {
         Cart cart = Utils.getCart(request);
         Good good = goodService.getGoodById(goodId);
         if (good != null)
-            cart.getGoods().remove(good);
+            // cart.getGoods().remove(good);
         cartService.flush();
         request.getSession().setAttribute(Constants.CART, cart);
-        if (cart.getGoods().isEmpty())
-            return "redirect:/cart";
+        //if (cart.getGoods().isEmpty())
+        //return "redirect:/cart";
 
         return "pages/order";
     }
@@ -68,7 +67,7 @@ public class OrderController {
     ) {
         User user = Utils.getAutentificationUser(userService);
         Cart cart = Utils.getCart(request);
-        cart.setGoods(new HashSet<Good>());
+        // cart.setGoods(new HashSet<Good>());
         cartService.update(cart);
 
         Address address1 = new Address(city, street, house, flat, index);

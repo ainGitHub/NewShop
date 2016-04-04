@@ -1,50 +1,27 @@
 package com.shop.itis.domain;
 
 
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "cart")
 public class Cart {
-    @Id
-    @Column(name = "id", nullable = false, unique = true)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @EmbeddedId
+    CartId cartId;
 
-    @Column(name = "count")
+    @Column
     Integer count;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "cart_good")
-    Set<Good> goods = new HashSet<Good>();
-
-    @ManyToOne
-    User user;
-
-
-    Double sum;
 
     public Cart() {
     }
 
-    public Cart(Integer count, User user, Set<Good> goods, Double sum) {
+    public Cart(User user, Good good, Integer count) {
+        this.cartId = new CartId(user.getUsername(), good.getId());
         this.count = count;
-        this.user = user;
-        this.goods = goods;
-        this.sum = sum;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Integer getCount() {
@@ -55,27 +32,11 @@ public class Cart {
         this.count = count;
     }
 
-    public Set<Good> getGoods() {
-        return goods;
+    public CartId getCartId() {
+        return cartId;
     }
 
-    public void setGoods(Set<Good> goods) {
-        this.goods = goods;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Double getSum() {
-        return sum;
-    }
-
-    public void setSum(Double sum) {
-        this.sum = sum;
+    public void setCartId(CartId cartId) {
+        this.cartId = cartId;
     }
 }

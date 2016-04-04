@@ -53,9 +53,6 @@ public class MailController {
     @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
     public String checkRegistr(@RequestParam("code") Integer code) {
         User user = (User) servletRequest.getSession().getAttribute("registrUser");
-        if (user != null && user.getUsername().hashCode() == code) {
-            user.setCheak(true);
-        }
 
         return "redirect:/catalog";
     }
