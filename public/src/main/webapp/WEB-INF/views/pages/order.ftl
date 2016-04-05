@@ -18,11 +18,11 @@
         <input type="submit" value="Купить" class="btn delete-btn">
     </form>
 </div>
-    <#if userGoods?? && userGoods.goods??>
+    <#if cartGoods?? && cartGoods?has_content>
     <div class="products">
         <ul>
             <#include "goodItem.ftl">
-            <#list userGoods.goods as good>
+            <#list cartGoods as good>
             <@goodItem good=good showBtnCart=false showDelete=false showDeleteFromOrder=true/>
         </#list>
         </ul>

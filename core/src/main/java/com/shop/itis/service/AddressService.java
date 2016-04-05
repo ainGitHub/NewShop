@@ -16,4 +16,9 @@ public class AddressService {
     public void add(Address address) {
         addressRepository.add(address);
     }
+
+    @Transactional
+    public void update(Address address) {
+        addressRepository.update(address);
+    }
 }

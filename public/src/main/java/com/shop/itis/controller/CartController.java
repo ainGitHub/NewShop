@@ -96,16 +96,14 @@ public class CartController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("goodId") Long goodId) {
-        if (goodId != null) {
-            Good forDeleteGood = goodService.getGoodById(goodId);
-            Set<Good> goods = Utils.getAttributeCartGoods(servletRequest);
-            goods.remove(forDeleteGood);
+        Good deleteGood = goodService.getGoodById(goodId);
+        Set<Good> goods = Utils.getAttributeCartGoods(servletRequest);
+        goods.remove(deleteGood);
 
-            Double sum = Utils.getAttrSum(servletRequest);
-            sum -= forDeleteGood.getPrice();
+        Double sum = Utils.getAttrSum(servletRequest);
+        sum -= deleteGood.getPrice();
 
-            Utils.addAttributes(goods, sum, goods.size(), servletRequest);
-        }
+        Utils.addAttributes(goods, sum, goods.size(), servletRequest);
 
         return "redirect:/cart";
     }

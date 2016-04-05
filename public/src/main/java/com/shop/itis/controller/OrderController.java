@@ -66,7 +66,7 @@ public class OrderController {
         }
 
         Address address1 = new Address(city, street, house, flat, index);
-        addressService.add(address1);
+        addressService.update(address1);
 
         Order order = new Order(user, address1, new Date(), sum, "to check", "webMoney");
         orderService.add(order);

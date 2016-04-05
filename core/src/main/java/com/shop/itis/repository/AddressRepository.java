@@ -13,4 +13,8 @@ public class AddressRepository {
     public void add(Address address) {
         sessionFactory.getCurrentSession().save(address);
     }
+
+    public void update(Address address) {
+        sessionFactory.getCurrentSession().update(address);
+    }
 }
