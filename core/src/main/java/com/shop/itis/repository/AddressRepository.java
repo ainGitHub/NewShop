@@ -15,6 +15,6 @@ public class AddressRepository {
     }
 
     public void update(Address address) {
-        sessionFactory.getCurrentSession().update(address);
+        sessionFactory.getCurrentSession().saveOrUpdate(address);
     }
 }

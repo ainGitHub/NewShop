@@ -1,13 +1,8 @@
 package com.shop.itis.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "address")
@@ -25,7 +20,7 @@ public class Address {
     @Column(name = "street", length = 100)
     String street;
 
-    @NotEmpty(message = "Дом должен быть не пустым")
+    @NotNull(message = "Дом должен быть не пустым")
     @Column(name = "house", length = 100)
     Integer house;
 

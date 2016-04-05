@@ -8,20 +8,20 @@
     </#if> <br>
 
     <@form.form commandName="address_form" acceptCharset="UTF-8">
-        <h3>Город <@form.input path="city" title="Город"/></h3><br>
-        <@form.errors path="city" cssClass="error"/>
+        <h3>Город <@form.input path="city" title="Город"/></h3>
+        <@form.errors path="city" cssClass="error"/><br><br>
 
-        <h3>Улица <@form.input path="street" title="Улица"/></h3><br>
-        <@form.errors path="street"/>
+        <h3>Улица <@form.input path="street" title="Улица"/></h3>
+        <@form.errors path="street" cssClass="error"/><br><br>
 
-        <h3>Дом <@form.input path="house" title="Дом"/></h3><br>
-        <@form.errors path="house" cssClass="error"/>
+        <h3>Дом <@form.input path="house" title="Дом"/></h3>
+        <@form.errors path="house" cssClass="error"/><br><br>
 
-        <h3>Квартира <@form.input path="flat" title="Квартира"/></h3><br>
-        <@form.errors path="flat" cssClass="error"/>
+        <h3>Квартира <@form.input path="flat" title="Квартира"/></h3>
+        <@form.errors path="flat" cssClass="error"/><br><br>
 
-        <h3>Индекс <@form.input path="index" title="Индекс"/></h3><br>
-        <@form.errors path="index" cssClass="error"/>
+        <h3>Индекс <@form.input path="index" title="Индекс"/></h3>
+        <@form.errors path="index" cssClass="error"/><br><br>
 
         <input type="submit" value="Купить" class="btn delete-btn">
     </@form.form>
