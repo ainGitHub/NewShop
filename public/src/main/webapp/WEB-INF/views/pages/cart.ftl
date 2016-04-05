@@ -9,8 +9,8 @@
     <div class="products">
         <ul>
             <#include "goodItem.ftl">
-            <#list cartGoods as good>
-            <@goodItem good=good showBtnCart=false showDelete=true showDeleteFromOrder=false/>
+            <#list cartGoods as wrapper>
+            <@goodItem good=wrapper.good showBtnCart=false showDelete=true showDeleteFromOrder=false counter=wrapper.count/>
             </#list>
         </ul>
         <a href="<@spring.url value="/order"/>">

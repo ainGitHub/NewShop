@@ -40,9 +40,7 @@
                     Индекс ${order.address.index}<br>
                     <span>Сумма ${order.total_sum}</span><br>
                     Статус ${order.status}<br>
-                    <#list order.goods as user_good>
-                    ${user_good.good.name},
-                    </#list>
+                ${order.good.name},
                 </li>
             </#list>
         </ul>

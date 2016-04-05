@@ -31,7 +31,7 @@
         <ul>
             <#include "goodItem.ftl">
             <#list cartGoods as good>
-            <@goodItem good=good showBtnCart=false showDelete=false showDeleteFromOrder=true/>
+            <@goodItem good=good.good showBtnCart=false showDelete=false showDeleteFromOrder=true counter=1/>
         </#list>
         </ul>
     </div>

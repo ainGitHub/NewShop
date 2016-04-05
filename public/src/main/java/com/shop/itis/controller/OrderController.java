@@ -3,8 +3,14 @@ package com.shop.itis.controller;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
-import com.shop.itis.domain.*;
-import com.shop.itis.service.*;
+import com.shop.itis.domain.Address;
+import com.shop.itis.domain.Good;
+import com.shop.itis.domain.GoodWrapper;
+import com.shop.itis.domain.User;
+import com.shop.itis.service.AddressService;
+import com.shop.itis.service.GoodService;
+import com.shop.itis.service.OrderService;
+import com.shop.itis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,14 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
-    @Autowired
-    HttpServletRequest servletRequest;
 
     @Autowired
     HttpServletRequest request;
@@ -33,9 +36,6 @@ public class OrderController {
 
     @Autowired
     GoodService goodService;
-
-    @Autowired
-    CartService cartService;
 
     @Autowired
     AddressService addressService;
@@ -69,24 +69,19 @@ public class OrderController {
 
         User user = Utils.getAutentificationUser(userService);
 
-        List<UserGoods> userGoodses = cartService.getUserAllGoods(user.getUsername());
+        Set<GoodWrapper> goods = Utils.getAttributeCartGoods(request);
         Double sum = 0.0;
-        for (UserGoods userGoods : userGoodses) {
+        for (GoodWrapper userGoods : goods) {
             sum += userGoods.getGood().getPrice() * userGoods.getCount();
         }
 
         addressService.update(address);
 
-        Order order = new Order(user, address, new Date(), sum, "to check", "webMoney");
-        order.setGoods(userGoodses);
-        orderService.add(order);
+        orderService.add(user, address, goods, "to check", "webMoney");
 
 
         user.getAddress().add(address);
-        user.getOrders().add(order);
         userService.update(user);
-
-        cartService.deleteAll(user);
 
         return "redirect:/catalog";
     }

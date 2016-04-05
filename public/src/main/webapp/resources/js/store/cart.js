@@ -2,6 +2,9 @@
 var siteUrl = "/test";
 
 $(document).ready(function () {
+    var $cartSum = $("#cartSum"),
+        $cartCount = $("#cartCount");
+
     $(document).on('blur', '.cartCountGood', function () {
         var $this = $(this);
         if ($this.val().length == 0) return false;
@@ -13,9 +16,9 @@ $(document).ready(function () {
                 goodId: $this.data('id'),
                 count: $this.val()
             },
-            success: function (status) {  // успешное завершение работы
-                alert("count changed");
-                console.log(siteUrl + '/cart/add result: data=' + status);
+            success: function (data) {  // успешное завершение работы
+                $cartCount.text(data.cartGoodsCount);
+                $cartSum.text(data.cartSum + "руб");
             },
             error: function () {    // На сервере произошла ошибка
                 alert('Приносим извинения.' +
@@ -23,12 +26,6 @@ $(document).ready(function () {
             }
         });
     });
-});
-
-// верно!!!
-$(document).ready(function () {
-    var $cartSum = $("#cartSum"),
-        $cartCount = $("#cartCount");
 
     $(document).on('click', '.js_addToCart', function (event) {
         event.preventDefault();
@@ -52,3 +49,4 @@ $(document).ready(function () {
         });
     });
 });
+

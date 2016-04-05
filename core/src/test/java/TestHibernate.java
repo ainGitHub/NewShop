@@ -3,7 +3,6 @@ import com.shop.itis.service.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 public class TestHibernate {
@@ -12,7 +11,7 @@ public class TestHibernate {
     private static RoleService roleService;
     private static GoodService goodService;
     private static CategoryService categoryService;
-    private static CartService cartService;
+    //private static CartService cartService;
     private static OrderService orderService;
     private static AddressService addressService;
 
@@ -27,7 +26,7 @@ public class TestHibernate {
 
         goodService = context.getBean(GoodService.class, "goodService");
 
-        cartService = context.getBean(CartService.class, "cartService");
+        //cartService = context.getBean(CartService.class, "cartService");
 
         orderService = context.getBean(OrderService.class);
 
@@ -38,7 +37,7 @@ public class TestHibernate {
         init();
         //cartService.deleteAll(userService.getUserByUsername("ainur"));
         //testUser();
-        //addGoods();
+        addGoods();
         //testCart();
         //testFilters();
         //testCategory();
@@ -50,10 +49,10 @@ public class TestHibernate {
         addressService.update(address);
 
         User user = userService.getUserByUsername("admin");
-        Order o = new Order(user, address, new Date(), 100.0, "paypal", "to check");
-        orderService.add(o);
+        // Order o = new Order(user, address, new Date(), 100.0, "paypal", "to check");
+        //orderService.add(o);
 
-        Order o2 = new Order(user, address, new Date(), 100.0, "paypal", "to check");
+        //Order o2 = new Order(user, address, new Date(), 100.0, "paypal", "to check");
 
     }
 
@@ -130,17 +129,17 @@ public class TestHibernate {
         userService.add(user);
 
 
-        UserGoods userGoods = new UserGoods(user, goods.get(0), 10);
-        cartService.update(userGoods);
+        // UserGoods userGoods = new UserGoods(user, goods.get(0), 10);
+        // cartService.update(userGoods);
 
-        List<UserGoods> userGoodses = cartService.getUserAllGoods("admin");
-        for (UserGoods c : userGoodses) {
-            System.out.println(c.getGood().getName());
-        }
+        // List<UserGoods> userGoodses = cartService.getUserAllGoods("admin");
+        //for (UserGoods c : userGoodses) {
+        //     System.out.println(c.getGood().getName());
+        // }
 
-        System.out.println(cartService.getById(goods.get(0).getId(), user.getUsername()).getGood().getName());
+       /* System.out.println(cartService.getById(goods.get(0).getId(), user.getUsername()).getGood().getName());
         //cartService.delete(goods.get(0).getId(), user.getUsername());
-        cartService.update(goods.get(0), user, 5);
+        cartService.update(goods.get(0), user, 5);*/
     }
 
     private static void testFilters() {

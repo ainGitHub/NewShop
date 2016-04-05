@@ -1,15 +1,12 @@
 package com.shop.itis.domain;
 
 
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 @Table(name = "orders")
@@ -37,9 +34,11 @@ public class Order {
     @Column(name = "pay_type", length = 100)
     String pay_type;
 
-    @ManyToMany
-    @Cascade(CascadeType.ALL)
-    List<UserGoods> goods = new ArrayList<UserGoods>();
+    @ManyToOne
+    Good good;
+
+    @Column
+    Integer count;
 
     public Order() {
     }
@@ -50,13 +49,14 @@ public class Order {
         this.total_sum = total_sum;
     }
 
-    public Order(User user, Address address, Date createDate, Double total_sum, String status, String pay_type) {
+    public Order(User user, Address address, Date createDate, Double total_sum, String status, String pay_type, Integer count) {
         this.user = user;
         this.address = address;
         this.createDate = createDate;
         this.total_sum = total_sum;
         this.status = status;
         this.pay_type = pay_type;
+        this.count = count;
     }
 
     public Integer getId() {
@@ -115,11 +115,19 @@ public class Order {
         this.pay_type = pay_type;
     }
 
-    public List<UserGoods> getGoods() {
-        return goods;
+    public Good getGood() {
+        return good;
     }
 
-    public void setGoods(List<UserGoods> goods) {
-        this.goods = goods;
+    public void setGood(Good good) {
+        this.good = good;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }

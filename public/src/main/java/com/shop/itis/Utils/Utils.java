@@ -1,6 +1,6 @@
 package com.shop.itis.Utils;
 
-import com.shop.itis.domain.Good;
+import com.shop.itis.domain.GoodWrapper;
 import com.shop.itis.domain.User;
 import com.shop.itis.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -42,12 +42,12 @@ public class Utils {
         return (Double) servletRequest.getSession().getAttribute(Constants.CART_SUM);
     }
 
-    public static Set<Good> getAttributeCartGoods(HttpServletRequest servletRequest) {
-        return (Set<Good>) servletRequest.getSession().getAttribute(Constants.CART_GOODS);
+    public static Set<GoodWrapper> getAttributeCartGoods(HttpServletRequest servletRequest) {
+        return (Set<GoodWrapper>) servletRequest.getSession().getAttribute(Constants.CART_GOODS);
     }
 
 
-    public static void addAttributes(Set<Good> goods, Double sum, int size, HttpServletRequest servletRequest) {
+    public static void addAttributes(Set<GoodWrapper> goods, Double sum, int size, HttpServletRequest servletRequest) {
         servletRequest.getSession().setAttribute(Constants.CART_SUM, sum);
         servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, size);
         servletRequest.getSession().setAttribute(Constants.CART_GOODS, goods);

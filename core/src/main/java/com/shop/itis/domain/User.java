@@ -31,9 +31,6 @@ public class User {
     boolean enabled;
 
     @OneToMany
-    List<Order> orders = new ArrayList<Order>();
-
-    @OneToMany
     List<Address> address = new ArrayList<Address>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -96,14 +93,6 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 
     public List<Address> getAddress() {
