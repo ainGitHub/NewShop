@@ -12,6 +12,7 @@ public class TestHibernate {
     private static GoodService goodService;
     private static CategoryService categoryService;
     private static CartService cartService;
+    private static OrderService orderService;
 
     public static void init() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -25,15 +26,27 @@ public class TestHibernate {
         goodService = context.getBean(GoodService.class, "goodService");
 
         cartService = context.getBean(CartService.class, "cartService");
+
+        orderService = context.getBean(OrderService.class);
     }
 
     public static void main(String[] args) throws SQLException {
         init();
         //testUser();
         //addGoods();
-        testCart();
+        //testCart();
         //testFilters();
         //testCategory();
+        testOrders();
+    }
+
+    private static void testOrders() {
+        User user = userService.getUserByUsername("ainur");
+        List<Order> orders = orderService.getAllOrders(user);
+        for (Order o : orders) {
+            System.out.println(o.getCreateDate());
+            System.out.println(o.getAddress().getCity());
+        }
     }
 
     private static void testUser() {

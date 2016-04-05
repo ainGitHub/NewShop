@@ -26,5 +26,25 @@
         </li>
     </ul>
     </#if>
+
+    <h3>Заказы</h3>
+    <#if orders?? && orders?has_content>
+        <ul class="products">
+            <#list orders as order>
+                <li>
+                    Создано ${order.createDate}<br>
+                    Город ${order.address.city}<br>
+                    Улица ${order.address.street}<br>
+                    Дом   ${order.address.house}<br>
+                    Квартира ${order.address.flat}<br>
+                    Индекс ${order.address.index}<br>
+                    <span>Сумма ${order.total_sum}</span><br>
+                    Статус ${order.status}
+                </li>
+            </#list>
+        </ul>
+    <#else>
+        У вас нет заказов
+    </#if>
 </div>
 </#macro>

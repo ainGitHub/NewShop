@@ -4,9 +4,11 @@ import com.shop.itis.MailService;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
+import com.shop.itis.domain.Order;
 import com.shop.itis.domain.User;
 import com.shop.itis.domain.UserRoles;
 import com.shop.itis.form.RegistrationFormBean;
+import com.shop.itis.service.OrderService;
 import com.shop.itis.service.RoleService;
 import com.shop.itis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.File;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -37,6 +40,9 @@ public class UserController {
 
     @Autowired
     MailService mailService;
+
+    @Autowired
+    OrderService orderService;
 
 
     /**
@@ -139,6 +145,8 @@ public class UserController {
     @RequestMapping(value = "/account")
     public String account(ModelMap map) {
         User user = Utils.getAutentificationUser(userService);
+        List<Order> orders = orderService.getAllOrders(user);
+        map.put("orders", orders);
         map.put("user", user);
         return "auth/account";
     }
