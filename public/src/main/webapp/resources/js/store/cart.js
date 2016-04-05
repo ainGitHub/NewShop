@@ -40,11 +40,13 @@ $(document).ready(function () {
                 goodId: $this.data('id')
             }
         }).done(function (data) {
-            $cartCount.text(data.cartGoodsCount);
-            $cartSum.text(data.cartSum + "руб");
-
-
-            $this.removeClass('js_addToCart').text('Перейти В Корзину').attr('href', siteUrl + '/cart');
+            if (data.exist != null) {
+                $cartCount.text(data.cartGoodsCount);
+                $cartSum.text(data.cartSum + "руб");
+                $this.removeClass('js_addToCart').text('Перейти В Корзину').attr('href', siteUrl + '/cart');
+            } else {
+                $this.text('Уже в корзине');
+            }
         }).fail(function () {      // сюда приходит ответ если на сервере прооизошла ошибка
             alert('Приносим извинения.<br/>На сервере произошла ошибка');
         });

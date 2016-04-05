@@ -100,8 +100,17 @@ public class TestHibernate {
         userService.add(user);
 
 
-        Cart cart = new Cart(user, goods.get(0), 10);
-        cartService.update(cart);
+        UserGoods userGoods = new UserGoods(user, goods.get(0), 10);
+        cartService.update(userGoods);
+
+        List<UserGoods> userGoodses = cartService.getUserAllGoods("admin");
+        for (UserGoods c : userGoodses) {
+            System.out.println(c.getGood().getName());
+        }
+
+        System.out.println(cartService.getById(goods.get(0).getId(), user.getUsername()).getGood().getName());
+        //cartService.delete(goods.get(0).getId(), user.getUsername());
+        cartService.update(goods.get(0), user, 5);
     }
 
     private static void testFilters() {

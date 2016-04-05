@@ -5,7 +5,7 @@
     <span class="cart-goods-empty">${cartError}</span>
     </#if>
 
-    <#if cartGoods??>
+    <#if cartGoods?? && cartGoods?has_content>
     <div class="products">
         <ul>
             <#include "goodItem.ftl">

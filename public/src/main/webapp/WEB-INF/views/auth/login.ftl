@@ -25,7 +25,7 @@
     </p>
 
     <p>
-        <input name="submit" type="submit" value="Войти" class="btn-cart"/>
+        <input name="submit" type="submit" value="Войти" class="btn-userGoods"/>
     </p><br>
 </form>
     <a href="<@spring.url value="/registr"/>">Зарегистрироваться</a>

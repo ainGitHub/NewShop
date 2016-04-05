@@ -42,7 +42,7 @@
         </p>
 
         <p>
-            <input type="submit" value="Регистрация" class="btn-cart"/>
+            <input type="submit" value="Регистрация" class="btn-userGoods"/>
         </p><br>
 
         <p>

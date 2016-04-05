@@ -1,12 +1,13 @@
 package com.shop.itis.Utils;
 
-import com.shop.itis.domain.Cart;
+import com.shop.itis.domain.Good;
 import com.shop.itis.domain.User;
 import com.shop.itis.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Set;
 
 public class Utils {
     public static String md5Apache(String st) {
@@ -32,7 +33,23 @@ public class Utils {
         return Constants.EMAIL_TEXT + email.hashCode();
     }
 
-    public static Cart getCart(HttpServletRequest request) {
-        return (Cart) request.getSession().getAttribute(Constants.CART);
+
+    public static Integer getAttributeCartGoodsCount(HttpServletRequest servletRequest) {
+        return (Integer) servletRequest.getSession().getAttribute(Constants.CART_GOODS_COUNT);
+    }
+
+    public static Double getAttrSum(HttpServletRequest servletRequest) {
+        return (Double) servletRequest.getSession().getAttribute(Constants.CART_SUM);
+    }
+
+    public static Set<Good> getAttributeCartGoods(HttpServletRequest servletRequest) {
+        return (Set<Good>) servletRequest.getSession().getAttribute(Constants.CART_GOODS);
+    }
+
+
+    public static void addAttributes(Set<Good> goods, Double sum, int size, HttpServletRequest servletRequest) {
+        servletRequest.getSession().setAttribute(Constants.CART_SUM, sum);
+        servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, size);
+        servletRequest.getSession().setAttribute(Constants.CART_GOODS, goods);
     }
 }

@@ -18,7 +18,7 @@
 
                     <div>
                     <form action="<@spring.url value="/logout"/>" method="post" id="logoutForm">
-                        <input type="submit" value="logout" class="btn-cart">
+                        <input type="submit" value="logout" class="btn-userGoods">
                     </form>
                     </div>
                 </div>

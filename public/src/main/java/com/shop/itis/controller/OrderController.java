@@ -1,6 +1,5 @@
 package com.shop.itis.controller;
 
-import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.*;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/order")
@@ -39,21 +39,13 @@ public class OrderController {
     @CategoryMenu
     @RequestMapping
     public String page(ModelMap map) {
-        User user = Utils.getAutentificationUser(userService);
-        map.put("user", user);
+        map.put("user", Utils.getAutentificationUser(userService));
         return "pages/order";
     }
 
     @RequestMapping("/delete/good")
     public String deleteGood(@RequestParam("goodId") Long goodId) {
-        Cart cart = Utils.getCart(request);
-        Good good = goodService.getGoodById(goodId);
-        if (good != null)
-            // cart.getGoods().remove(good);
-        cartService.flush();
-        request.getSession().setAttribute(Constants.CART, cart);
-        //if (cart.getGoods().isEmpty())
-        //return "redirect:/cart";
+        Good deleteGood = goodService.getGoodById(goodId);
 
         return "pages/order";
     }
@@ -66,21 +58,24 @@ public class OrderController {
                            @RequestParam("index") Integer index
     ) {
         User user = Utils.getAutentificationUser(userService);
-        Cart cart = Utils.getCart(request);
-        // cart.setGoods(new HashSet<Good>());
-        cartService.update(cart);
+
+        List<UserGoods> userGoodses = cartService.getUserAllGoods(user.getUsername());
+        Double sum = 0.0;
+        for (UserGoods userGoods : userGoodses) {
+            sum += userGoods.getGood().getPrice() * userGoods.getCount();
+        }
 
         Address address1 = new Address(city, street, house, flat, index);
         addressService.add(address1);
 
-        Order order = new Order(user, address1, new Date(), 0.0, "to check", "webMoney");
+        Order order = new Order(user, address1, new Date(), sum, "to check", "webMoney");
         orderService.add(order);
 
-        if (user != null) {
-            user.getAddress().add(address1);
-            user.getOrders().add(order);
-            userService.update(user);
-        }
+
+        user.getAddress().add(address1);
+        user.getOrders().add(order);
+        userService.update(user);
+
         return "redirect:/catalog";
     }
 }
