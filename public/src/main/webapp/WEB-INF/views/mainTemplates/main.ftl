@@ -64,7 +64,7 @@
 
     <div class="side-full">
         <!-- More Products -->
-        <#include "../templates/moreProduction.ftl">
+    <#--<#include "../templates/moreProduction.ftl">-->
         <!-- End More Products -->
 
         <!-- Text Cols -->

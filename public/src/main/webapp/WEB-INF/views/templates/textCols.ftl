@@ -1,36 +1,33 @@
 <div class="cols">
     <div class="cl">&nbsp;</div>
     <div class="col">
-        <h3 class="ico ico1">Donec imperdiet</h3>
+        <h3 class="ico ico1">Способы доставки</h3>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis
-            ornare dui.</p>
+        <p>Доставка осуществляется до ближайшего отделения почты.</p>
 
-        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+        <p class="more"><a href="#" class="bul">Bookstore</a></p>
     </div>
     <div class="col">
-        <h3 class="ico ico2">Donec imperdiet</h3>
+        <h3 class="ico ico2">Наши контакты</h3>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis
-            ornare dui.</p>
+        <p>Наш Call Center работает круглосуточно</p>
 
-        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+        <p class="more"><a href="#" class="bul">Bookstore</a></p>
     </div>
     <div class="col">
-        <h3 class="ico ico3">Donec imperdiet</h3>
+        <h3 class="ico ico3">Бонусы</h3>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis
-            ornare dui.</p>
+        <p>Каждый месяц у нас разные бонусы от 100 до 1000 рублей
+        </p>
 
-        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+        <p class="more"><a href="#" class="bul">Bookstore</a></p>
     </div>
     <div class="col col-last">
-        <h3 class="ico ico4">Donec imperdiet</h3>
+        <h3 class="ico ico4">Осуществляем товары</h3>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec imperdiet, metus ac cursus auctor, arcu felis
-            ornare dui.</p>
+        <p>Вы можете заказать самые редкие книги и новинки только у нас</p>
 
-        <p class="more"><a href="#" class="bul">Lorem ipsum</a></p>
+        <p class="more"><a href="#" class="bul">Bookstore</a></p>
     </div>
     <div class="cl">&nbsp;</div>
 </div>

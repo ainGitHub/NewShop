@@ -14,5 +14,6 @@ public interface Constants {
     String CART_GOODS = "cartGoods";
     String ATTR_REGISTRATION_FORM = "regform";
     Integer TEST_LIMIT = 6;
+    String ATTR_ADDRESS_FORM = "address_form";
 
 }

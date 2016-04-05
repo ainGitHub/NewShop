@@ -1,6 +1,11 @@
 package com.shop.itis.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,23 +13,26 @@ import java.util.List;
 @Table(name = "address")
 public class Address {
     @Id
-    @Column(name = "id")   // ���������� ��� �������, ��������������� ������� ����
-    @GeneratedValue(strategy = GenerationType.AUTO)  // ���������� ������ ���������
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotEmpty(message = "Город должен быть не пустым")
     @Column(name = "city", length = 100)
     String city;
 
+    @NotEmpty(message = "Улица должна быть не пустой")
     @Column(name = "street", length = 100)
     String street;
 
-    @Column(name = "house")
+    @NotEmpty(message = "Дом должен быть не пустым")
+    @Column(name = "house", length = 100)
     Integer house;
 
-    @Column(name = "flat")
+    @Column(name = "flat", length = 100)
     Integer flat;
 
-    @Column(name = "index")
+    @Column(name = "index", length = 100)
     Integer index;
 
 

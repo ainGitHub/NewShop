@@ -1,5 +1,6 @@
 package com.shop.itis.controller;
 
+import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.*;
@@ -7,17 +8,23 @@ import com.shop.itis.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("/order")
 public class OrderController {
+    @Autowired
+    HttpServletRequest servletRequest;
+
     @Autowired
     HttpServletRequest request;
 
@@ -37,9 +44,10 @@ public class OrderController {
     OrderService orderService;
 
     @CategoryMenu
-    @RequestMapping
+    @RequestMapping(method = RequestMethod.GET)
     public String page(ModelMap map) {
         map.put("user", Utils.getAutentificationUser(userService));
+        map.put(Constants.ATTR_ADDRESS_FORM, new Address());
         return "pages/order";
     }
 
@@ -50,13 +58,15 @@ public class OrderController {
         return "pages/order";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addOrder(@RequestParam("city") String city,
-                           @RequestParam("street") String street,
-                           @RequestParam("house") Integer house,
-                           @RequestParam("flat") Integer flat,
-                           @RequestParam("index") Integer index
-    ) {
+    @RequestMapping(method = RequestMethod.POST)
+    public String addOrder(ModelMap map,
+                           @Valid @ModelAttribute(Constants.ATTR_ADDRESS_FORM) Address address,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            map.put(Constants.ATTR_ADDRESS_FORM, address);
+            return "pages/order";
+        }
+
         User user = Utils.getAutentificationUser(userService);
 
         List<UserGoods> userGoodses = cartService.getUserAllGoods(user.getUsername());
@@ -65,14 +75,13 @@ public class OrderController {
             sum += userGoods.getGood().getPrice() * userGoods.getCount();
         }
 
-        Address address1 = new Address(city, street, house, flat, index);
-        addressService.update(address1);
+        addressService.update(address);
 
-        Order order = new Order(user, address1, new Date(), sum, "to check", "webMoney");
+        Order order = new Order(user, address, new Date(), sum, "to check", "webMoney");
         orderService.add(order);
 
 
-        user.getAddress().add(address1);
+        user.getAddress().add(address);
         user.getOrders().add(order);
         userService.update(user);
 

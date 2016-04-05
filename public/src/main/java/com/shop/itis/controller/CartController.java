@@ -97,6 +97,11 @@ public class CartController {
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(@RequestParam("goodId") Long goodId) {
         Good deleteGood = goodService.getGoodById(goodId);
+        User user = Utils.getAutentificationUser(userService);
+        if (user != null) {
+            cartService.delete(deleteGood.getId(), user.getUsername());
+        }
+
         Set<Good> goods = Utils.getAttributeCartGoods(servletRequest);
         goods.remove(deleteGood);
 
