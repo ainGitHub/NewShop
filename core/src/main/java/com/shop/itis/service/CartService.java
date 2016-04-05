@@ -40,4 +40,12 @@ public class CartService {
         UserGoods cart = cartRepository.getById(goodId, username);
         cartRepository.delete(cart);
     }
+
+    @Transactional
+    public void deleteAll(User user) {
+        List<UserGoods> userGoodses = cartRepository.getUserAllGoods(user.getUsername());
+        for (UserGoods g : userGoodses) {
+            cartRepository.delete(g);
+        }
+    }
 }

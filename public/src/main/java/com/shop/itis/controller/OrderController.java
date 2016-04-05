@@ -78,12 +78,15 @@ public class OrderController {
         addressService.update(address);
 
         Order order = new Order(user, address, new Date(), sum, "to check", "webMoney");
+        order.setGoods(userGoodses);
         orderService.add(order);
 
 
         user.getAddress().add(address);
         user.getOrders().add(order);
         userService.update(user);
+
+        cartService.deleteAll(user);
 
         return "redirect:/catalog";
     }

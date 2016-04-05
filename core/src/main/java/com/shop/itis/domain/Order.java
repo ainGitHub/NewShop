@@ -1,15 +1,22 @@
 package com.shop.itis.domain;
 
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
 public class Order {
     @Id
-    @Column(name = "id")   // обозначает имя колонки, соответствующей данному полю
-    @GeneratedValue(strategy = GenerationType.AUTO)  // определяет способ генерации
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @ManyToOne
@@ -29,6 +36,10 @@ public class Order {
 
     @Column(name = "pay_type", length = 100)
     String pay_type;
+
+    @ManyToMany
+    @Cascade(CascadeType.ALL)
+    List<UserGoods> goods = new ArrayList<UserGoods>();
 
     public Order() {
     }
@@ -104,5 +115,11 @@ public class Order {
         this.pay_type = pay_type;
     }
 
+    public List<UserGoods> getGoods() {
+        return goods;
+    }
 
+    public void setGoods(List<UserGoods> goods) {
+        this.goods = goods;
+    }
 }

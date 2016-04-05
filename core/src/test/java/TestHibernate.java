@@ -3,6 +3,7 @@ import com.shop.itis.service.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class TestHibernate {
@@ -13,6 +14,7 @@ public class TestHibernate {
     private static CategoryService categoryService;
     private static CartService cartService;
     private static OrderService orderService;
+    private static AddressService addressService;
 
     public static void init() {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
@@ -28,16 +30,31 @@ public class TestHibernate {
         cartService = context.getBean(CartService.class, "cartService");
 
         orderService = context.getBean(OrderService.class);
+
+        addressService = context.getBean(AddressService.class);
     }
 
     public static void main(String[] args) throws SQLException {
         init();
+        //cartService.deleteAll(userService.getUserByUsername("ainur"));
         //testUser();
         //addGoods();
         //testCart();
         //testFilters();
         //testCategory();
-        testOrders();
+        //testOrders();
+    }
+
+    private static void createOrders() {
+        Address address = new Address("Moscov", "Pushkin", 12, 21, 123456);
+        addressService.update(address);
+
+        User user = userService.getUserByUsername("admin");
+        Order o = new Order(user, address, new Date(), 100.0, "paypal", "to check");
+        orderService.add(o);
+
+        Order o2 = new Order(user, address, new Date(), 100.0, "paypal", "to check");
+
     }
 
     private static void testOrders() {

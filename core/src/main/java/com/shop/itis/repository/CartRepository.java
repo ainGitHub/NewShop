@@ -40,4 +40,5 @@ public class CartRepository {
     public void delete(UserGoods cart) {
         sessionFactory.getCurrentSession().delete(cart);
     }
+
 }

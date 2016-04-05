@@ -33,13 +33,16 @@
             <#list orders as order>
                 <li>
                     Создано ${order.createDate}<br>
-                    Город ${order.address.city}<br>
-                    Улица ${order.address.street}<br>
-                    Дом   ${order.address.house}<br>
-                    Квартира ${order.address.flat}<br>
+                    Город ${order.address.city},
+                    Улица ${order.address.street},
+                    Дом   ${order.address.house},
+                    Квартира ${order.address.flat},
                     Индекс ${order.address.index}<br>
                     <span>Сумма ${order.total_sum}</span><br>
-                    Статус ${order.status}
+                    Статус ${order.status}<br>
+                    <#list order.goods as user_good>
+                    ${user_good.good.name},
+                    </#list>
                 </li>
             </#list>
         </ul>
