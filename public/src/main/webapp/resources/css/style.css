@@ -702,5 +702,44 @@ h3.ico4 {
     color: red;
 }
 
+.address {
+    font-size: 13px;
+    text-transform: uppercase;
+    color: darkblue;
+    height: 30px;
+    margin: 5px;
+    padding: 3px;
+    border: solid 1px #ddd;
+}
+
+.address:hover {
+    background: #ddd;
+}
+
+.order-form {
+    float: right;
+    margin-right: 5%;
+}
+
+.order-form input[type=text] {
+    height: 20px;
+    width: 60%;
+    float: right;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.order-form span {
+    font-size: 14px;
+    font-style: oblique;
+    margin-bottom: 10px;
+}
+
+.order-form span strong {
+    color: blue;
+    font-size: 16px;
+    font-style: italic;
+}
+
 
 

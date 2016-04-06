@@ -21,6 +21,7 @@
     <script src="${js_res}store/modal.js" type="text/javascript"></script>
     <script src="${js_res}store/catalog.js" type="text/javascript"></script>
     <script src="${js_res}store/cart.js" type="text/javascript"></script>
+    <script src="${js_res}store/order.js" type="text/javascript"></script>
     <!-- End JS -->
 
 

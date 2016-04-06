@@ -17,7 +17,7 @@ $(document).ready(function () {
         var $this = $(that);
         if ($this.val().length == 0) return false;
         if ($this.val() <= 0) {
-            $this.text("1");
+            $this.val("1");
             return false;
         }
 

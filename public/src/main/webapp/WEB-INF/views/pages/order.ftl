@@ -2,14 +2,27 @@
 <#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
 <@mainTemplate />
 <#macro body>
+<div>
     <#if userAddress??>
+        <h2> Ваши адреса</h2> <br>
+
+        <div style="width: 50%; display: inline-block;">
         <#list userAddress as address>
-        ${address.city}
+            <div class="address" data-city="${address.city}" data-street="${address.street}"
+                 data-house="${address.house}" data-flat="${address.flat}"
+                 data-index="${address.index}">
+                Город: ${address.city},
+                Улица: ${address.street},
+                Дом: ${address.house},
+                Квартира: ${address.flat},
+                Идекс: ${address.index};
+            </div>
         </#list>
+        </div>
     </#if>
-<div style="margin-left: 40%;">
+    <div class="order-form">
     <#if user??>
-        <h3>Здравствуйте ${user.username} Заполните пожалуйста поля</h3>
+        <span>Здравствуйте <strong>${user.username}</strong> Заполните пожалуйста поля</span><br>
     </#if> <br>
 
     <@form.form commandName="address_form" acceptCharset="UTF-8">
@@ -30,6 +43,7 @@
 
         <input type="submit" value="Купить" class="btn delete-btn">
     </@form.form>
+</div>
 </div>
     <#if cartGoods?? && cartGoods?has_content>
     <div class="products">
