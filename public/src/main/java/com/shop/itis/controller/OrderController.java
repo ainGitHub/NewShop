@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -84,6 +85,8 @@ public class OrderController {
         addressService.update(address);
 
         orderService.add(user, address, goods, "to check", "webMoney");
+
+        Utils.addAttributes(new HashSet<GoodWrapper>(), 0.0, 0, request);
 
         return "redirect:/catalog";
     }
