@@ -97,7 +97,7 @@ public class UserController {
         user.setUsername(registrationFormBean.getUsername());
         user.setPassword(Utils.md5Apache(registrationFormBean.getPassword()));
         user.setMail(registrationFormBean.getEmail());
-        user.setEnabled(true);
+        user.setEnabled(false);
         if (!photo.isEmpty()) user.setAvatar(photo.getOriginalFilename());
         return user;
     }

@@ -11,7 +11,7 @@ public class TestMailing {
         MailService mailer = (MailService) context.getBean("mailService");
 
         //Send a composed mail
-        mailer.sendMail("ainurmullin@mail.ru", "Test Subject", "Привет");
+        mailer.sendMail("ainurmullin@mail.ru", "Test Subject", "<a href='/'>Привет</a>");
 
     }
 

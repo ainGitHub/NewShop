@@ -1,6 +1,10 @@
 <#include "../mainTemplates/main.ftl">
 <@mainTemplate/>
 <#macro body>
+    <#if message??>
+    ${message}
+    </#if>
+
 <div class="products">
     <#if goods?? && goods?has_content>
         <ul id="goodList">
