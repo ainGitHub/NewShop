@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -46,8 +47,12 @@ public class OrderController {
     @CategoryMenu
     @RequestMapping(method = RequestMethod.GET)
     public String page(ModelMap map) {
-        map.put("user", Utils.getAutentificationUser(userService));
+        User user = Utils.getAutentificationUser(userService);
+        map.put("user", user);
         map.put(Constants.ATTR_ADDRESS_FORM, new Address());
+
+        List<Address> userAddress = addressService.userAddress(user);
+        map.put("userAddress", userAddress);
         return "pages/order";
     }
 
@@ -75,13 +80,10 @@ public class OrderController {
             sum += userGoods.getGood().getPrice() * userGoods.getCount();
         }
 
+        address.setUser(user);
         addressService.update(address);
 
         orderService.add(user, address, goods, "to check", "webMoney");
-
-
-        user.getAddress().add(address);
-        userService.update(user);
 
         return "redirect:/catalog";
     }

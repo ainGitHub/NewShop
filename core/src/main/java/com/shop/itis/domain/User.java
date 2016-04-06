@@ -30,9 +30,6 @@ public class User {
     @Column(name = "enabled")
     boolean enabled;
 
-    @OneToMany
-    List<Address> address = new ArrayList<Address>();
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     Set<UserRoles> roles = new HashSet<UserRoles>(0);
 
@@ -78,7 +75,6 @@ public class User {
         this.avatar = avatar;
     }
 
-
     public Integer getKey() {
         return key;
     }
@@ -93,14 +89,6 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public List<Address> getAddress() {
-        return address;
-    }
-
-    public void setAddress(List<Address> address) {
-        this.address = address;
     }
 
     public boolean isEnabled() {

@@ -2,25 +2,30 @@
 <#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
 <@mainTemplate />
 <#macro body>
+    <#if userAddress??>
+        <#list userAddress as address>
+        ${address.city}
+        </#list>
+    </#if>
 <div style="margin-left: 40%;">
     <#if user??>
         <h3>Здравствуйте ${user.username} Заполните пожалуйста поля</h3>
     </#if> <br>
 
     <@form.form commandName="address_form" acceptCharset="UTF-8">
-        <h3>Город <@form.input path="city" title="Город"/></h3>
+        <h3>Город <@form.input path="city" title="Город" id="city"/></h3>
         <@form.errors path="city" cssClass="error"/><br><br>
 
-        <h3>Улица <@form.input path="street" title="Улица"/></h3>
+        <h3>Улица <@form.input path="street" title="Улица" id="street"/></h3>
         <@form.errors path="street" cssClass="error"/><br><br>
 
-        <h3>Дом <@form.input path="house" title="Дом"/></h3>
+        <h3>Дом <@form.input path="house" title="Дом" id="house"/></h3>
         <@form.errors path="house" cssClass="error"/><br><br>
 
-        <h3>Квартира <@form.input path="flat" title="Квартира"/></h3>
+        <h3>Квартира <@form.input path="flat" title="Квартира" id="flat"/></h3>
         <@form.errors path="flat" cssClass="error"/><br><br>
 
-        <h3>Индекс <@form.input path="index" title="Индекс"/></h3>
+        <h3>Индекс <@form.input path="index" title="Индекс" id="index"/></h3>
         <@form.errors path="index" cssClass="error"/><br><br>
 
         <input type="submit" value="Купить" class="btn delete-btn">

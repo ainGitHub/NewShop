@@ -37,7 +37,9 @@ public class TestHibernate {
         init();
         //cartService.deleteAll(userService.getUserByUsername("ainur"));
         //testUser();
-        addGoods();
+        //addGoods();
+
+        createOrders();
         //testCart();
         //testFilters();
         //testCategory();
@@ -45,10 +47,20 @@ public class TestHibernate {
     }
 
     private static void createOrders() {
-        Address address = new Address("Moscov", "Pushkin", 12, 21, 123456);
+        User user = userService.getUserByUsername("ainur");
+
+        for (Address a : addressService.userAddress(user)) {
+            System.out.println(a.getCity());
+        }
+
+        /*Address address = new Address("Moscov", "Pushkin", 12, 21, 123456);
+        address.setUser(user);
         addressService.update(address);
 
-        User user = userService.getUserByUsername("admin");
+        Address address2 = new Address("Kazan", "Lenina", 21, 12, 654321);
+        address.setUser(user);
+        addressService.update(address2);*/
+
         // Order o = new Order(user, address, new Date(), 100.0, "paypal", "to check");
         //orderService.add(o);
 

@@ -5,9 +5,21 @@ $(document).ready(function () {
     var $cartSum = $("#cartSum"),
         $cartCount = $("#cartCount");
 
+    $(document).on('click', '.cartCountGood', function () {
+        changeCount(this)
+    });
+
     $(document).on('blur', '.cartCountGood', function () {
-        var $this = $(this);
+        changeCount(this)
+    });
+
+    function changeCount(that) {
+        var $this = $(that);
         if ($this.val().length == 0) return false;
+        if ($this.val() <= 0) {
+            $this.text("1");
+            return false;
+        }
 
         $.ajax({
             type: 'POST',
@@ -25,7 +37,9 @@ $(document).ready(function () {
                     'На сервере произошла ошибка');
             }
         });
-    });
+    };
+
+
 
     $(document).on('click', '.js_addToCart', function (event) {
         event.preventDefault();

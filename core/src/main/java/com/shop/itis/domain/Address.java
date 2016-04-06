@@ -30,6 +30,8 @@ public class Address {
     @Column(name = "index", length = 100)
     Integer index;
 
+    @ManyToOne
+    User user;
 
     public Address() {
     }
@@ -89,5 +91,13 @@ public class Address {
 
     public void setIndex(Integer index) {
         this.index = index;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
