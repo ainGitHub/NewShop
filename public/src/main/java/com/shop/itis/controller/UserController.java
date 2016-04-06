@@ -72,7 +72,7 @@ public class UserController {
         roleService.add(roles);
 
         servletRequest.getSession().setAttribute("registrUser", user);
-        return "redirect:/mail";
+        return "redirect:/mail/registr";
     }
 
     /**

@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/mail")
 public class MailController {
     @Autowired
     MailService mailService;
@@ -32,7 +33,7 @@ public class MailController {
     @Autowired
     Configuration freemarkerConfiguration;
 
-    @RequestMapping("/mail")
+    @RequestMapping("/registr")
     public String sendMail() {
         User user = (User) servletRequest.getSession().getAttribute("registrUser");
         String text = null;
@@ -51,7 +52,7 @@ public class MailController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/mail/check", method = RequestMethod.GET)
+    @RequestMapping(value = "/check", method = RequestMethod.GET)
     public String checkRegistr(@RequestParam("code") Integer code, RedirectAttributes redirectAttrs) {
         User user = (User) servletRequest.getSession().getAttribute("registrUser");
 

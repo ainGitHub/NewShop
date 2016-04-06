@@ -1,5 +1,6 @@
 package com.shop.itis.controller;
 
+import com.shop.itis.MailService;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
@@ -11,9 +12,12 @@ import com.shop.itis.service.AddressService;
 import com.shop.itis.service.GoodService;
 import com.shop.itis.service.OrderService;
 import com.shop.itis.service.UserService;
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,6 +49,12 @@ public class OrderController {
 
     @Autowired
     OrderService orderService;
+
+    @Autowired
+    MailService mailService;
+
+    @Autowired
+    Configuration freemarkerConfiguration;
 
     @CategoryMenu
     @RequestMapping(method = RequestMethod.GET)
@@ -85,6 +96,19 @@ public class OrderController {
         addressService.update(address);
 
         orderService.add(user, address, goods, "to check", "webMoney");
+        String text = null;
+        try {
+            map.put(Constants.CART_GOODS, goods);
+            text = FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("order.ftl", "UTF-8"), map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        }
+
+        if (text != null)
+            mailService.sendMail(user.getMail(), "Orders", text);
+
 
         Utils.addAttributes(new HashSet<GoodWrapper>(), 0.0, 0, request);
 
