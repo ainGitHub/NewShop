@@ -1,6 +1,6 @@
 package com.shop.itis.service;
 
-import com.shop.itis.domain.User;
+import com.shop.itis.domain.UserInfo;
 import com.shop.itis.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,18 +15,18 @@ public class UserService {
     UserRepository userRepository;
 
     @Transactional
-    public void add(User user) {
-        userRepository.add(user);
+    public void add(UserInfo userInfo) {
+        userRepository.add(userInfo);
     }
 
 
     @Transactional
-    public User getUserByUsername(String username) {
+    public UserInfo getUserByUsername(String username) {
         return userRepository.getUserByUsername(username);
     }
 
     @Transactional
-    public void update(User user) {
-        userRepository.update(user);
+    public void update(UserInfo userInfo) {
+        userRepository.update(userInfo);
     }
 }

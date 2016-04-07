@@ -37,9 +37,9 @@ public class TestHibernate {
         init();
         //cartService.deleteAll(userService.getUserByUsername("ainur"));
         //testUser();
-        //addGoods();
+        addGoods();
 
-        createOrders();
+        //createOrders();
         //testCart();
         //testFilters();
         //testCategory();
@@ -47,30 +47,30 @@ public class TestHibernate {
     }
 
     private static void createOrders() {
-        User user = userService.getUserByUsername("ainur");
+        UserInfo userInfo = userService.getUserByUsername("ainur");
 
-        for (Address a : addressService.userAddress(user)) {
+        for (Address a : addressService.userAddress(userInfo)) {
             System.out.println(a.getCity());
         }
 
         /*Address address = new Address("Moscov", "Pushkin", 12, 21, 123456);
-        address.setUser(user);
+        address.setUserInfo(userInfo);
         addressService.update(address);
 
         Address address2 = new Address("Kazan", "Lenina", 21, 12, 654321);
-        address.setUser(user);
+        address.setUserInfo(userInfo);
         addressService.update(address2);*/
 
-        // Order o = new Order(user, address, new Date(), 100.0, "paypal", "to check");
+        // Order o = new Order(userInfo, address, new Date(), 100.0, "paypal", "to check");
         //orderService.add(o);
 
-        //Order o2 = new Order(user, address, new Date(), 100.0, "paypal", "to check");
+        //Order o2 = new Order(userInfo, address, new Date(), 100.0, "paypal", "to check");
 
     }
 
     private static void testOrders() {
-        User user = userService.getUserByUsername("ainur");
-        List<Order> orders = orderService.getAllOrders(user);
+        UserInfo userInfo = userService.getUserByUsername("ainur");
+        List<Order> orders = orderService.getAllOrders(userInfo);
         for (Order o : orders) {
             System.out.println(o.getCreateDate());
             System.out.println(o.getAddress().getCity());
@@ -78,7 +78,7 @@ public class TestHibernate {
     }
 
     private static void testUser() {
-        User u = new User();
+        UserInfo u = new UserInfo();
         u.setUsername("ainur");
         u.setPassword("e10adc3949ba59abbe56e057f20f883e");//123456
         u.setMail("ainur@mail.ru");
@@ -88,7 +88,7 @@ public class TestHibernate {
 
         UserRoles r = new UserRoles();
         r.setRole("ROLE_USER");
-        r.setUser(u);
+        r.setUserInfo(u);
         roleService.add(r);
     }
 
@@ -136,12 +136,12 @@ public class TestHibernate {
         //addGoods();
         List<Good> goods = goodService.getAllGoods();
 
-        User user = new User();
-        user.setUsername("admin");
-        userService.add(user);
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername("admin");
+        userService.add(userInfo);
 
 
-        // UserGoods userGoods = new UserGoods(user, goods.get(0), 10);
+        // UserGoods userGoods = new UserGoods(userInfo, goods.get(0), 10);
         // cartService.update(userGoods);
 
         // List<UserGoods> userGoodses = cartService.getUserAllGoods("admin");
@@ -149,9 +149,9 @@ public class TestHibernate {
         //     System.out.println(c.getGood().getName());
         // }
 
-       /* System.out.println(cartService.getById(goods.get(0).getId(), user.getUsername()).getGood().getName());
-        //cartService.delete(goods.get(0).getId(), user.getUsername());
-        cartService.update(goods.get(0), user, 5);*/
+       /* System.out.println(cartService.getById(goods.get(0).getId(), userInfo.getUsername()).getGood().getName());
+        //cartService.delete(goods.get(0).getId(), userInfo.getUsername());
+        cartService.update(goods.get(0), userInfo, 5);*/
     }
 
     private static void testFilters() {

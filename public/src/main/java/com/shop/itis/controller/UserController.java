@@ -5,7 +5,7 @@ import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.Order;
-import com.shop.itis.domain.User;
+import com.shop.itis.domain.UserInfo;
 import com.shop.itis.domain.UserRoles;
 import com.shop.itis.form.RegistrationFormBean;
 import com.shop.itis.service.OrderService;
@@ -54,6 +54,7 @@ public class UserController {
     @CategoryMenu
     @RequestMapping(value = "/registr", method = RequestMethod.POST)
     public String registrate(
+            ModelMap map,
             @Valid @ModelAttribute(Constants.ATTR_REGISTRATION_FORM) RegistrationFormBean registrationFormBean,
             BindingResult bindingResult,
             @RequestParam("photo") MultipartFile photo
@@ -65,24 +66,31 @@ public class UserController {
 
         checkPhoto(photo);
 
-        User user = createUser(registrationFormBean, photo);
-        userService.add(user);
+        UserInfo userInfo = createUser(registrationFormBean, photo);
+        servletRequest.getSession().setAttribute("registrUser", userInfo);
 
-        UserRoles roles = createRoleForUser(user);
+        UserInfo inBD = userService.getUserByUsername(userInfo.getUsername());
+
+        if (inBD != null) {
+            map.put("message", "Пользователь с именем " + userInfo.getUsername() + " уже существует!");
+            return "auth/registr";
+        }
+
+        userService.add(userInfo);
+
+        UserRoles roles = createRoleForUser(userInfo);
         roleService.add(roles);
-
-        servletRequest.getSession().setAttribute("registrUser", user);
         return "redirect:/mail/registr";
     }
 
     /**
-     * @param user Создает SpringSecurity роли для юзера
+     * @param userInfo Создает SpringSecurity роли для юзера
      * @return
      */
-    private UserRoles createRoleForUser(User user) {
+    private UserRoles createRoleForUser(UserInfo userInfo) {
         UserRoles roles = new UserRoles();
         roles.setRole(Constants.USER);
-        roles.setUser(user);
+        roles.setUserInfo(userInfo);
         return roles;
     }
 
@@ -92,24 +100,24 @@ public class UserController {
      *                             создает самого юзера, с фото или без
      * @return
      */
-    private User createUser(RegistrationFormBean registrationFormBean, MultipartFile photo) {
-        User user = new User();
-        user.setUsername(registrationFormBean.getUsername());
-        user.setPassword(Utils.md5Apache(registrationFormBean.getPassword()));
-        user.setMail(registrationFormBean.getEmail());
-        user.setEnabled(false);
-        if (!photo.isEmpty()) user.setAvatar(photo.getOriginalFilename());
-        return user;
+    private UserInfo createUser(RegistrationFormBean registrationFormBean, MultipartFile photo) {
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUsername(registrationFormBean.getUsername());
+        userInfo.setPassword(Utils.md5Apache(registrationFormBean.getPassword()));
+        userInfo.setMail(registrationFormBean.getEmail());
+        userInfo.setEnabled(false);
+        if (!photo.isEmpty()) userInfo.setAvatar(photo.getOriginalFilename());
+        return userInfo;
     }
 
     /**
      * @param photo - фото от юзера
      * Сохраняет фото от юзера
-     * в папке target or (war)  /resources/image/user
+     * в папке target or (war)  /resources/image/userInfo
      */
     private void checkPhoto(MultipartFile photo) {
         String appPath = servletRequest.getServletContext().getRealPath("");
-        String uploadsDirPath = appPath + "resources" + File.separator + "image" + File.separator + "user";
+        String uploadsDirPath = appPath + "resources" + File.separator + "image" + File.separator + "userInfo";
         if (!photo.isEmpty()) {
             try {
                 File dir = new File(uploadsDirPath + File.separator + photo.getOriginalFilename());
@@ -137,17 +145,21 @@ public class UserController {
 
     @CategoryMenu
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(ModelMap map) {
+        UserInfo userInfo = (UserInfo) servletRequest.getSession().getAttribute("registrUser");
+        if (userInfo != null && !userInfo.isEnabled()) {
+            map.put("check", "Подтвердите регистрацию. Мы отправили вам ссылку на почту");
+        }
         return "auth/login";
     }
 
     @CategoryMenu
     @RequestMapping(value = "/account")
     public String account(ModelMap map) {
-        User user = Utils.getAutentificationUser(userService);
-        List<Order> orders = orderService.getAllOrders(user);
+        UserInfo userInfo = Utils.getAutentificationUser(userService);
+        List<Order> orders = orderService.getAllOrders(userInfo);
         map.put("orders", orders);
-        map.put("user", user);
+        map.put("userInfo", userInfo);
         return "auth/account";
     }
 }

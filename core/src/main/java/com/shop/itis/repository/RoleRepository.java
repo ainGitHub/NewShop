@@ -11,6 +11,6 @@ public class RoleRepository {
     SessionFactory sessionFactory;
 
     public void add(UserRoles userRoles) {
-        sessionFactory.getCurrentSession().save(userRoles);
+        sessionFactory.getCurrentSession().saveOrUpdate(userRoles);
     }
 }

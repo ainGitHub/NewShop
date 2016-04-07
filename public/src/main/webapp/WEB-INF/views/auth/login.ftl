@@ -2,10 +2,10 @@
 <#include "../mainTemplates/main.ftl">
 <@mainTemplate />
 <#macro body>
-<style>
+    <#if check??>
+    ${check}
+    </#if>
 
-
-</style>
 <div class="login-form">
 <form name='loginForm'
       action="<@spring.url value="/login"/>" method='POST'>
@@ -25,7 +25,7 @@
     </p>
 
     <p>
-        <input name="submit" type="submit" value="Войти" class="btn-userGoods"/>
+        <input name="submit" type="submit" value="Войти" class="btn-cart"/>
     </p><br>
 </form>
     <a href="<@spring.url value="/registr"/>">Зарегистрироваться</a>

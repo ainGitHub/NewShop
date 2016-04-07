@@ -1,7 +1,7 @@
 package com.shop.itis.service;
 
 import com.shop.itis.domain.Address;
-import com.shop.itis.domain.User;
+import com.shop.itis.domain.UserInfo;
 import com.shop.itis.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class AddressService {
     }
 
     @Transactional
-    public List<Address> userAddress(User user) {
-        return addressRepository.userAddress(user.getUsername());
+    public List<Address> userAddress(UserInfo userInfo) {
+        return addressRepository.userAddress(userInfo.getUsername());
     }
 }

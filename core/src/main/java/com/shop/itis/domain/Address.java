@@ -31,7 +31,7 @@ public class Address {
     Integer index;
 
     @ManyToOne
-    User user;
+    UserInfo userInfo;
 
     public Address() {
     }
@@ -93,11 +93,11 @@ public class Address {
         this.index = index;
     }
 
-    public User getUser() {
-        return user;
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }

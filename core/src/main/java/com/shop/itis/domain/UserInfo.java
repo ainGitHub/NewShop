@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class UserInfo {
     @Id
     @Column(name = "username", unique = true,
             nullable = false, length = 45)
@@ -23,27 +23,26 @@ public class User {
     @Column(name = "avatar", length = 100)
     String avatar = "default.png";
 
-
     @Column(name = "key")
     Integer key;
 
     @Column(name = "enabled")
     boolean enabled;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "userInfo")
     Set<UserRoles> roles = new HashSet<UserRoles>(0);
 
 
-    public User() {
+    public UserInfo() {
     }
 
-    public User(String username, String password, String mail) {
+    public UserInfo(String username, String password, String mail) {
         this.username = username;
         this.password = password;
         this.mail = mail;
     }
 
-    public User(String username, String password, String avatar, Integer key) {
+    public UserInfo(String username, String password, String avatar, Integer key) {
         this.username = username;
         this.password = password;
         this.avatar = avatar;

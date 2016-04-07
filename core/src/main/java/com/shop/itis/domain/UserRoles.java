@@ -16,7 +16,7 @@ public class UserRoles {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username", nullable = false)
-    private User user;
+    private UserInfo userInfo;
 
 
     @Column(name = "role", nullable = false, length = 45)
@@ -31,8 +31,8 @@ public class UserRoles {
         this.role = role;
     }
 
-    public UserRoles(User user, String role) {
-        this.user = user;
+    public UserRoles(UserInfo userInfo, String role) {
+        this.userInfo = userInfo;
         this.role = role;
     }
 
@@ -44,12 +44,12 @@ public class UserRoles {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     public String getRole() {

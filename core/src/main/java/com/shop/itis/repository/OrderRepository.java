@@ -20,6 +20,6 @@ public class OrderRepository {
 
     public List<Order> getUserOrders(String username) {
         return sessionFactory.getCurrentSession().createCriteria(Order.class)
-                .add(Restrictions.eq("user.username", username)).list();
+                .add(Restrictions.eq("userInfo.username", username)).list();
     }
 }

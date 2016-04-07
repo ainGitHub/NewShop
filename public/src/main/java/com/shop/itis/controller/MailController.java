@@ -1,7 +1,7 @@
 package com.shop.itis.controller;
 
 import com.shop.itis.MailService;
-import com.shop.itis.domain.User;
+import com.shop.itis.domain.UserInfo;
 import com.shop.itis.service.UserService;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
@@ -35,12 +35,12 @@ public class MailController {
 
     @RequestMapping("/registr")
     public String sendMail() {
-        User user = (User) servletRequest.getSession().getAttribute("registrUser");
+        UserInfo userInfo = (UserInfo) servletRequest.getSession().getAttribute("registrUser");
         String text = null;
         try {
             Map<Object, Object> map = new HashMap<Object, Object>();
-            map.put("user", user);
-            map.put("code", String.valueOf(user.getUsername().hashCode()));
+            map.put("userInfo", userInfo);
+            map.put("code", String.valueOf(userInfo.getUsername().hashCode()));
             text = FreeMarkerTemplateUtils.processTemplateIntoString(freemarkerConfiguration.getTemplate("mail.ftl", "UTF-8"), map);
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,18 +48,18 @@ public class MailController {
             e.printStackTrace();
         }
         if (text != null)
-            mailService.sendMail(user.getMail(), "Verify", text);
+            mailService.sendMail(userInfo.getMail(), "Verify", text);
         return "redirect:/login";
     }
 
     @RequestMapping(value = "/check", method = RequestMethod.GET)
     public String checkRegistr(@RequestParam("code") Integer code, RedirectAttributes redirectAttrs) {
-        User user = (User) servletRequest.getSession().getAttribute("registrUser");
+        UserInfo userInfo = (UserInfo) servletRequest.getSession().getAttribute("registrUser");
 
-        if (user.getUsername().hashCode() == code) {
+        if (userInfo.getUsername().hashCode() == code) {
             redirectAttrs.addFlashAttribute("message", "Вы успешно зарегистрировались на нашем сайте можете зайти на свою страницу");
-            user.setEnabled(true);
-            userService.update(user);
+            userInfo.setEnabled(true);
+            userService.update(userInfo);
         }
         return "redirect:/catalog";
     }

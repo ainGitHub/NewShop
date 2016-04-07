@@ -17,7 +17,7 @@ public class Order {
     private Integer id;
 
     @ManyToOne
-    User user;
+    UserInfo userInfo;
 
     @ManyToOne
     Address address;
@@ -43,14 +43,14 @@ public class Order {
     public Order() {
     }
 
-    public Order(User user, Date createDate, Double total_sum) {
-        this.user = user;
+    public Order(UserInfo userInfo, Date createDate, Double total_sum) {
+        this.userInfo = userInfo;
         this.createDate = createDate;
         this.total_sum = total_sum;
     }
 
-    public Order(User user, Address address, Date createDate, Double total_sum, String status, String pay_type, Integer count) {
-        this.user = user;
+    public Order(UserInfo userInfo, Address address, Date createDate, Double total_sum, String status, String pay_type, Integer count) {
+        this.userInfo = userInfo;
         this.address = address;
         this.createDate = createDate;
         this.total_sum = total_sum;
@@ -67,12 +67,12 @@ public class Order {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     public Address getAddress() {

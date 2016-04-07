@@ -7,7 +7,7 @@ import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.Address;
 import com.shop.itis.domain.Good;
 import com.shop.itis.domain.GoodWrapper;
-import com.shop.itis.domain.User;
+import com.shop.itis.domain.UserInfo;
 import com.shop.itis.service.AddressService;
 import com.shop.itis.service.GoodService;
 import com.shop.itis.service.OrderService;
@@ -59,11 +59,11 @@ public class OrderController {
     @CategoryMenu
     @RequestMapping(method = RequestMethod.GET)
     public String page(ModelMap map) {
-        User user = Utils.getAutentificationUser(userService);
-        map.put("user", user);
+        UserInfo userInfo = Utils.getAutentificationUser(userService);
+        map.put("userInfo", userInfo);
         map.put(Constants.ATTR_ADDRESS_FORM, new Address());
 
-        List<Address> userAddress = addressService.userAddress(user);
+        List<Address> userAddress = addressService.userAddress(userInfo);
         map.put("userAddress", userAddress);
         return "pages/order";
     }
@@ -84,7 +84,7 @@ public class OrderController {
             return "pages/order";
         }
 
-        User user = Utils.getAutentificationUser(userService);
+        UserInfo userInfo = Utils.getAutentificationUser(userService);
 
         Set<GoodWrapper> goods = Utils.getAttributeCartGoods(request);
         Double sum = 0.0;
@@ -92,10 +92,10 @@ public class OrderController {
             sum += userGoods.getGood().getPrice() * userGoods.getCount();
         }
 
-        address.setUser(user);
+        address.setUserInfo(userInfo);
         addressService.update(address);
 
-        orderService.add(user, address, goods, "to check", "webMoney");
+        orderService.add(userInfo, address, goods, "to check", "webMoney");
         String text = null;
         try {
             map.put(Constants.CART_GOODS, goods);
@@ -107,7 +107,7 @@ public class OrderController {
         }
 
         if (text != null)
-            mailService.sendMail(user.getMail(), "Orders", text);
+            mailService.sendMail(userInfo.getMail(), "Orders", text);
 
 
         Utils.addAttributes(new HashSet<GoodWrapper>(), 0.0, 0, request);

@@ -23,6 +23,6 @@ public class AddressRepository {
 
     public List<Address> userAddress(String username) {
         return sessionFactory.getCurrentSession().createCriteria(Address.class)
-                .add(Restrictions.eq("user.username", username)).list();
+                .add(Restrictions.eq("userInfo.username", username)).list();
     }
 }

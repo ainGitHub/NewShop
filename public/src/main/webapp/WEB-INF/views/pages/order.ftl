@@ -21,8 +21,8 @@
         </div>
     </#if>
     <div class="order-form">
-    <#if user??>
-        <span>Здравствуйте <strong>${user.username}</strong> Заполните пожалуйста поля</span><br>
+        <#if userInfo??>
+            <span>Здравствуйте <strong>${userInfo.username}</strong> Заполните пожалуйста поля</span><br>
     </#if> <br>
 
     <@form.form commandName="address_form" acceptCharset="UTF-8">

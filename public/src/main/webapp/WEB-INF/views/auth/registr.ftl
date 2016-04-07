@@ -9,6 +9,9 @@
         <br>
         <span class="error">
             *<@form.errors path="username"/>
+            <#if message??>
+            ${message}
+            </#if>
         </span>
         <p>
             <label>Ваш логин</label>
@@ -42,7 +45,7 @@
         </p>
 
         <p>
-            <input type="submit" value="Регистрация" class="btn-userGoods"/>
+            <input type="submit" value="Регистрация" class="btn-cart"/>
         </p><br>
 
         <p>

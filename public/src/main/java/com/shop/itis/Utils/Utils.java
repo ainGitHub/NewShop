@@ -1,7 +1,7 @@
 package com.shop.itis.Utils;
 
 import com.shop.itis.domain.GoodWrapper;
-import com.shop.itis.domain.User;
+import com.shop.itis.domain.UserInfo;
 import com.shop.itis.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +15,7 @@ public class Utils {
         return md5Hex;
     }
 
-    public static User getAutentificationUser(UserService userService) {
+    public static UserInfo getAutentificationUser(UserService userService) {
         org.springframework.security.core.userdetails.User user = null;
         try {
             user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

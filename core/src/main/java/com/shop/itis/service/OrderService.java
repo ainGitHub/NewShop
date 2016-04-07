@@ -17,10 +17,10 @@ public class OrderService {
     OrderRepository orderRepository;
 
     @Transactional
-    public void add(User user, Address address, Set<GoodWrapper> goodWrappers, String status, String payType) {
+    public void add(UserInfo userInfo, Address address, Set<GoodWrapper> goodWrappers, String status, String payType) {
         for (GoodWrapper goodWrapper : goodWrappers) {
             Good g = goodWrapper.getGood();
-            Order order = new Order(user, address, new Date(),
+            Order order = new Order(userInfo, address, new Date(),
                     g.getPrice() * goodWrapper.getCount(),
                     status, payType, goodWrapper.getCount());
             order.setGood(g);
@@ -29,7 +29,7 @@ public class OrderService {
     }
 
     @Transactional
-    public List<Order> getAllOrders(User user) {
-        return orderRepository.getUserOrders(user.getUsername());
+    public List<Order> getAllOrders(UserInfo userInfo) {
+        return orderRepository.getUserOrders(userInfo.getUsername());
     }
 }

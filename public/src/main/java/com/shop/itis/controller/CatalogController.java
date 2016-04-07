@@ -28,11 +28,13 @@ public class CatalogController {
                                 Model model) {
 
         List<Good> goods = goodService.getAllGoods();
+
         if (goods != null && !goods.isEmpty())
         model.addAttribute(Constants.GOODS, goods.subList(0, Constants.TEST_LIMIT));
 
         model.addAttribute("page", page);
         model.addAttribute("limit", limit == null ? Constants.TEST_LIMIT : limit);
+
         if (goods != null) {
             model.addAttribute("goodsCount", goods.size());
         }
@@ -45,6 +47,7 @@ public class CatalogController {
 
         int start = (page - 1) * limit;
         int end = page * limit;
+
         model.addAttribute(Constants.GOODS, goods.size() > end ?
                 goods.subList(start, end) :
                 goods.subList(start, goods.size()));

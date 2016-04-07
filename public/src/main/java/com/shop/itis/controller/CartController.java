@@ -34,21 +34,14 @@ public class CartController {
     HttpServletRequest servletRequest;
 
 
-    /**
-     *
-     * @param goodId - id товара, для добавления
-     * @return view
-     */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map addGood(@RequestParam("goodId") Long goodId) {
         Good forAddGood = goodService.getGoodById(goodId);
 
-
         Set<GoodWrapper> goods = Utils.getAttributeCartGoods(servletRequest);
         if (goods == null)
             goods = new HashSet<GoodWrapper>();
-
 
         Double sum = Utils.getAttrSum(servletRequest);
 
@@ -118,11 +111,15 @@ public class CartController {
         Good good = goodService.getGoodById(goodId);
         Double sum = Utils.getAttrSum(servletRequest);
         Set<GoodWrapper> goodWrappers = Utils.getAttributeCartGoods(servletRequest);
+
         for (GoodWrapper g : goodWrappers) {
             if (g.getGood().equals(good)) {
                 Double newSum = (sum - g.getCount() * good.getPrice()) + good.getPrice() * count;
+
                 Utils.addAttributes(goodWrappers, newSum, goodWrappers.size(), servletRequest);
+
                 g.setCount(count);
+
                 map.put(Constants.CART_SUM, newSum);
                 return map;
             }

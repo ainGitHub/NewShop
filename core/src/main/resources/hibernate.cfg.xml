@@ -6,7 +6,7 @@
     <session-factory>
         <!-- Подключение объектов сущностей -->
         <mapping package="com.shop.itis.domain"/>
-        <mapping class="com.shop.itis.domain.User"/>
+        <mapping class="com.shop.itis.domain.UserInfo"/>
         <mapping class="com.shop.itis.domain.Address"/>
         <mapping class="com.shop.itis.domain.Category"/>
         <mapping class="com.shop.itis.domain.Order"/>

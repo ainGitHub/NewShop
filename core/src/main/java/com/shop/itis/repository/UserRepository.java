@@ -1,6 +1,6 @@
 package com.shop.itis.repository;
 
-import com.shop.itis.domain.User;
+import com.shop.itis.domain.UserInfo;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +13,20 @@ public class UserRepository {
     @Autowired
     SessionFactory sessionFactory;
 
-    public void add(User user) {
-        sessionFactory.getCurrentSession().saveOrUpdate(user);
+    public void add(UserInfo userInfo) {
+        sessionFactory.getCurrentSession().saveOrUpdate(userInfo);
     }
 
 
-    public User getUserByUsername(String username) {
-        List<User> users = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.eq("username", username)).list();
+    public UserInfo getUserByUsername(String username) {
+        List<UserInfo> users = sessionFactory.getCurrentSession().createCriteria(UserInfo.class).add(Restrictions.eq("username", username)).list();
 
         if (users.isEmpty()) return null;
         else return users.get(0);
     }
 
-    public void update(User user) {
-        sessionFactory.getCurrentSession().update(user);
+    public void update(UserInfo userInfo) {
+        sessionFactory.getCurrentSession().update(userInfo);
     }
 
     public SessionFactory getSessionFactory() {
