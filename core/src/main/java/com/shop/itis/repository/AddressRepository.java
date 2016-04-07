@@ -14,7 +14,7 @@ public class AddressRepository {
     SessionFactory sessionFactory;
 
     public void add(Address address) {
-        sessionFactory.getCurrentSession().save(address);
+        sessionFactory.getCurrentSession().saveOrUpdate(address);
     }
 
     public void update(Address address) {
@@ -25,4 +25,5 @@ public class AddressRepository {
         return sessionFactory.getCurrentSession().createCriteria(Address.class)
                 .add(Restrictions.eq("userInfo.username", username)).list();
     }
+
 }

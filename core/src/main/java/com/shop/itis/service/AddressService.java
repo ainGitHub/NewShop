@@ -28,4 +28,14 @@ public class AddressService {
     public List<Address> userAddress(UserInfo userInfo) {
         return addressRepository.userAddress(userInfo.getUsername());
     }
+
+    @Transactional
+    public Address alreadyExist(UserInfo userInfo, Address address) {
+        for (Address a : addressRepository.userAddress(userInfo.getUsername())) {
+            if (a.equals(address))
+                return a;
+        }
+        addressRepository.add(address);
+        return address;
+    }
 }

@@ -93,7 +93,8 @@ public class OrderController {
         }
 
         address.setUserInfo(userInfo);
-        addressService.update(address);
+
+        address = addressService.alreadyExist(userInfo, address);
 
         orderService.add(userInfo, address, goods, "to check", "webMoney");
         String text = null;
