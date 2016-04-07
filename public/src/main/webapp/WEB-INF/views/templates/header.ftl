@@ -4,22 +4,26 @@
 
     <!-- Cart -->
     <div id="cart">
-        <a href="<@spring.url value="/cart"/>" class="cart-link">Ваши товары в Корзине</a>
+        <a href="<@spring.url value="/cart"/>" class="cart-link">${menuCartWords}</a>
 
         <div class="c1"></div>
-        <span>Товаров: <strong id="cartCount"><#if cartGoodsCount??>${cartGoodsCount}<#else>0</#if></strong></span>
-        <span>Сумма: <strong id="cartSum"><#if cartSum??>${cartSum}<#else>0</#if>руб</strong></span>
+        <span>${menuGoods}: <strong id="cartCount"><#if cartGoodsCount??>${cartGoodsCount}<#else>0</#if></strong></span>
+        <span>${menuSum}: <strong id="cartSum"><#if cartSum??>${cartSum}<#else>0</#if>руб</strong></span>
     </div>
     <!-- End Cart -->
 
     <!-- Navigation -->
     <div id="navigation">
         <ul>
-            <li><a href="<@spring.url value="/"/>">Домой</a></li>
-            <li><a href="#">Поддержка</a></li>
-            <li><a href="<@spring.url value="/account"/>">Мой Аккаунт</a></li>
-            <li><a href="#">Магазин</a></li>
-            <li><a href="#">Контакты</a></li>
+            <li><a href="<@spring.url value="/"/>">${menuHome}</a></li>
+            <li><a href="#">${menuSupport}</a></li>
+            <li><a href="<@spring.url value="/account"/>">${menuAccount}</a></li>
+            <li><a href="<@spring.url value="/cart"/>">${menuCart}</a></li>
+            <li><a href="#">${menuContacts}</a></li>
+            <li>
+                <a href="<@spring.url value="/locale/change?locale=en_EN"/>">EN</a>
+                <a href="<@spring.url value="/locale/change?locale=ru_RU"/>">RU</a>
+            </li>
         </ul>
     </div>
     <!-- End Navigation -->

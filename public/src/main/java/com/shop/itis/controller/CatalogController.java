@@ -54,6 +54,7 @@ public class CatalogController {
         return "pages/ajaxGood";
     }
 
+
     @CategoryMenu
     @RequestMapping(value = "/catalog/good")
     public String showOneGood(@RequestParam("goodId") Long goodId, ModelMap map) {

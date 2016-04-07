@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta content="text/html; charset=utf-8"/>
     <title>Book Store</title>
     <link rel="stylesheet" href="${css_res}style.css" type="text/css" media="all"/>
     <link rel="stylesheet" href="${css_res}modal.css" type="text/css">

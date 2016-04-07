@@ -9,6 +9,7 @@
     <import resource="spring/spring-aop.xml"/>
 
     <context:component-scan base-package="com.shop.itis.controller"/>
+    <context:component-scan base-package="com.shop.itis.aspect"/>
 
     <context:annotation-config/>
 
@@ -50,6 +51,14 @@
           p:suffix=".ftl"
           p:contentType="text/html; charset=UTF-8">
         <property name="exposeSessionAttributes" value="true"/>
+    </bean>
+
+
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:i18n/messages"/>
+        <property name="cacheSeconds" value="0"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="useCodeAsDefaultMessage" value="false"/>
     </bean>
 
 </beans>

@@ -11,4 +11,13 @@
         <property name="directoryForTemplateLoading" value="classpath:"/>
     </bean>
 
+    <bean id="defaultLocale" class="java.util.Locale">
+        <constructor-arg index="0" value="en"/>
+        <constructor-arg index="1" value="EN"/>
+    </bean>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieName" value="lang"/>
+        <property name="defaultLocale" ref="defaultLocale"/>
+    </bean>
 </beans>
