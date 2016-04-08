@@ -19,7 +19,7 @@
             <li><a href="#">${menuSupport}</a></li>
             <li><a href="<@spring.url value="/account"/>">${menuAccount}</a></li>
             <li><a href="<@spring.url value="/cart"/>">${menuCart}</a></li>
-            <li><a href="#">${menuContacts}</a></li>
+            <li><a href="<@spring.url value="/contacts"/>">${menuContacts}</a></li>
             <li>
                 <a href="<@spring.url value="/locale/change?locale=en_EN"/>">EN</a>
                 <a href="<@spring.url value="/locale/change?locale=ru_RU"/>">RU</a>

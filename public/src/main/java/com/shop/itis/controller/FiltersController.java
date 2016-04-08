@@ -25,7 +25,7 @@ public class FiltersController {
     public String searchBy(ModelMap map, @RequestParam("categoryId") Long categoryId,
                            @RequestParam(value = "min", defaultValue = "0") Double min,
                            @RequestParam(value = "max", defaultValue = "1000000") Double max,
-                           @RequestParam(value = "word", defaultValue = "") String name) {
+                           @RequestParam(value = "name", defaultValue = "") String name) {
         List<Good> goods = goodService.getGoodsByCategoryPriceName(categoryId, min, max, name);
         map.put("limit", 0);
         map.put("goodsCount", 0);

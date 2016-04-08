@@ -10,6 +10,7 @@
 
             <label>Категория</label>
             <select class="field" name="categoryId">
+                <option value=""></option>
             <#if menuList??>
                 <#list menuList as category>
                     <option value="${category.id}">${category.name}</option>
@@ -47,12 +48,6 @@
             </div>
 
             <input type="submit" class="search-submit" value="Search"/>
-
-            <p>
-                <a href="#" class="bul">Расширенный поиск</a><br/>
-                <a href="#" class="bul">Служба поддержки</a>
-            </p>
-
         </form>
     </div>
 </div>

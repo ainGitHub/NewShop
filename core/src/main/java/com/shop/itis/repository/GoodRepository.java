@@ -53,9 +53,8 @@ public class GoodRepository {
         return sessionFactory.getCurrentSession().createCriteria(Good.class)
                 .add(Restrictions.gt("price", min))
                 .add(Restrictions.lt("price", max))
-                .add(Restrictions.like("name", "%" + name + "%"))
-                .createCriteria("category")
-                .add(Restrictions.eq("id", categoryId))
+                .add(Restrictions.like("name", name + "%"))
+                .add(Restrictions.eq("category.id", categoryId))
                 .list();
     }
 }
