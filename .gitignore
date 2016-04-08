@@ -19,3 +19,6 @@ hs_err_pid*
 *.jpg
 *.png
 
+jdbc.properties
+/core/src/main/resources/jdbc.properties
+
