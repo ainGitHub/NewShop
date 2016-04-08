@@ -22,12 +22,15 @@
     <script src="${js_res}store/catalog.js" type="text/javascript"></script>
     <script src="${js_res}store/cart.js" type="text/javascript"></script>
     <script src="${js_res}store/order.js" type="text/javascript"></script>
+    <script src="${js_res}store/up.js"></script>
     <!-- End JS -->
-
 
     <link rel="shortcut icon" href="${img_res}favicon.ico" type="image/ico">
 </head>
 <body>
+<div class="up" id="back-top" title="НА ВЕРХ">
+</div>
+
 <!-- Shell -->
 <div class="shell">
     <!-- Header -->

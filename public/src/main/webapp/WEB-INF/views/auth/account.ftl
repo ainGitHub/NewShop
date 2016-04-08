@@ -36,7 +36,7 @@
                     Город ${order.address.city},
                     Улица ${order.address.street},
                     Дом   ${order.address.house},
-                    Квартира ${order.address.flat},
+                    <#if order.address.flat??>Квартира ${order.address.flat},</#if>
                     Индекс ${order.address.index}<br>
                     <span>Сумма ${order.total_sum}</span><br>
                     Статус ${order.status}<br>

@@ -58,7 +58,6 @@ public class CatalogController {
     @CategoryMenu
     @RequestMapping(value = "/catalog/good")
     public String showOneGood(@RequestParam("goodId") Long goodId, ModelMap map) {
-        System.out.println(goodId);
         map.put("oneGood", goodService.getGoodById(goodId));
         return "pages/oneGood";
     }

@@ -9,12 +9,12 @@
         <div style="width: 50%; display: inline-block;">
         <#list userAddress as address>
             <div class="address" data-city="${address.city}" data-street="${address.street}"
-                 data-house="${address.house}" data-flat="${address.flat}"
+                 data-house="${address.house}" data-flat="${address.flat!}"
                  data-index="${address.index}">
                 Город: ${address.city},
                 Улица: ${address.street},
                 Дом: ${address.house},
-                Квартира: ${address.flat},
+                Квартира: ${address.flat!},
                 Идекс: ${address.index};
             </div>
         </#list>

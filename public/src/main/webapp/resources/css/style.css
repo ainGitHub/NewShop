@@ -741,5 +741,27 @@ h3.ico4 {
     font-style: italic;
 }
 
+#back-top {
+    top: 0;
+    position: fixed;
+    height: 100%;
+    width: 100px;
+    cursor: pointer;
+    background: #ffffff;
+    opacity: 0.5;
+    color: darkred;
+    text-decoration: none;
+    border: none;
+    font-size: 17px;
+    text-align: center;
+}
+
+#back-top:hover {
+    background: #ddd;
+    color: #8b0000;
+    opacity: 0.9;
+}
+
+
 
 
