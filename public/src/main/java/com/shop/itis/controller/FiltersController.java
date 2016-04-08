@@ -26,7 +26,6 @@ public class FiltersController {
                            @RequestParam(value = "min", defaultValue = "0") Double min,
                            @RequestParam(value = "max", defaultValue = "1000000") Double max,
                            @RequestParam(value = "word", defaultValue = "") String name) {
-        System.out.println(categoryId + " " + max + " " + min + " " + name);
         List<Good> goods = goodService.getGoodsByCategoryPriceName(categoryId, min, max, name);
         map.put("limit", 0);
         map.put("goodsCount", 0);

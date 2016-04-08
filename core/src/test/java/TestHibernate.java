@@ -11,7 +11,7 @@ public class TestHibernate {
     private static RoleService roleService;
     private static GoodService goodService;
     private static CategoryService categoryService;
-    //private static CartService cartService;
+    private static CartService cartService;
     private static OrderService orderService;
     private static AddressService addressService;
 
@@ -26,7 +26,7 @@ public class TestHibernate {
 
         goodService = context.getBean(GoodService.class, "goodService");
 
-        //cartService = context.getBean(CartService.class, "cartService");
+        cartService = context.getBean(CartService.class, "cartService");
 
         orderService = context.getBean(OrderService.class);
 
@@ -37,13 +37,28 @@ public class TestHibernate {
         init();
         //cartService.deleteAll(userService.getUserByUsername("ainur"));
         //testUser();
-        addGoods();
+        //addGoods();
 
         //createOrders();
         //testCart();
         //testFilters();
         //testCategory();
         //testOrders();
+        newTest();
+    }
+
+    private static void newTest() {
+        UserInfo userInfo = userService.getUserByUsername("admin");
+
+        List<Good> goods = goodService.getAllGoods();
+/*
+        for (Good g : goods) {
+            Cart c = new Cart(userInfo, g, 10);
+            cartService.add(c);
+        }*/
+
+        Cart cart = new Cart(userInfo, goods.get(0), 10);
+        cartService.add(cart);
     }
 
     private static void createOrders() {
@@ -133,8 +148,8 @@ public class TestHibernate {
     }
 
     private static void testCart() {
-        //addGoods();
-        List<Good> goods = goodService.getAllGoods();
+       /* //addGoods();
+        List<Good> goods = goodService.getAllGoods();*/
 
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername("admin");

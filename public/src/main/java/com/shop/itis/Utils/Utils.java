@@ -1,10 +1,11 @@
 package com.shop.itis.Utils;
 
-import com.shop.itis.domain.GoodWrapper;
+import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.UserInfo;
 import com.shop.itis.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
@@ -16,9 +17,9 @@ public class Utils {
     }
 
     public static UserInfo getAutentificationUser(UserService userService) {
-        org.springframework.security.core.userdetails.User user = null;
+        User user = null;
         try {
-            user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (ClassCastException e) {
             return null;
         }
@@ -42,12 +43,12 @@ public class Utils {
         return (Double) servletRequest.getSession().getAttribute(Constants.CART_SUM);
     }
 
-    public static Set<GoodWrapper> getAttributeCartGoods(HttpServletRequest servletRequest) {
-        return (Set<GoodWrapper>) servletRequest.getSession().getAttribute(Constants.CART_GOODS);
+    public static Set<Cart> getAttributeCartGoods(HttpServletRequest servletRequest) {
+        return (Set<Cart>) servletRequest.getSession().getAttribute(Constants.CART_GOODS);
     }
 
 
-    public static void addAttributes(Set<GoodWrapper> goods, Double sum, int size, HttpServletRequest servletRequest) {
+    public static void addAttributes(Set<Cart> goods, Double sum, int size, HttpServletRequest servletRequest) {
         servletRequest.getSession().setAttribute(Constants.CART_SUM, sum);
         servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, size);
         servletRequest.getSession().setAttribute(Constants.CART_GOODS, goods);

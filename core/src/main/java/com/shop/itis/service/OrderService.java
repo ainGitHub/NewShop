@@ -17,8 +17,8 @@ public class OrderService {
     OrderRepository orderRepository;
 
     @Transactional
-    public void add(UserInfo userInfo, Address address, Set<GoodWrapper> goodWrappers, String status, String payType) {
-        for (GoodWrapper goodWrapper : goodWrappers) {
+    public void add(UserInfo userInfo, Address address, Set<Cart> goodWrappers, String status, String payType) {
+        for (Cart goodWrapper : goodWrappers) {
             Good g = goodWrapper.getGood();
             Order order = new Order(userInfo, address, new Date(),
                     g.getPrice() * goodWrapper.getCount(),

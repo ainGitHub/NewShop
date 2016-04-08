@@ -4,10 +4,7 @@ import com.shop.itis.MailService;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
-import com.shop.itis.domain.Address;
-import com.shop.itis.domain.Good;
-import com.shop.itis.domain.GoodWrapper;
-import com.shop.itis.domain.UserInfo;
+import com.shop.itis.domain.*;
 import com.shop.itis.service.AddressService;
 import com.shop.itis.service.GoodService;
 import com.shop.itis.service.OrderService;
@@ -86,9 +83,9 @@ public class OrderController {
 
         UserInfo userInfo = Utils.getAutentificationUser(userService);
 
-        Set<GoodWrapper> goods = Utils.getAttributeCartGoods(request);
+        Set<Cart> goods = Utils.getAttributeCartGoods(request);
         Double sum = 0.0;
-        for (GoodWrapper userGoods : goods) {
+        for (Cart userGoods : goods) {
             sum += userGoods.getGood().getPrice() * userGoods.getCount();
         }
 
@@ -111,7 +108,7 @@ public class OrderController {
             mailService.sendMail(userInfo.getMail(), "Orders", text);
 
 
-        Utils.addAttributes(new HashSet<GoodWrapper>(), 0.0, 0, request);
+        Utils.addAttributes(new HashSet<Cart>(), 0.0, 0, request);
 
         return "redirect:/catalog";
     }

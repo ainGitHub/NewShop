@@ -3,8 +3,10 @@ package com.shop.itis.controller;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
+import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.Good;
-import com.shop.itis.domain.GoodWrapper;
+import com.shop.itis.domain.UserInfo;
+import com.shop.itis.service.CartService;
 import com.shop.itis.service.GoodService;
 import com.shop.itis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +35,33 @@ public class CartController {
     @Autowired
     HttpServletRequest servletRequest;
 
+    @Autowired
+    CartService cartService;
+
 
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map addGood(@RequestParam("goodId") Long goodId) {
         Good forAddGood = goodService.getGoodById(goodId);
 
-        Set<GoodWrapper> goods = Utils.getAttributeCartGoods(servletRequest);
-        if (goods == null)
-            goods = new HashSet<GoodWrapper>();
+        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
+        if (cartGoods == null)
+            cartGoods = new HashSet<Cart>();
 
+        UserInfo userInfo = Utils.getAutentificationUser(userService);
+
+        Map<String, String> map = forNullUser(userInfo, forAddGood, cartGoods);
+
+        return map;
+    }
+
+
+    private Map<String, String> forNullUser(UserInfo userInfo, Good forAddGood, Set<Cart> goods) {
         Double sum = Utils.getAttrSum(servletRequest);
-
         String error = null;
-        if (goods.add(new GoodWrapper(forAddGood, 1))) {
+        Cart cart = new Cart(userInfo, forAddGood, 1);
+
+        if (goods.add(cart)) {
             error = "ok";
             if (sum == null)
                 sum = 0.0;
@@ -62,7 +77,6 @@ public class CartController {
         return map;
     }
 
-
     @CategoryMenu
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage(ModelMap map) {
@@ -71,8 +85,8 @@ public class CartController {
     }
 
     private String getNotFoundCartGoods() {
-        Set<GoodWrapper> goods = Utils.getAttributeCartGoods(servletRequest);
-        if (goods == null || goods.isEmpty()) {
+        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
+        if (cartGoods == null || cartGoods.isEmpty()) {
             return "К сожалению в вашей корзине нет товаров";
         }
         return null;
@@ -82,22 +96,22 @@ public class CartController {
     public String delete(@RequestParam("goodId") Long goodId) {
         Good deleteGood = goodService.getGoodById(goodId);
 
-        Set<GoodWrapper> goods = Utils.getAttributeCartGoods(servletRequest);
-        GoodWrapper realGoodWr = null;
-        for (GoodWrapper g : goods) {
-            if (g.getGood().equals(deleteGood)) {
-                realGoodWr = g;
+        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
+        Cart realCart = null;
+        for (Cart cart : cartGoods) {
+            if (cart.getGood().equals(deleteGood)) {
+                realCart = cart;
                 break;
             }
         }
 
         Double sum = Utils.getAttrSum(servletRequest);
-        if (realGoodWr != null) {
-            goods.remove(realGoodWr);
-            sum -= (deleteGood.getPrice() * realGoodWr.getCount());
+        if (realCart != null) {
+            cartGoods.remove(realCart);
+            sum -= (deleteGood.getPrice() * realCart.getCount());
         }
 
-        Utils.addAttributes(goods, sum, goods.size(), servletRequest);
+        Utils.addAttributes(cartGoods, sum, cartGoods.size(), servletRequest);
 
         return "redirect:/cart";
     }
@@ -110,13 +124,13 @@ public class CartController {
 
         Good good = goodService.getGoodById(goodId);
         Double sum = Utils.getAttrSum(servletRequest);
-        Set<GoodWrapper> goodWrappers = Utils.getAttributeCartGoods(servletRequest);
+        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
 
-        for (GoodWrapper g : goodWrappers) {
+        for (Cart g : cartGoods) {
             if (g.getGood().equals(good)) {
                 Double newSum = (sum - g.getCount() * good.getPrice()) + good.getPrice() * count;
 
-                Utils.addAttributes(goodWrappers, newSum, goodWrappers.size(), servletRequest);
+                Utils.addAttributes(cartGoods, newSum, cartGoods.size(), servletRequest);
 
                 g.setCount(count);
 
