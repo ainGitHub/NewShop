@@ -5,7 +5,7 @@
         <ul>
         <#if menuList??>
             <#list menuList as category>
-                <li><a href="/category?category=${category.id}">${category.name}</a></li>
+                <li><a href="<@spring.url value="/category?category=${category.id}"/>">${category.name}</a></li>
             </#list>
         </#if>
         </ul>
