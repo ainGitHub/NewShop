@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "good_wrapper",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = {"cart", "good"}
+                columnNames = {"cart_id", "good"}
         ))
 public class GoodsWrapper implements Serializable {
     @Id

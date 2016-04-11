@@ -115,8 +115,6 @@ public class CartController {
             cart.setSum(sum);
             cart.setGoodsCount(goodsCount);
             cartService.update(cart);
-
-            cartIdService.delete(cart, good);
         }
 
         servletRequest.getSession().setAttribute(Constants.CART, cart);

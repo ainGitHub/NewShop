@@ -3,6 +3,7 @@ import com.shop.itis.service.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 public class TestHibernate {
@@ -40,14 +41,14 @@ public class TestHibernate {
         init();
         //cartService.deleteAll(userService.getUserByUsername("ainur"));
         //testUser();
-        //addGoods();
+        addGoods();
 
         //createOrders();
         //testCart();
         //testFilters();
         //testCategory();
         //testOrders();
-        newTest();
+        //newTest();
     }
 
 
@@ -87,25 +88,31 @@ public class TestHibernate {
     }
 
     private static void createOrders() {
-        UserInfo userInfo = userService.getUserByUsername("ainur");
+        UserInfo userInfo = new UserInfo("ainur", "1234", "ainur@mail.ru");
+        userService.add(userInfo);
 
-        for (Address a : addressService.userAddress(userInfo)) {
-            System.out.println(a.getCity());
-        }
-
-        /*Address address = new Address("Moscov", "Pushkin", 12, 21, 123456);
+        Address address = new Address("Moscov", "Pushkin", 12, 21, 123456);
         address.setUserInfo(userInfo);
         addressService.update(address);
 
         Address address2 = new Address("Kazan", "Lenina", 21, 12, 654321);
         address.setUserInfo(userInfo);
-        addressService.update(address2);*/
+        addressService.update(address2);
 
-        // Order o = new Order(userInfo, address, new Date(), 100.0, "paypal", "to check");
-        //orderService.add(o);
+        Order o = new Order(address, new Date(), 100.0, "paypal", "to check", 10);
+        orderService.add(o);
 
-        //Order o2 = new Order(userInfo, address, new Date(), 100.0, "paypal", "to check");
+        Order o2 = new Order(address2, new Date(), 100.0, "paypal", "to check", 10);
+        orderService.add(o2);
 
+        userInfo.getOrders().add(o);
+        userInfo.getOrders().add(o2);
+        userService.add(userInfo);
+
+        UserInfo u = userService.getUserByUsername(userInfo.getUsername());
+        for (Order or : u.getOrders()) {
+            System.out.println(or.getAddress().getCity());
+        }
     }
 
     private static void testOrders() {

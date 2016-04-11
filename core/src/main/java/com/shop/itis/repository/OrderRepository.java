@@ -15,7 +15,7 @@ public class OrderRepository {
     SessionFactory sessionFactory;
 
     public void add(Order order) {
-        sessionFactory.getCurrentSession().save(order);
+        sessionFactory.getCurrentSession().saveOrUpdate(order);
     }
 
     public List<Order> getUserOrders(String username) {

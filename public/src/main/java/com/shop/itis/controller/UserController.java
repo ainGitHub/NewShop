@@ -8,7 +8,6 @@ import com.shop.itis.domain.Order;
 import com.shop.itis.domain.UserInfo;
 import com.shop.itis.domain.UserRoles;
 import com.shop.itis.form.RegistrationFormBean;
-import com.shop.itis.service.OrderService;
 import com.shop.itis.service.RoleService;
 import com.shop.itis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,6 @@ public class UserController {
 
     @Autowired
     MailService mailService;
-
-    @Autowired
-    OrderService orderService;
 
 
     /**
@@ -157,7 +153,10 @@ public class UserController {
     @RequestMapping(value = "/account")
     public String account(ModelMap map) {
         UserInfo userInfo = Utils.getAutentificationUser(userService);
-        List<Order> orders = orderService.getAllOrders(userInfo);
+        userInfo = userService.getUserByUsername(userInfo.getUsername());
+        servletRequest.getSession().setAttribute(Constants.USER, userInfo);
+
+        List<Order> orders = userInfo.getOrders();
         map.put("orders", orders);
         map.put("userInfo", userInfo);
         return "auth/account";

@@ -1,13 +1,8 @@
 package com.shop.itis.domain;
 
 
-
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Entity
@@ -34,7 +29,7 @@ public class Order {
     String pay_type;
 
     @OneToMany
-    List<GoodsWrapper> goodsWrapper = new ArrayList<GoodsWrapper>();
+    Set<GoodsWrapper> goodsWrapper = new HashSet<GoodsWrapper>();
 
     public Order() {
     }
@@ -100,12 +95,11 @@ public class Order {
         this.pay_type = pay_type;
     }
 
-
-    public List<GoodsWrapper> getGoodsWrapper() {
+    public Set<GoodsWrapper> getGoodsWrapper() {
         return goodsWrapper;
     }
 
-    public void setGoodsWrapper(List<GoodsWrapper> goodsWrapper) {
+    public void setGoodsWrapper(Set<GoodsWrapper> goodsWrapper) {
         this.goodsWrapper = goodsWrapper;
     }
 }

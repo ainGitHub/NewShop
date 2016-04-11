@@ -36,6 +36,9 @@ public class UserInfo implements Serializable {
     @ManyToOne
     Cart cart;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    List<Order> orders = new ArrayList<Order>();
+
     public UserInfo() {
     }
 
@@ -123,5 +126,13 @@ public class UserInfo implements Serializable {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

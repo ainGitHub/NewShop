@@ -15,17 +15,10 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
-   /* @Transactional
-    public void add(UserInfo userInfo, Address address, Set<Cart> goodWrappers, String status, String payType) {
-        for (Cart goodWrapper : goodWrappers) {
-            Good g = goodWrapper.getGood();
-            Order order = new Order(userInfo, address, new Date(),
-                    g.getPrice() * goodWrapper.getCount(),
-                    status, payType, goodWrapper.getCount());
-            order.setGood(g);
-            orderRepository.add(order);
-        }
-    }*/
+    @Transactional
+    public void add(Order order) {
+        orderRepository.add(order);
+    }
 
     @Transactional
     public List<Order> getAllOrders(UserInfo userInfo) {

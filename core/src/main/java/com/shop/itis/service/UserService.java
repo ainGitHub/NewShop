@@ -29,4 +29,5 @@ public class UserService {
     public void update(UserInfo userInfo) {
         userRepository.update(userInfo);
     }
+
 }

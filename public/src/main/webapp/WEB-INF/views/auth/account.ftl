@@ -40,7 +40,13 @@
                     Индекс ${order.address.index}<br>
                     <span>Сумма ${order.total_sum}</span><br>
                     Статус ${order.status}<br>
-                ${order.good.name}
+
+                    <#if order.goodsWrapper??>
+                        <#list order.goodsWrapper as goodWrapper>
+                        ${goodWrapper.good.name}
+                        </#list>
+                    </#if>
+                    <br>
                 </li>
             </#list>
         </ul>

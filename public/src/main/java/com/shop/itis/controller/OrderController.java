@@ -4,13 +4,8 @@ import com.shop.itis.MailService;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
-import com.shop.itis.domain.Address;
-import com.shop.itis.domain.Good;
-import com.shop.itis.domain.UserInfo;
-import com.shop.itis.service.AddressService;
-import com.shop.itis.service.GoodService;
-import com.shop.itis.service.OrderService;
-import com.shop.itis.service.UserService;
+import com.shop.itis.domain.*;
+import com.shop.itis.service.*;
 import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -30,7 +26,7 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    HttpServletRequest request;
+    HttpServletRequest servletRequest;
 
     @Autowired
     UserService userService;
@@ -46,6 +42,9 @@ public class OrderController {
 
     @Autowired
     MailService mailService;
+
+    @Autowired
+    CartService cartService;
 
     @Autowired
     Configuration freemarkerConfiguration;
@@ -80,13 +79,26 @@ public class OrderController {
 
         UserInfo userInfo = Utils.getAutentificationUser(userService);
 
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+        if (cart == null)
+            return "redirect:/cart";
 
         address.setUserInfo(userInfo);
-
         address = addressService.alreadyExist(userInfo, address);
 
+        if (cart.getUserInfo() == null) {
+            cart.setUserInfo(userInfo);
+            cartService.add(cart);
+        }
 
+        Order order = new Order(address, new Date(), cart.getSum(), "Заказ на проверке", "WebMoney", cart.getGoodsCount());
+        for (GoodsWrapper g : cart.getGoodsWrapper())
+            order.getGoodsWrapper().add(g);
 
+        orderService.add(order);
+
+        userInfo.getOrders().add(order);
+        userService.add(userInfo);
 
         return "redirect:/catalog";
     }
