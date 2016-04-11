@@ -1,35 +1,30 @@
 package com.shop.itis.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "cart",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"goodId", "username"}))
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username", nullable = false)
-    private UserInfo userInfo;
+    @OneToMany
+    @JoinColumn(name = "cart")
+    Set<GoodsWrapper> goodsWrapper = new HashSet<GoodsWrapper>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "goodId", nullable = false)
-    private Good good;
+    @ManyToOne
+    UserInfo userInfo;
 
     @Column
-    Integer count;
+    Double sum = 0.0;
+
+    @Column
+    Integer goodsCount = 0;
 
     public Cart() {
-    }
-
-    public Cart(UserInfo userInfo, Good good, Integer count) {
-        this.userInfo = userInfo;
-        this.good = good;
-        this.count = count;
     }
 
     public Long getId() {
@@ -40,6 +35,14 @@ public class Cart {
         this.id = id;
     }
 
+    public Set<GoodsWrapper> getGoodsWrapper() {
+        return goodsWrapper;
+    }
+
+    public void setGoodsWrapper(Set<GoodsWrapper> goodsWrapper) {
+        this.goodsWrapper = goodsWrapper;
+    }
+
     public UserInfo getUserInfo() {
         return userInfo;
     }
@@ -48,20 +51,26 @@ public class Cart {
         this.userInfo = userInfo;
     }
 
-    public Good getGood() {
-        return good;
+    public Double getSum() {
+        return sum;
     }
 
-    public void setGood(Good good) {
-        this.good = good;
+    public void setSum(Double sum) {
+        if (sum < 0.0)
+            this.sum = 0.0;
+        else
+            this.sum = sum;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getGoodsCount() {
+        return goodsCount;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setGoodsCount(Integer goodsCount) {
+        if (goodsCount < 0)
+            this.goodsCount = 0;
+        else
+            this.goodsCount = goodsCount;
     }
 
     @Override
@@ -71,17 +80,12 @@ public class Cart {
 
         Cart cart = (Cart) o;
 
-        if (userInfo != null ? !userInfo.equals(cart.userInfo) : cart.userInfo != null) return false;
-        return good != null ? good.equals(cart.good) : false;
+        return !(id != null ? !id.equals(cart.id) : cart.id != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (userInfo != null ? userInfo.hashCode() : 0);
-        result = 31 * result + (good != null ? good.hashCode() : 0);
-        result = 31 * result + (count != null ? count.hashCode() : 0);
-        return result;
+        return id != null ? id.hashCode() : 0;
     }
 }

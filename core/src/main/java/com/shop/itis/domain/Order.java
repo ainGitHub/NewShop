@@ -5,7 +5,9 @@ package com.shop.itis.domain;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -15,9 +17,6 @@ public class Order {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @ManyToOne
-    UserInfo userInfo;
 
     @ManyToOne
     Address address;
@@ -34,29 +33,23 @@ public class Order {
     @Column(name = "pay_type", length = 100)
     String pay_type;
 
-    @ManyToOne
-    Good good;
-
-    @Column
-    Integer count;
+    @OneToMany
+    List<GoodsWrapper> goodsWrapper = new ArrayList<GoodsWrapper>();
 
     public Order() {
     }
 
-    public Order(UserInfo userInfo, Date createDate, Double total_sum) {
-        this.userInfo = userInfo;
+    public Order(Date createDate, Double total_sum) {
         this.createDate = createDate;
         this.total_sum = total_sum;
     }
 
-    public Order(UserInfo userInfo, Address address, Date createDate, Double total_sum, String status, String pay_type, Integer count) {
-        this.userInfo = userInfo;
+    public Order(Address address, Date createDate, Double total_sum, String status, String pay_type, Integer count) {
         this.address = address;
         this.createDate = createDate;
         this.total_sum = total_sum;
         this.status = status;
         this.pay_type = pay_type;
-        this.count = count;
     }
 
     public Integer getId() {
@@ -65,14 +58,6 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
     }
 
     public Address getAddress() {
@@ -115,19 +100,12 @@ public class Order {
         this.pay_type = pay_type;
     }
 
-    public Good getGood() {
-        return good;
+
+    public List<GoodsWrapper> getGoodsWrapper() {
+        return goodsWrapper;
     }
 
-    public void setGood(Good good) {
-        this.good = good;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setGoodsWrapper(List<GoodsWrapper> goodsWrapper) {
+        this.goodsWrapper = goodsWrapper;
     }
 }

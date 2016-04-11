@@ -5,11 +5,11 @@
     <span class="cart-goods-empty">${cartError}</span>
     </#if>
 
-    <#if cartGoods?? && cartGoods?has_content>
+    <#if cart?? && cart.goodsWrapper?has_content>
     <div class="products">
         <ul>
             <#include "goodItem.ftl">
-            <#list cartGoods as wrapper>
+            <#list cart.goodsWrapper as wrapper>
             <@goodItem good=wrapper.good showBtnCart=false showDelete=true showDeleteFromOrder=false counter=wrapper.count/>
             </#list>
         </ul>

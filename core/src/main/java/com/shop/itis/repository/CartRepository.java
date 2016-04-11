@@ -21,4 +21,24 @@ public class CartRepository {
         return (Set<Cart>) sessionFactory.getCurrentSession().createCriteria(Cart.class)
                 .add(Restrictions.eq("username", username));
     }
+
+    public Cart getById(Long cartId) {
+        return (Cart) sessionFactory.getCurrentSession().createCriteria(Cart.class).add(Restrictions.eq("id", cartId)).uniqueResult();
+    }
+
+    public void update(Cart cart) {
+        sessionFactory.getCurrentSession().update(cart);
+    }
+
+    public void flush() {
+        sessionFactory.getCurrentSession().flush();
+    }
+
+    public void delete(Cart cart) {
+        sessionFactory.getCurrentSession().delete(cart);
+    }
+
+    public void merge(Cart cart) {
+        sessionFactory.getCurrentSession().merge(cart);
+    }
 }

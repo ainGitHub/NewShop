@@ -12,6 +12,7 @@
         <mapping class="com.shop.itis.domain.Order"/>
         <mapping class="com.shop.itis.domain.Good"/>
         <mapping class="com.shop.itis.domain.Cart"/>
+        <mapping class="com.shop.itis.domain.GoodsWrapper"/>
         <mapping class="com.shop.itis.domain.UserRoles"/>
     </session-factory>
 </hibernate-configuration>

@@ -1,6 +1,7 @@
 package com.shop.itis.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public class UserInfo {
+public class UserInfo implements Serializable {
     @Id
     @Column(name = "username", unique = true,
             nullable = false, length = 45)
@@ -32,6 +33,8 @@ public class UserInfo {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "userInfo")
     Set<UserRoles> roles = new HashSet<UserRoles>(0);
 
+    @ManyToOne
+    Cart cart;
 
     public UserInfo() {
     }
@@ -49,6 +52,14 @@ public class UserInfo {
         this.key = key;
     }
 
+    public UserInfo(String username, String mail, String password, String avatar, Set<UserRoles> roles, Cart cart) {
+        this.username = username;
+        this.mail = mail;
+        this.password = password;
+        this.avatar = avatar;
+        this.roles = roles;
+        this.cart = cart;
+    }
 
     public String getUsername() {
         return username;
@@ -104,5 +115,13 @@ public class UserInfo {
 
     public void setRoles(Set<UserRoles> roles) {
         this.roles = roles;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

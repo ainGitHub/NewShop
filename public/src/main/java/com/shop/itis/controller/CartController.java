@@ -5,7 +5,9 @@ import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.Good;
+import com.shop.itis.domain.GoodsWrapper;
 import com.shop.itis.domain.UserInfo;
+import com.shop.itis.service.CartIdService;
 import com.shop.itis.service.CartService;
 import com.shop.itis.service.GoodService;
 import com.shop.itis.service.UserService;
@@ -19,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/cart")
@@ -38,81 +38,90 @@ public class CartController {
     @Autowired
     CartService cartService;
 
+    @Autowired
+    CartIdService cartIdService;
+
 
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map addGood(@RequestParam("goodId") Long goodId) {
-        Good forAddGood = goodService.getGoodById(goodId);
+        Good good = goodService.getGoodById(goodId); // for add good
 
-        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
-        if (cartGoods == null)
-            cartGoods = new HashSet<Cart>();
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+        if (cart == null || cartService.getById(cart.getId()) == null)
+            cart = new Cart();
 
-        UserInfo userInfo = Utils.getAutentificationUser(userService);
+        UserInfo user = Utils.getAutentificationUser(userService);
+        cart.setUserInfo(user);
+        cartService.add(cart);
 
-        Map<String, String> map = forNullUser(userInfo, forAddGood, cartGoods);
+        GoodsWrapper goodsWrapper = new GoodsWrapper();
+        goodsWrapper.setGood(good);
+        goodsWrapper.setCount(1);
+        goodsWrapper.setCart(cart);
+        cartIdService.add(goodsWrapper);
 
-        return map;
-    }
-
-
-    private Map<String, String> forNullUser(UserInfo userInfo, Good forAddGood, Set<Cart> goods) {
-        Double sum = Utils.getAttrSum(servletRequest);
-        String error = null;
-        Cart cart = new Cart(userInfo, forAddGood, 1);
-
-        if (goods.add(cart)) {
-            error = "ok";
-            if (sum == null)
-                sum = 0.0;
-            sum += forAddGood.getPrice();
+        if (cart.getGoodsWrapper().add(goodsWrapper)) {
+            cart.setSum(cart.getSum() + good.getPrice() * 1);
+            cart.setGoodsCount(cart.getGoodsCount() + 1);
         }
+        cartService.add(cart);
 
-        Utils.addAttributes(goods, sum, goods.size(), servletRequest);
+        servletRequest.getSession().setAttribute(Constants.CART, cart);
+        servletRequest.getSession().setAttribute(Constants.CART_SUM, cart.getSum());
+        servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, cart.getGoodsCount());
+
 
         Map<String, String> map = new HashMap<String, String>();
-        map.put(Constants.CART_SUM, sum + "");
-        map.put(Constants.CART_GOODS_COUNT, goods.size() + "");
-        map.put("exist", error);
+        map.put(Constants.CART_SUM, cart.getSum() + "");
+        map.put(Constants.CART_GOODS_COUNT, cart.getGoodsCount() + "");
         return map;
     }
+
 
     @CategoryMenu
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage(ModelMap map) {
-        map.put("cartError", getNotFoundCartGoods());
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+        map.put("cartError", getNotFoundCartGoods(cart));
         return "pages/cart";
     }
 
-    private String getNotFoundCartGoods() {
-        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
-        if (cartGoods == null || cartGoods.isEmpty()) {
+    private String getNotFoundCartGoods(Cart cart) {
+        if (cart == null || cart.getGoodsWrapper().isEmpty()) {
             return "К сожалению в вашей корзине нет товаров";
         }
         return null;
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String delete(@RequestParam("goodId") Long goodId) {
-        Good deleteGood = goodService.getGoodById(goodId);
+    public String delete(@RequestParam("goodId") Long goodId, ModelMap map) {
+        Good good = goodService.getGoodById(goodId); // for delete good
 
-        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
-        Cart realCart = null;
-        for (Cart cart : cartGoods) {
-            if (cart.getGood().equals(deleteGood)) {
-                realCart = cart;
-                break;
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+        if (cart == null) {
+            map.put("cartError", getNotFoundCartGoods(cart));
+            return "redirect:/cart";
+        }
+
+        Double sum = 0.0;
+        Integer goodsCount = 0;
+        if (cart.getGoodsWrapper().remove(new GoodsWrapper(good, 1, cart))) {
+            for (GoodsWrapper g : cart.getGoodsWrapper()) {
+                sum += g.getGood().getPrice() * g.getCount();
+                goodsCount += g.getCount();
             }
+
+            cart.setSum(sum);
+            cart.setGoodsCount(goodsCount);
+            cartService.update(cart);
+
+            cartIdService.delete(cart, good);
         }
 
-        Double sum = Utils.getAttrSum(servletRequest);
-        if (realCart != null) {
-            cartGoods.remove(realCart);
-            sum -= (deleteGood.getPrice() * realCart.getCount());
-        }
-
-        Utils.addAttributes(cartGoods, sum, cartGoods.size(), servletRequest);
-
+        servletRequest.getSession().setAttribute(Constants.CART, cart);
+        servletRequest.getSession().setAttribute(Constants.CART_SUM, cart.getSum());
+        servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, cart.getGoodsCount());
         return "redirect:/cart";
     }
 
@@ -120,26 +129,32 @@ public class CartController {
     @RequestMapping(value = "/count", method = RequestMethod.POST)
     @ResponseBody
     public Map changeCount(@RequestParam("goodId") Long goodId, @RequestParam("count") Integer count) {
-        Map map = new HashMap();
+        Good good = goodService.getGoodById(goodId); //for change good
 
-        Good good = goodService.getGoodById(goodId);
-        Double sum = Utils.getAttrSum(servletRequest);
-        Set<Cart> cartGoods = Utils.getAttributeCartGoods(servletRequest);
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
 
-        for (Cart g : cartGoods) {
-            if (g.getGood().equals(good)) {
-                Double newSum = (sum - g.getCount() * good.getPrice()) + good.getPrice() * count;
-
-                Utils.addAttributes(cartGoods, newSum, cartGoods.size(), servletRequest);
-
+        Double sum = 0.0;
+        Integer goodsCount = 0;
+        for (GoodsWrapper g : cart.getGoodsWrapper()) {
+            if (good.equals(g.getGood())) {
                 g.setCount(count);
-
-                map.put(Constants.CART_SUM, newSum);
-                return map;
+                cartIdService.add(g);
             }
-        }
+            sum += g.getGood().getPrice() * g.getCount();
+            goodsCount += g.getCount();
+            }
 
+        cart.setSum(sum);
+        cart.setGoodsCount(goodsCount);
+        cartService.update(cart);
 
-        return new HashMap();
+        servletRequest.getSession().setAttribute(Constants.CART, cart);
+        servletRequest.getSession().setAttribute(Constants.CART_SUM, cart.getSum());
+        servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, cart.getGoodsCount());
+
+        Map<String, String> map = new HashMap<String, String>();
+        map.put(Constants.CART_SUM, cart.getSum() + "");
+        map.put(Constants.CART_GOODS_COUNT, cart.getGoodsCount() + "");
+        return map;
     }
 }

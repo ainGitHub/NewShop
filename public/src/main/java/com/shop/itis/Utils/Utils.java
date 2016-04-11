@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Set;
+import java.util.List;
 
 public class Utils {
     public static String md5Apache(String st) {
@@ -43,12 +43,12 @@ public class Utils {
         return (Double) servletRequest.getSession().getAttribute(Constants.CART_SUM);
     }
 
-    public static Set<Cart> getAttributeCartGoods(HttpServletRequest servletRequest) {
-        return (Set<Cart>) servletRequest.getSession().getAttribute(Constants.CART_GOODS);
+    public static List<Cart> getAttributeCartGoods(HttpServletRequest servletRequest) {
+        return (List<Cart>) servletRequest.getSession().getAttribute(Constants.CART_GOODS);
     }
 
 
-    public static void addAttributes(Set<Cart> goods, Double sum, int size, HttpServletRequest servletRequest) {
+    public static void addAttributes(List<Cart> goods, Double sum, int size, HttpServletRequest servletRequest) {
         servletRequest.getSession().setAttribute(Constants.CART_SUM, sum);
         servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, size);
         servletRequest.getSession().setAttribute(Constants.CART_GOODS, goods);

@@ -12,6 +12,7 @@ public class TestHibernate {
     private static GoodService goodService;
     private static CategoryService categoryService;
     private static CartService cartService;
+    private static CartIdService cartIdService;
     private static OrderService orderService;
     private static AddressService addressService;
 
@@ -31,6 +32,8 @@ public class TestHibernate {
         orderService = context.getBean(OrderService.class);
 
         addressService = context.getBean(AddressService.class);
+
+        cartIdService = context.getBean(CartIdService.class);
     }
 
     public static void main(String[] args) throws SQLException {
@@ -47,18 +50,40 @@ public class TestHibernate {
         newTest();
     }
 
+
     private static void newTest() {
-        UserInfo userInfo = userService.getUserByUsername("admin");
+        UserInfo userInfo = new UserInfo("ainur", "1234", "ainur@mail.ru");
+        userService.add(userInfo);
 
         List<Good> goods = goodService.getAllGoods();
-/*
-        for (Good g : goods) {
-            Cart c = new Cart(userInfo, g, 10);
-            cartService.add(c);
-        }*/
 
-        Cart cart = new Cart(userInfo, goods.get(0), 10);
+        Cart cart = cartService.getById((long) 45);
+        if (cart == null)
+            cart = new Cart();
         cartService.add(cart);
+
+        GoodsWrapper goodsWrapper = new GoodsWrapper();
+        goodsWrapper.setGood(goods.get(0));
+        goodsWrapper.setCount(1);
+        goodsWrapper.setCart(cart);
+        cartIdService.add(goodsWrapper);
+
+        GoodsWrapper goodsWrapper2 = new GoodsWrapper();
+        goodsWrapper2.setGood(goods.get(0));
+        goodsWrapper2.setCount(1);
+        goodsWrapper2.setCart(cart);
+        cartIdService.add(goodsWrapper);
+
+        cart.getGoodsWrapper().add(goodsWrapper2);
+        cart.getGoodsWrapper().add(goodsWrapper);
+        cart.setUserInfo(userInfo);
+        cartService.add(cart);
+
+        userInfo.setCart(cart);
+        userService.add(userInfo);
+
+
+        cartIdService.delete(cart, goods.get(0));
     }
 
     private static void createOrders() {
