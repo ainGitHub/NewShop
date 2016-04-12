@@ -63,8 +63,14 @@ public class OrderController {
 
     @RequestMapping("/delete/good")
     public String deleteGood(@RequestParam("goodId") Long goodId) {
-        Good deleteGood = goodService.getGoodById(goodId);
+        Good good = goodService.getGoodById(goodId);//for delete
 
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+        if (cart == null)
+            return "redirect:/catalog";
+
+        cart.getGoodsWrapper().remove(new GoodsWrapper(good, 1, cart));
+        cartService.update(cart);
         return "pages/order";
     }
 
@@ -88,13 +94,12 @@ public class OrderController {
 
         if (cart.getUserInfo() == null) {
             cart.setUserInfo(userInfo);
-            cartService.add(cart);
+            cartService.update(cart);
         }
 
         Order order = new Order(address, new Date(), cart.getSum(), "Заказ на проверке", "WebMoney", cart.getGoodsCount());
         for (GoodsWrapper g : cart.getGoodsWrapper())
             order.getGoodsWrapper().add(g);
-
         orderService.add(order);
 
         userInfo.getOrders().add(order);

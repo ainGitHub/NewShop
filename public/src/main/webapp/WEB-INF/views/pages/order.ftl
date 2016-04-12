@@ -50,7 +50,7 @@
         <ul>
             <#include "goodItem.ftl">
             <#list cart.goodsWrapper as good>
-            <@goodItem good=good.good showBtnCart=false showDelete=false showDeleteFromOrder=true counter=1/>
+            <@goodItem good=good.good showBtnCart=false showDelete=false showDeleteFromOrder=false counter=1/>
         </#list>
         </ul>
     </div>

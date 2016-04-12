@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "good_wrapper",
         uniqueConstraints = @UniqueConstraint(
-                columnNames = {"cart_id", "good"}
+                columnNames = {"cart", "good"}
         ))
 public class GoodsWrapper implements Serializable {
     @Id
@@ -19,6 +19,7 @@ public class GoodsWrapper implements Serializable {
 
     @Id
     @ManyToOne
+    @JoinColumn(name = "cart")
     Cart cart;
 
     public GoodsWrapper() {

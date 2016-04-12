@@ -41,14 +41,16 @@ public class TestHibernate {
         init();
         //cartService.deleteAll(userService.getUserByUsername("ainur"));
         //testUser();
-        addGoods();
-
-        //createOrders();
+        //
+        //
+        //addGoods();
+        //newTest();
+        createOrders();
         //testCart();
         //testFilters();
         //testCategory();
         //testOrders();
-        //newTest();
+
     }
 
 
@@ -58,27 +60,27 @@ public class TestHibernate {
 
         List<Good> goods = goodService.getAllGoods();
 
-        Cart cart = cartService.getById((long) 45);
+        Cart cart = cartService.getById((long) 69);
         if (cart == null)
             cart = new Cart();
-        cartService.add(cart);
-
-        GoodsWrapper goodsWrapper = new GoodsWrapper();
-        goodsWrapper.setGood(goods.get(0));
-        goodsWrapper.setCount(1);
-        goodsWrapper.setCart(cart);
-        cartIdService.add(goodsWrapper);
-
-        GoodsWrapper goodsWrapper2 = new GoodsWrapper();
-        goodsWrapper2.setGood(goods.get(0));
-        goodsWrapper2.setCount(1);
-        goodsWrapper2.setCart(cart);
-        cartIdService.add(goodsWrapper);
-
-        cart.getGoodsWrapper().add(goodsWrapper2);
-        cart.getGoodsWrapper().add(goodsWrapper);
         cart.setUserInfo(userInfo);
         cartService.add(cart);
+
+
+        GoodsWrapper goodsWrapper = null;
+        int i = 0;
+        for (Good g : goods) {
+            i++;
+            goodsWrapper = new GoodsWrapper();
+            goodsWrapper.setGood(g);
+            goodsWrapper.setCount(i);
+            goodsWrapper.setCart(cart);
+            cartIdService.add(goodsWrapper);
+
+            cart.getGoodsWrapper().add(goodsWrapper);
+            cartService.add(cart);
+        }
+
 
         userInfo.setCart(cart);
         userService.add(userInfo);
@@ -88,6 +90,8 @@ public class TestHibernate {
     }
 
     private static void createOrders() {
+        List<Good> goods = goodService.getAllGoods();
+
         UserInfo userInfo = new UserInfo("ainur", "1234", "ainur@mail.ru");
         userService.add(userInfo);
 
@@ -99,20 +103,24 @@ public class TestHibernate {
         address.setUserInfo(userInfo);
         addressService.update(address2);
 
-        Order o = new Order(address, new Date(), 100.0, "paypal", "to check", 10);
-        orderService.add(o);
+        Cart cart = cartService.getById((long) 69);
+        int i = 0;
+        for (GoodsWrapper g : cart.getGoodsWrapper()) {
+            i++;
+            Order o = new Order(address, new Date(), 100.0, "paypal", "to check", i);
+            o.getGoodsWrapper().add(g);
+            orderService.add(o);
+
+            userInfo.getOrders().add(o);
+        }
 
         Order o2 = new Order(address2, new Date(), 100.0, "paypal", "to check", 10);
         orderService.add(o2);
 
-        userInfo.getOrders().add(o);
         userInfo.getOrders().add(o2);
         userService.add(userInfo);
 
-        UserInfo u = userService.getUserByUsername(userInfo.getUsername());
-        for (Order or : u.getOrders()) {
-            System.out.println(or.getAddress().getCity());
-        }
+
     }
 
     private static void testOrders() {
