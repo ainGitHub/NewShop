@@ -43,9 +43,9 @@ public class TestHibernate {
         //testUser();
         //
         //
-        //addGoods();
+        addGoods();
         //newTest();
-        createOrders();
+        //createOrders();
         //testCart();
         //testFilters();
         //testCategory();
