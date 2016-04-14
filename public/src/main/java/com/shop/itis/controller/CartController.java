@@ -4,10 +4,10 @@ import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
 import com.shop.itis.domain.Cart;
+import com.shop.itis.domain.CartGood;
 import com.shop.itis.domain.Good;
-import com.shop.itis.domain.GoodsWrapper;
 import com.shop.itis.domain.UserInfo;
-import com.shop.itis.service.CartIdService;
+import com.shop.itis.service.CartGoodService;
 import com.shop.itis.service.CartService;
 import com.shop.itis.service.GoodService;
 import com.shop.itis.service.UserService;
@@ -39,7 +39,7 @@ public class CartController {
     CartService cartService;
 
     @Autowired
-    CartIdService cartIdService;
+    CartGoodService cartGoodService;
 
 
     @ResponseBody
@@ -48,24 +48,26 @@ public class CartController {
         Good good = goodService.getGoodById(goodId); // for add good
 
         Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
-        if (cart == null || cartService.getById(cart.getId()) == null)
+        if (cart == null) {
             cart = new Cart();
+            cartService.add(cart);
+        }
 
-        UserInfo user = Utils.getAutentificationUser(userService);
-        cart.setUserInfo(user);
-        cartService.add(cart);
+        CartGood cartGood = new CartGood(good, 1, cart);
+        cartGoodService.add(cartGood);
 
-        GoodsWrapper goodsWrapper = new GoodsWrapper();
-        goodsWrapper.setGood(good);
-        goodsWrapper.setCount(1);
-        goodsWrapper.setCart(cart);
-        cartIdService.add(goodsWrapper);
-
-        if (cart.getGoodsWrapper().add(goodsWrapper)) {
+        if (cart.getCartGood().add(cartGood)) {
             cart.setSum(cart.getSum() + good.getPrice() * 1);
             cart.setGoodsCount(cart.getGoodsCount() + 1);
         }
-        cartService.add(cart);
+        cartService.update(cart);
+
+        UserInfo user = Utils.getAutentificationUser(userService);
+        if (user != null) {
+            user.setCart(cart);
+            userService.update(user);
+        }
+
 
         servletRequest.getSession().setAttribute(Constants.CART, cart);
         servletRequest.getSession().setAttribute(Constants.CART_SUM, cart.getSum());
@@ -88,7 +90,7 @@ public class CartController {
     }
 
     private String getNotFoundCartGoods(Cart cart) {
-        if (cart == null || cart.getGoodsWrapper().isEmpty()) {
+        if (cart == null || cart.getCartGood().isEmpty()) {
             return "К сожалению в вашей корзине нет товаров";
         }
         return null;
@@ -106,8 +108,8 @@ public class CartController {
 
         Double sum = 0.0;
         Integer goodsCount = 0;
-        if (cart.getGoodsWrapper().remove(new GoodsWrapper(good, 1, cart))) {
-            for (GoodsWrapper g : cart.getGoodsWrapper()) {
+        if (cart.getCartGood().remove(new CartGood(good, 1, cart))) {
+            for (CartGood g : cart.getCartGood()) {
                 sum += g.getGood().getPrice() * g.getCount();
                 goodsCount += g.getCount();
             }
@@ -133,10 +135,10 @@ public class CartController {
 
         Double sum = 0.0;
         Integer goodsCount = 0;
-        for (GoodsWrapper g : cart.getGoodsWrapper()) {
+        for (CartGood g : cart.getCartGood()) {
             if (good.equals(g.getGood())) {
                 g.setCount(count);
-                cartIdService.add(g);
+                cartGoodService.add(g);
             }
             sum += g.getGood().getPrice() * g.getCount();
             goodsCount += g.getCount();

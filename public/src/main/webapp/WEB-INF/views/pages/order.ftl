@@ -45,11 +45,11 @@
     </@form.form>
 </div>
 </div>
-    <#if cart?? && cart.goodsWrapper?has_content>
+    <#if cart?? && cart.cartGood?has_content>
     <div class="products">
         <ul>
             <#include "goodItem.ftl">
-            <#list cart.goodsWrapper as good>
+            <#list cart.cartGood as good>
             <@goodItem good=good.good showBtnCart=false showDelete=false showDeleteFromOrder=false counter=1/>
         </#list>
         </ul>

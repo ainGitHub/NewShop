@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Set;
 
 @Service
 public class CartService {
@@ -26,8 +25,8 @@ public class CartService {
     }
 
     @Transactional
-    public Set<Cart> getAllCarts(UserInfo userInfo) {
-        return cartRepository.getAllCarts(userInfo.getUsername());
+    public Cart getCartByUsername(UserInfo userInfo) {
+        return cartRepository.getCartByUsername(userInfo.getUsername());
     }
 
     @Transactional

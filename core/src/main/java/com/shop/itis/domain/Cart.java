@@ -1,5 +1,7 @@
 package com.shop.itis.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,12 +13,9 @@ public class Cart {
     @Column(unique = true, nullable = false)
     private Long id;
 
-    @OneToMany
-    @JoinColumn(name = "cart")
-    Set<GoodsWrapper> goodsWrapper = new HashSet<GoodsWrapper>();
-
-    @ManyToOne
-    UserInfo userInfo;
+    @OneToMany(mappedBy = "cart")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    Set<CartGood> cartGood = new HashSet<CartGood>();
 
     @Column
     Double sum = 0.0;
@@ -27,28 +26,12 @@ public class Cart {
     public Cart() {
     }
 
-    public Long getId() {
-        return id;
+    public Set<CartGood> getCartGood() {
+        return cartGood;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<GoodsWrapper> getGoodsWrapper() {
-        return goodsWrapper;
-    }
-
-    public void setGoodsWrapper(Set<GoodsWrapper> goodsWrapper) {
-        this.goodsWrapper = goodsWrapper;
-    }
-
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setCartGood(Set<CartGood> cartGood) {
+        this.cartGood = cartGood;
     }
 
     public Double getSum() {

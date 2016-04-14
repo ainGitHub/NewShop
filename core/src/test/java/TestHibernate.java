@@ -13,7 +13,8 @@ public class TestHibernate {
     private static GoodService goodService;
     private static CategoryService categoryService;
     private static CartService cartService;
-    private static CartIdService cartIdService;
+    private static CartGoodService cartGoodService;
+    private static OrderGoodService orderGoodService;
     private static OrderService orderService;
     private static AddressService addressService;
 
@@ -34,119 +35,44 @@ public class TestHibernate {
 
         addressService = context.getBean(AddressService.class);
 
-        cartIdService = context.getBean(CartIdService.class);
+        cartGoodService = context.getBean(CartGoodService.class);
+        orderGoodService = context.getBean(OrderGoodService.class);
     }
 
     public static void main(String[] args) throws SQLException {
         init();
-        //cartService.deleteAll(userService.getUserByUsername("ainur"));
-        //testUser();
-        //
-        //
         addGoods();
-        //newTest();
-        //createOrders();
-        //testCart();
-        //testFilters();
-        //testCategory();
-        //testOrders();
-
+        testGoodWrapper();
     }
 
 
-    private static void newTest() {
-        UserInfo userInfo = new UserInfo("ainur", "1234", "ainur@mail.ru");
-        userService.add(userInfo);
-
-        List<Good> goods = goodService.getAllGoods();
-
-        Cart cart = cartService.getById((long) 69);
-        if (cart == null)
-            cart = new Cart();
-        cart.setUserInfo(userInfo);
+    private static void testGoodWrapper() {
+        Cart cart = new Cart();
         cartService.add(cart);
 
-
-        GoodsWrapper goodsWrapper = null;
-        int i = 0;
-        for (Good g : goods) {
-            i++;
-            goodsWrapper = new GoodsWrapper();
-            goodsWrapper.setGood(g);
-            goodsWrapper.setCount(i);
-            goodsWrapper.setCart(cart);
-            cartIdService.add(goodsWrapper);
-
-            cart.getGoodsWrapper().add(goodsWrapper);
-            cartService.add(cart);
-        }
-
-
-        userInfo.setCart(cart);
-        userService.add(userInfo);
-
-
-        cartIdService.delete(cart, goods.get(0));
-    }
-
-    private static void createOrders() {
         List<Good> goods = goodService.getAllGoods();
+        CartGood cartGood = new CartGood(goods.get(0), 1, cart);
+        cartGoodService.add(cartGood);
 
-        UserInfo userInfo = new UserInfo("ainur", "1234", "ainur@mail.ru");
-        userService.add(userInfo);
+        cart.getCartGood().add(cartGood);
+        cartService.update(cart);
 
-        Address address = new Address("Moscov", "Pushkin", 12, 21, 123456);
-        address.setUserInfo(userInfo);
-        addressService.update(address);
+        Order order = new Order();
+        order.setCreateDate(new Date());
+        orderService.add(order);
 
-        Address address2 = new Address("Kazan", "Lenina", 21, 12, 654321);
-        address.setUserInfo(userInfo);
-        addressService.update(address2);
-
-        Cart cart = cartService.getById((long) 69);
-        int i = 0;
-        for (GoodsWrapper g : cart.getGoodsWrapper()) {
-            i++;
-            Order o = new Order(address, new Date(), 100.0, "paypal", "to check", i);
-            o.getGoodsWrapper().add(g);
-            orderService.add(o);
-
-            userInfo.getOrders().add(o);
+        for (CartGood g : cart.getCartGood()) {
+            OrderGood orderGood = new OrderGood(g.getGood(), g.getCount(), order);
+            orderGoodService.add(orderGood);
+            orderGoodService.add(orderGood);
+            order.getOrderGoods().add(orderGood);
         }
 
-        Order o2 = new Order(address2, new Date(), 100.0, "paypal", "to check", 10);
-        orderService.add(o2);
+        orderService.add(order);
 
-        userInfo.getOrders().add(o2);
-        userService.add(userInfo);
-
-
+        System.out.println(order.getOrderGoods().remove(new OrderGood(cartGood.getGood(), cartGood.getCount(), order)));
+        orderService.add(order);
     }
-
-    private static void testOrders() {
-        UserInfo userInfo = userService.getUserByUsername("ainur");
-        List<Order> orders = orderService.getAllOrders(userInfo);
-        for (Order o : orders) {
-            System.out.println(o.getCreateDate());
-            System.out.println(o.getAddress().getCity());
-        }
-    }
-
-    private static void testUser() {
-        UserInfo u = new UserInfo();
-        u.setUsername("ainur");
-        u.setPassword("e10adc3949ba59abbe56e057f20f883e");//123456
-        u.setMail("ainur@mail.ru");
-        u.setEnabled(true);
-
-        userService.add(u);
-
-        UserRoles r = new UserRoles();
-        r.setRole("ROLE_USER");
-        r.setUserInfo(u);
-        roleService.add(r);
-    }
-
 
     private static void addGoods() {
         Category c1 = new Category("Фантастика", "fentezy");
@@ -186,41 +112,4 @@ public class TestHibernate {
             goodService.add(g3);
         }
     }
-
-    private static void testCart() {
-       /* //addGoods();
-        List<Good> goods = goodService.getAllGoods();*/
-
-        UserInfo userInfo = new UserInfo();
-        userInfo.setUsername("admin");
-        userService.add(userInfo);
-
-
-        // UserGoods userGoods = new UserGoods(userInfo, goods.get(0), 10);
-        // cartService.update(userGoods);
-
-        // List<UserGoods> userGoodses = cartService.getUserAllGoods("admin");
-        //for (UserGoods c : userGoodses) {
-        //     System.out.println(c.getGood().getName());
-        // }
-
-       /* System.out.println(cartService.getById(goods.get(0).getId(), userInfo.getUsername()).getGood().getName());
-        //cartService.delete(goods.get(0).getId(), userInfo.getUsername());
-        cartService.update(goods.get(0), userInfo, 5);*/
-    }
-
-    private static void testFilters() {
-        List<Good> goods = goodService.getGoodsByCategoryPriceName((long) 2, 0.0, 151.0, "т");
-        for (Good g : goods) {
-            System.out.println(g.getName());
-        }
-    }
-
-    private static void testCategory() {
-        List<Category> categories = categoryService.getAllCategories();
-        for (Category c : categories) {
-            System.out.println(c.getName());
-        }
-    }
-
 }

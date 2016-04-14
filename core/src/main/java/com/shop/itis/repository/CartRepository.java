@@ -6,8 +6,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
-
 @Repository
 public class CartRepository {
     @Autowired
@@ -17,9 +15,9 @@ public class CartRepository {
         sessionFactory.getCurrentSession().saveOrUpdate(cart);
     }
 
-    public Set<Cart> getAllCarts(String username) {
-        return (Set<Cart>) sessionFactory.getCurrentSession().createCriteria(Cart.class)
-                .add(Restrictions.eq("username", username));
+    public Cart getCartByUsername(String username) {
+        return (Cart) sessionFactory.getCurrentSession().createCriteria(Cart.class)
+                .add(Restrictions.eq("username", username)).uniqueResult();
     }
 
     public Cart getById(Long cartId) {

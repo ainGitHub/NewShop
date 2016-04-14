@@ -41,8 +41,8 @@
                     <span>Сумма ${order.total_sum}</span><br>
                     Статус ${order.status}<br>
 
-                    <#if order.goodsWrapper??>
-                        <#list order.goodsWrapper as goodWrapper>
+                    <#if order.orderGoods??>
+                        <#list order.orderGoods as goodWrapper>
                         ${goodWrapper.good.name}
                         </#list>
                     </#if>

@@ -4,11 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "good_wrapper",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {"cart", "good"}
-        ))
-public class GoodsWrapper implements Serializable {
+public class CartGood implements Serializable, GoodWrapper {
     @Id
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "good")
@@ -19,14 +15,14 @@ public class GoodsWrapper implements Serializable {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "cart")
+    @JoinColumn(name = "id")
     Cart cart;
 
-    public GoodsWrapper() {
+    public CartGood() {
     }
 
 
-    public GoodsWrapper(Good good, Integer count, Cart cart) {
+    public CartGood(Good good, Integer count, Cart cart) {
         this.good = good;
         this.count = count;
         this.cart = cart;
@@ -61,10 +57,10 @@ public class GoodsWrapper implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoodsWrapper that = (GoodsWrapper) o;
+        CartGood cartGood = (CartGood) o;
 
-        if (good != null ? !good.equals(that.good) : that.good != null) return false;
-        return !(cart != null ? !cart.equals(that.cart) : that.cart != null);
+        if (good != null ? !good.equals(cartGood.good) : cartGood.good != null) return false;
+        return !(cart != null ? !cart.equals(cartGood.cart) : cartGood.cart != null);
 
     }
 

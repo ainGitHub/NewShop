@@ -35,6 +35,9 @@ public class OrderController {
     GoodService goodService;
 
     @Autowired
+    OrderGoodService orderGoodService;
+
+    @Autowired
     AddressService addressService;
 
     @Autowired
@@ -69,7 +72,7 @@ public class OrderController {
         if (cart == null)
             return "redirect:/catalog";
 
-        cart.getGoodsWrapper().remove(new GoodsWrapper(good, 1, cart));
+        cart.getCartGood().remove(new CartGood(good, 1, cart));
         cartService.update(cart);
         return "pages/order";
     }
@@ -92,14 +95,15 @@ public class OrderController {
         address.setUserInfo(userInfo);
         address = addressService.alreadyExist(userInfo, address);
 
-        if (cart.getUserInfo() == null) {
-            cart.setUserInfo(userInfo);
-            cartService.update(cart);
-        }
 
         Order order = new Order(address, new Date(), cart.getSum(), "Заказ на проверке", "WebMoney", cart.getGoodsCount());
-        for (GoodsWrapper g : cart.getGoodsWrapper())
-            order.getGoodsWrapper().add(g);
+        orderService.add(order);
+        for (CartGood g : cart.getCartGood()) {
+            OrderGood orderGood = new OrderGood(g.getGood(), g.getCount(), order);
+            order.getOrderGoods().add(orderGood);
+            orderGoodService.add(orderGood);
+        }
+
         orderService.add(order);
 
         userInfo.getOrders().add(order);

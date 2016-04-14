@@ -1,7 +1,12 @@
 package com.shop.itis.domain;
 
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,8 +35,9 @@ public class Order {
     @Column(name = "pay_type", length = 100)
     String pay_type;
 
-    @OneToMany
-    Set<GoodsWrapper> goodsWrapper = new HashSet<GoodsWrapper>();
+    @OneToMany(mappedBy = "order")
+    @Cascade(CascadeType.ALL)
+    Set<OrderGood> orderGoods = new HashSet<OrderGood>();
 
     public Order() {
     }
@@ -97,11 +103,11 @@ public class Order {
         this.pay_type = pay_type;
     }
 
-    public Set<GoodsWrapper> getGoodsWrapper() {
-        return goodsWrapper;
+    public Set<OrderGood> getOrderGoods() {
+        return orderGoods;
     }
 
-    public void setGoodsWrapper(Set<GoodsWrapper> goodsWrapper) {
-        this.goodsWrapper = goodsWrapper;
+    public void setOrderGoods(Set<OrderGood> orderGoods) {
+        this.orderGoods = orderGoods;
     }
 }

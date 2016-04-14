@@ -4,6 +4,7 @@ import com.shop.itis.MailService;
 import com.shop.itis.Utils.Constants;
 import com.shop.itis.Utils.Utils;
 import com.shop.itis.annotation.CategoryMenu;
+import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.Order;
 import com.shop.itis.domain.UserInfo;
 import com.shop.itis.domain.UserRoles;
@@ -71,6 +72,7 @@ public class UserController {
             map.put("message", "Пользователь с именем " + userInfo.getUsername() + " уже существует!");
             return "auth/registr";
         }
+
 
         userService.add(userInfo);
 
@@ -154,6 +156,11 @@ public class UserController {
     public String account(ModelMap map) {
         UserInfo userInfo = Utils.getAutentificationUser(userService);
         userInfo = userService.getUserByUsername(userInfo.getUsername());
+        Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+        if (cart != null)
+            userInfo.setCart(cart);
+        userService.update(userInfo);
+
         servletRequest.getSession().setAttribute(Constants.USER, userInfo);
 
         List<Order> orders = userInfo.getOrders();
