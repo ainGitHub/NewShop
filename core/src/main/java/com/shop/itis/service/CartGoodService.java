@@ -1,8 +1,6 @@
 package com.shop.itis.service;
 
-import com.shop.itis.domain.Cart;
 import com.shop.itis.domain.CartGood;
-import com.shop.itis.domain.Good;
 import com.shop.itis.repository.CartGoodRepository;
 import org.hibernate.NonUniqueObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +28,7 @@ public class CartGoodService {
     }
 
     @Transactional
-    public void delete(Good good, Cart cart) {
-        CartGood cartGood = new CartGood(good, 1, cart);
+    public void delete(CartGood cartGood) {
         cartGoodRepository.delete(cartGood);
     }
 }

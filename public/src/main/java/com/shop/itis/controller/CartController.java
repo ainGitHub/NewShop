@@ -85,6 +85,12 @@ public class CartController {
     @RequestMapping(method = RequestMethod.GET)
     public String cartPage(ModelMap map) {
         Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
+
+        if (cart != null) {
+            servletRequest.getSession().setAttribute(Constants.CART_SUM, cart.getSum());
+            servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, cart.getGoodsCount());
+        }
+
         map.put("cartError", getNotFoundCartGoods(cart));
         return "pages/cart";
     }
@@ -108,11 +114,14 @@ public class CartController {
 
         Double sum = 0.0;
         Integer goodsCount = 0;
-        if (cart.getCartGood().remove(new CartGood(good, 1, cart))) {
+        CartGood cartGood = new CartGood(good, 1, cart);
+        if (cart.getCartGood().remove(cartGood)) {
             for (CartGood g : cart.getCartGood()) {
                 sum += g.getGood().getPrice() * g.getCount();
                 goodsCount += g.getCount();
             }
+
+            cartGoodService.delete(cartGood);
 
             cart.setSum(sum);
             cart.setGoodsCount(goodsCount);
