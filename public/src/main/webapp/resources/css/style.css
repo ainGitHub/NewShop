@@ -762,6 +762,12 @@ h3.ico4 {
     opacity: 0.9;
 }
 
+.modal-price {
+    color: red;
+    font-size: 16px;
+    float: right;
+}
+
 
 
 

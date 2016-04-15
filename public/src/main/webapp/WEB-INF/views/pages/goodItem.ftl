@@ -52,18 +52,18 @@
     <img src="${img_book_res}${good.image}"/>
 
     <h2>${good.name}</h2>
-
     <p>
     ${good.description}
     </p>
 
-    <strong class="price">Цена: ${good.price} руб.</strong>
+    <div>
     <#if showBtnCart>
-        <a class="js_addToCart btn btn-cart" data-id="${good.id}">
+        <a class="js_addToCart btn add-btn" style="display: inline-block;" data-id="${good.id}">
             Добавить В Корзину
         </a>
-
+        <strong class="modal-price">Цена: ${good.price} руб.</strong>
     </#if>
+    </div>
 
 </div>
 </#macro>
