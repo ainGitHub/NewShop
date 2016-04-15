@@ -52,6 +52,11 @@ public class GoodService {
 
     @Transactional
     public List<Good> getGoodsByCategoryPriceName(Long categoryId, Double min, Double max, String name) {
-        return goodRepository.getGoodsByPriceAndName(categoryId, min, max, name);
+        return goodRepository.getGoodsByCategoryPriceName(categoryId, min, max, name);
+    }
+
+    @Transactional
+    public List<Good> getGoodByPriceName(Double min, Double max, String name) {
+        return goodRepository.getGoodByPriceName(min, max, name);
     }
 }

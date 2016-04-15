@@ -10,10 +10,14 @@
 
             <label>Категория</label>
             <select class="field" name="categoryId">
-                <option value=""></option>
+                <option value="">По всем категориям</option>
             <#if menuList??>
                 <#list menuList as category>
-                    <option value="${category.id}">${category.name}</option>
+                    <#if categoryId?? && categoryId = category.id>
+                        <option value="${category.id}" selected>${category.name}</option>
+                    <#else>
+                        <option value="${category.id}">${category.name}</option>
+                    </#if>
                 </#list>
             </#if>
             </select>
@@ -21,6 +25,9 @@
             <div class="inline-field">
                 <label>Цена</label>
                 <select class="field small-field" name="min">
+                <#if min??>
+                    <option value="${min}" selected>${min}руб</option>
+                </#if>
                     <option value="0">0руб</option>
                     <option value="10">10руб</option>
                     <option value="100">100руб</option>
@@ -34,6 +41,9 @@
                 </select>
                 <label>to:</label>
                 <select class="field small-field" name="max">
+                <#if max??>
+                    <option value="${max}" selected>${max}руб</option>
+                </#if>
                     <option value="1000000">1000000руб</option>
                     <option value="100000">100000руб</option>
                     <option value="10000">10000руб</option>
