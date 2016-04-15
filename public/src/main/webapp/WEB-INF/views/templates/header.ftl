@@ -16,7 +16,7 @@
     <div id="navigation">
         <ul>
             <li><a href="<@spring.url value="/"/>">${menuHome}</a></li>
-            <li><a href="#">${menuSupport}</a></li>
+            <li><a href="<@spring.url value="/contacts"/>">${menuSupport}</a></li>
             <li><a href="<@spring.url value="/account"/>">${menuAccount}</a></li>
             <li><a href="<@spring.url value="/cart"/>">${menuCart}</a></li>
             <li><a href="<@spring.url value="/contacts"/>">${menuContacts}</a></li>

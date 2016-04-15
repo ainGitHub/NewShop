@@ -58,6 +58,7 @@ public class OrderController {
         UserInfo userInfo = Utils.getAutentificationUser(userService);
         map.put("userInfo", userInfo);
         map.put(Constants.ATTR_ADDRESS_FORM, new Address());
+        map.put("info", "Заказ");
 
         List<Address> userAddress = addressService.userAddress(userInfo);
         map.put("userAddress", userAddress);

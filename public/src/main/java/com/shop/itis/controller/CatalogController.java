@@ -25,19 +25,22 @@ public class CatalogController {
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String renderCatalog(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                 Long limit,
-                                Model model) {
+                                ModelMap map) {
 
         List<Good> goods = goodService.getAllGoods();
 
         if (goods != null && !goods.isEmpty())
-        model.addAttribute(Constants.GOODS, goods.subList(0, Constants.TEST_LIMIT));
+            map.addAttribute(Constants.GOODS, goods.subList(0, Constants.TEST_LIMIT));
 
-        model.addAttribute("page", page);
-        model.addAttribute("limit", limit == null ? Constants.TEST_LIMIT : limit);
+        map.addAttribute("page", page);
+        map.addAttribute("limit", limit == null ? Constants.TEST_LIMIT : limit);
 
         if (goods != null) {
-            model.addAttribute("goodsCount", goods.size());
+            map.addAttribute("goodsCount", goods.size());
         }
+
+        map.put("info", "Каталог");
+
         return "pages/catalog";
     }
 

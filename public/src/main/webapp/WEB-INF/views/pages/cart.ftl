@@ -2,7 +2,9 @@
 <@mainTemplate />
 <#macro body>
     <#if cartError??>
-    <span class="cart-goods-empty">${cartError}</span>
+    <div align="center">
+        <span class="cart-goods-empty error">${cartError}</span>
+    </div>
     </#if>
 
     <#if cart?? && cart.cartGood?has_content>

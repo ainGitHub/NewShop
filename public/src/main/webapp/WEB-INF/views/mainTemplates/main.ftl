@@ -43,6 +43,7 @@
 
         <!-- Content -->
         <div id="content">
+            <div align="center" style="margin-bottom: 20px"><h1>${info!}</h1></div>
             <!-- Products -->
             <@body/>
             <!-- End Products -->

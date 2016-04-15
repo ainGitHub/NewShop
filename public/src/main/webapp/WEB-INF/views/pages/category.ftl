@@ -2,7 +2,7 @@
 <#include "../mainTemplates/main.ftl">
 <@mainTemplate />
 <#macro body>
-    <#if categoryGoods??>
+    <#if categoryGoods?? && categoryGoods?has_content>
         <#include "goodItem.ftl">
     <div class="products">
         <ul>
@@ -12,6 +12,6 @@
         </ul>
     </div>
     <#else>
-    Товары не найдены!
+    <h1 align="center">Товары не найдены!</h1>
     </#if>
 </#macro>

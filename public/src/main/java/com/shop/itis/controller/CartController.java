@@ -91,6 +91,7 @@ public class CartController {
             servletRequest.getSession().setAttribute(Constants.CART_GOODS_COUNT, cart.getGoodsCount());
         }
 
+        map.put("info", "Корзина");
         map.put("cartError", getNotFoundCartGoods(cart));
         return "pages/cart";
     }
