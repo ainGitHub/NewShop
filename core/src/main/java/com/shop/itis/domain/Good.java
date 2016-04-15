@@ -170,18 +170,13 @@ public class Good implements Serializable {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Good good = (Good) o;
-
-        return !(id != null ? !id.equals(good.id) : good.id != null);
-
+    public boolean equals(Object obj) {
+        if (id == null || obj == null) return false;
+        return this.id == ((Good) obj).getId();
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return id.hashCode();
     }
 }
