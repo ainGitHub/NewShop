@@ -30,6 +30,14 @@ public class Cart {
         return cartGood;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setCartGood(Set<CartGood> cartGood) {
         this.cartGood = cartGood;
     }
