@@ -38,4 +38,9 @@ public class CartService {
     public void update(Cart cart) {
         cartRepository.update(cart);
     }
+
+    @Transactional
+    public void delete(Cart cart) {
+        cartRepository.delete(cart);
+    }
 }

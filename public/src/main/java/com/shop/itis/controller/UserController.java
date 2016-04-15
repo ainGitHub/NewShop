@@ -9,6 +9,7 @@ import com.shop.itis.domain.Order;
 import com.shop.itis.domain.UserInfo;
 import com.shop.itis.domain.UserRoles;
 import com.shop.itis.form.RegistrationFormBean;
+import com.shop.itis.service.CartService;
 import com.shop.itis.service.RoleService;
 import com.shop.itis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class UserController {
 
     @Autowired
     MailService mailService;
+
+    @Autowired
+    CartService cartService;
 
 
     /**
@@ -156,9 +160,19 @@ public class UserController {
     public String account(ModelMap map) {
         UserInfo userInfo = Utils.getAutentificationUser(userService);
         userInfo = userService.getUserByUsername(userInfo.getUsername());
+
         Cart cart = (Cart) servletRequest.getSession().getAttribute(Constants.CART);
-        if (cart != null)
+        if (cart != null) {
+            Cart forDelete = userInfo.getCart();
+
             userInfo.setCart(cart);
+            userService.update(userInfo);
+
+            if (forDelete != null && !forDelete.equals(cart)) {
+                cartService.delete(forDelete);
+            }
+        }
+
         userService.update(userInfo);
 
         servletRequest.getSession().setAttribute(Constants.USER, userInfo);
