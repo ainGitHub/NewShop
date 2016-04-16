@@ -30,7 +30,7 @@ public class CategoryController {
         List<Good> goods = goodService.getGoodsByCategoryId(categoryId);
         map.put("categoryGoods", goods);
         Category category = categoryService.getById(categoryId);
-        map.put("info", "Товары в разделе " + category.getName());
+        map.put("pageTitle", "Товары в разделе " + category.getName());
         return "pages/category";
     }
 }

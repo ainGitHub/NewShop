@@ -39,7 +39,7 @@ public class CatalogController {
             map.addAttribute("goodsCount", goods.size());
         }
 
-        map.put("info", "Каталог");
+        map.put("pageTitle", "Каталог");
 
         return "pages/catalog";
     }
@@ -64,7 +64,7 @@ public class CatalogController {
         Good good = goodService.getGoodById(goodId);
         map.put("oneGood", good);
         if (good != null)
-            map.put("info", "Страница товара: " + good.getName());
+            map.put("pageTitle", "Страница товара: " + good.getName());
         return "pages/oneGood";
     }
 }

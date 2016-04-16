@@ -12,6 +12,6 @@
         </ul>
     </div>
     <#else>
-    <h1 align="center">Товары не найдены!</h1>
+    <div class="info error" align="center">Товары не найдены!</div>
     </#if>
 </#macro>

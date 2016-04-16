@@ -699,7 +699,8 @@ h3.ico4 {
 }
 
 .error {
-    color: red;
+    color: #D8000C;
+    background-color: #FFBABA;
 }
 
 .address {
@@ -778,6 +779,25 @@ h3.ico4 {
 .date-info {
     color: blue;
 
+}
+
+.info {
+    margin-left: 20%;
+    width: 56%;
+    height: 20px;
+    font-size: 14px;
+    padding: 5px;
+    text-align: center;
+}
+
+.alert {
+    color: #D63301;
+    background-color: #FFCCBA;
+}
+
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
 }
 
 

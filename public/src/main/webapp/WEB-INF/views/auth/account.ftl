@@ -27,8 +27,8 @@
     </ul>
     </#if>
 
-    <h3>Заказы</h3>
     <#if orders?? && orders?has_content>
+        <h3 align="center">Ваши Заказы</h3>
         <ul class="products">
             <#list orders as order>
                 <li>
@@ -63,7 +63,7 @@
             </#list>
         </ul>
     <#else>
-        У вас нет заказов
+        <h3 align="center"> У вас нет заказов</h3>
     </#if>
 </div>
 </#macro>

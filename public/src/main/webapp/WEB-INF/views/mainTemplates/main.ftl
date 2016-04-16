@@ -43,7 +43,9 @@
 
         <!-- Content -->
         <div id="content">
-            <div align="center" style="margin-bottom: 20px"><h1>${info!}</h1></div>
+            <#if info??>
+                <div class="info alert">${info}</div></#if>
+            <div align="center" style="margin-bottom: 20px"><h1>${pageTitle!}</h1></div>
             <!-- Products -->
             <@body/>
             <!-- End Products -->

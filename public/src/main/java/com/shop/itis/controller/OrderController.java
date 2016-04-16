@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -58,7 +59,7 @@ public class OrderController {
         UserInfo userInfo = Utils.getAutentificationUser(userService);
         map.put("userInfo", userInfo);
         map.put(Constants.ATTR_ADDRESS_FORM, new Address());
-        map.put("info", "Заказ");
+        map.put("pageTitle", "Заказ");
 
         List<Address> userAddress = addressService.userAddress(userInfo);
         map.put("userAddress", userAddress);
@@ -80,6 +81,7 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String addOrder(ModelMap map,
+                           RedirectAttributes attributes,
                            @Valid @ModelAttribute(Constants.ATTR_ADDRESS_FORM) Address address,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -110,11 +112,12 @@ public class OrderController {
         userInfo.getOrders().add(order);
         userService.add(userInfo);
 
+        attributes.addFlashAttribute("info", "Заказ оформлен. Можете посмотреть в своем кабинете");
         return "redirect:/catalog";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public String deleteOrder(@RequestParam("id") Long orderId, ModelMap map) {
+    public String deleteOrder(@RequestParam("id") Long orderId, RedirectAttributes attributes) {
         System.out.println(orderId);
         Order order = orderService.getById(orderId);
         if (order != null) {
@@ -125,7 +128,7 @@ public class OrderController {
             orderService.deleteOrder(order);
         }
 
-        map.put("info", "Заказ " + order.getId() + " удален");
+        attributes.addFlashAttribute("info", "Заказ " + order.getId() + " удален");
         return "redirect:/account";
     }
 }

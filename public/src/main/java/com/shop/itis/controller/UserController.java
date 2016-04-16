@@ -155,6 +155,14 @@ public class UserController {
         return "auth/login";
     }
 
+
+    @CategoryMenu
+    @RequestMapping(value = "/login/error", method = RequestMethod.GET)
+    public String loginError(ModelMap map) {
+        map.put("info", "Проверьте правильность введенных вами данных");
+        return "auth/login";
+    }
+
     @CategoryMenu
     @RequestMapping(value = "/account")
     public String account(ModelMap map) {

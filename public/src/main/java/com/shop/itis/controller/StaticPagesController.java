@@ -9,7 +9,7 @@ public class StaticPagesController {
 
     @RequestMapping("/contacts")
     public String contactsPage(ModelMap map) {
-        map.put("info", "Наши контакты");
+        map.put("pageTitle", "Наши контакты");
         return "pages/contacts";
     }
 }

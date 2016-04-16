@@ -42,7 +42,7 @@ public class FiltersController {
         map.put("min", min);
         map.put("max", max);
         map.put("name", name);
-        map.put("info", "Каталог");
+        map.put("pageTitle", "Каталог");
 
         map.put("limit", 0);
         map.put("goodsCount", 0);
