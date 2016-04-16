@@ -768,6 +768,18 @@ h3.ico4 {
     float: right;
 }
 
+.order-info {
+    margin-left: 5px;
+    font-size: 14px;
+    color: black;
+    padding: 10px;
+}
+
+.date-info {
+    color: blue;
+
+}
+
 
 
 

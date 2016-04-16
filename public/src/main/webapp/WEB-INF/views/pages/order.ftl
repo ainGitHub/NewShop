@@ -8,14 +8,14 @@
 
         <div style="width: 50%; display: inline-block;">
         <#list userAddress as address>
-            <div class="address" data-city="${address.city}" data-street="${address.street}"
-                 data-house="${address.house}" data-flat="${address.flat!}"
-                 data-index="${address.index}">
-                Город: ${address.city},
-                Улица: ${address.street},
-                Дом: ${address.house},
-                Квартира: ${address.flat!},
-                Идекс: ${address.index};
+            <div class="address" data-city="${address.city!}" data-street="${address.street!}"
+                 data-house="${address.house!}" data-flat="${address.flat!}"
+                 data-index="${address.index!}">
+                <#if address.city??>   Город ${address.city},</#if>
+                <#if address.street??> Улица ${address.street},</#if>
+                <#if address.house??>   Дом  ${address.house},</#if>
+                <#if address.flat??>Квартира ${address.flat},</#if>
+                <#if address.index??> Индекс ${address.index}</#if>
             </div>
         </#list>
         </div>

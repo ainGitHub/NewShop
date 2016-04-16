@@ -112,4 +112,20 @@ public class OrderController {
 
         return "redirect:/catalog";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteOrder(@RequestParam("id") Long orderId, ModelMap map) {
+        System.out.println(orderId);
+        Order order = orderService.getById(orderId);
+        if (order != null) {
+            UserInfo userInfo = Utils.getAutentificationUser(userService);
+            userInfo.getOrders().remove(order);
+            userService.update(userInfo);
+
+            orderService.deleteOrder(order);
+        }
+
+        map.put("info", "Заказ " + order.getId() + " удален");
+        return "redirect:/account";
+    }
 }

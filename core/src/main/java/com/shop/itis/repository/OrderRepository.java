@@ -22,4 +22,13 @@ public class OrderRepository {
         return sessionFactory.getCurrentSession().createCriteria(Order.class)
                 .add(Restrictions.eq("userInfo.username", username)).list();
     }
+
+    public void delete(Order order) {
+        sessionFactory.getCurrentSession().delete(order);
+    }
+
+    public Order getById(Long id) {
+        return (Order) sessionFactory.getCurrentSession().createCriteria(Order.class)
+                .add(Restrictions.eq("id", id)).uniqueResult();
+    }
 }

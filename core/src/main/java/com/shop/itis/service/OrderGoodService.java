@@ -21,4 +21,9 @@ public class OrderGoodService {
     public void update(OrderGood orderGood) {
         orderGoodRepository.update(orderGood);
     }
+
+    @Transactional
+    public void delete(OrderGood orderGood) {
+        orderGoodRepository.delete(orderGood);
+    }
 }

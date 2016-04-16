@@ -32,21 +32,33 @@
         <ul class="products">
             <#list orders as order>
                 <li>
-                    Создано ${order.createDate}<br>
-                    Город ${order.address.city},
-                    Улица ${order.address.street},
-                    Дом   ${order.address.house},
+                    <div class="order-info">
+                        <span class="date-info">Создано ${order.createDate}</span><br>
+                        Адрес:
+                        <#if order.address.city??> Город ${order.address.city},</#if>
+                        <#if order.address.street??> Улица ${order.address.street},</#if>
+                        <#if order.address.house??>  Дом   ${order.address.house},</#if>
                     <#if order.address.flat??>Квартира ${order.address.flat},</#if>
-                    Индекс ${order.address.index}<br>
-                    <span>Сумма ${order.total_sum}</span><br>
-                    Статус ${order.status}<br>
+                        <#if order.address.index??>Индекс ${order.address.index}</#if>
+                        <br>
+
+                        <span>Сумма ${order.total_sum}</span><br>
+                        Статус: ${order.status}<br>
 
                     <#if order.orderGoods??>
+                        Товары:
                         <#list order.orderGoods as goodWrapper>
-                        ${goodWrapper.good.name}
+                        ${goodWrapper.good.name};
                         </#list>
                     </#if>
-                    <br>
+                        <#if order.status = "Заказ на проверке">
+                            <form action="<@spring.url value='/order/delete'/>" method="post">
+                                <input name="id" hidden type="text" value="${order.id}">
+                                <input class="btn delete-btn" type="submit" value="Удалить"
+                                       style="position: absolute; right: 0; top: 0;">
+                            </form>
+                        </#if>
+                    </div>
                 </li>
             </#list>
         </ul>

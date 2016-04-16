@@ -17,4 +17,8 @@ public class OrderGoodRepository {
     public void update(OrderGood orderGood) {
         sessionFactory.getCurrentSession().update(orderGood);
     }
+
+    public void delete(OrderGood orderGood) {
+        sessionFactory.getCurrentSession().delete(orderGood);
+    }
 }
